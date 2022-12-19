@@ -25,11 +25,13 @@ function NavBar() {
       return (
         <div className="links-nav">
           {/* <Link to={"/tweets"}>All Tweets</Link> */}
-          <Link className="nav-link" to={"/profile"}>
+          <Link className="logged-in-nav-link" to={"/profile"}>
             Profile
           </Link>
           {/* <Link to={"/tweets/new"}>Write a Tweet</Link> */}
-          <button onClick={logoutUser}>Logout</button>
+          <div className="logged-in-nav-link" onClick={logoutUser}>
+            Logout
+          </div>
         </div>
       );
     } else {
@@ -78,8 +80,8 @@ function NavBar() {
     <>
       <nav id="main-nav">
         <Link id="main-logo-container" className="nav-link" to={"/"}>
-          {/* <img id="main-logo" src={logo}/> */}
-          <h1>Nyght</h1>
+          <img id="main-logo" src={logo}/>
+          {/* <h1>Nyght</h1> */}
         </Link>
         <div id="nav-links-container">{getLinks()}</div>
       </nav>

@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 40px 62px;
-    color: #403B39;
+    color: white;
 }
 
 .nav-link {
@@ -11,7 +11,8 @@
     color: inherit;
     font-size: 22px;
     font-weight: 500;
-    margin-right: 100px;
+    margin-right: 80px;
+    color: white;
 }
 
 #signup-form-nav-link {
@@ -19,6 +20,20 @@
 }
 
 #main-logo {
-    height: 100px;
+    height: 90px;
+}
+
+.links-nav {
+    display: flex;
+    margin-right: 10px;
+}
+
+.logged-in-nav-link {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 500;
+    margin-right: 42px;
+    color: white;
+    cursor: pointer;
 }
 
