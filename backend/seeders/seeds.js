@@ -5,8 +5,18 @@ const bcrypt = require("bcryptjs");
 const { faker } = require("@faker-js/faker");
 
 const NUM_SEED_USERS = 10;
-// Create users
 const users = [];
+
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(() => {
+    console.log("Connected to MongoDB successfully");
+    insertSeeds();
+  })
+  .catch((err) => {
+    console.error(err.stack);
+    process.exit(1);
+  });
 
 users.push(
   new User({
@@ -29,17 +39,6 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
     })
   );
 }
-
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => {
-    console.log("Connected to MongoDB successfully");
-    insertSeeds();
-  })
-  .catch((err) => {
-    console.error(err.stack);
-    process.exit(1);
-  });
 
 const insertSeeds = () => {
   console.log("Resetting db and seeding users...");
