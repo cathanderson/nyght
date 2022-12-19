@@ -70,6 +70,7 @@ router.post("/login", validateLoginInput, async (req, res, next) => {
 });
 
 router.get("/current", restoreUser, (req, res) => {
+  debugger;
   if (!isProduction) {
     // In development, allow React server to gain access to the CSRF token
     // whenever the current user information is first loaded into the
@@ -77,7 +78,9 @@ router.get("/current", restoreUser, (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("CSRF-TOKEN", csrfToken);
   }
-  if (!req.user) return res.json(null);
+  if (!req.user) {
+    return res.json(null);
+  }
   res.json({
     _id: req.user._id,
     email: req.user.email,
