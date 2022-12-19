@@ -17,7 +17,9 @@ function NavBar() {
       return (
         <div className="links-nav">
           {/* <Link to={"/tweets"}>All Tweets</Link> */}
-          <Link to={"/profile"}>Profile</Link>
+          <Link className="nav-link" to={"/profile"}>
+            Profile
+          </Link>
           {/* <Link to={"/tweets/new"}>Write a Tweet</Link> */}
           <button onClick={logoutUser}>Logout</button>
         </div>
@@ -25,8 +27,12 @@ function NavBar() {
     } else {
       return (
         <div className="links-auth">
-          <Link to={"/signup"}>Signup</Link>
-          <Link to={"/login"}>Login</Link>
+          <Link id="signup-form-nav-link" className="nav-link" to={"/signup"}>
+            Signup
+          </Link>
+          <Link className="nav-link" to={"/login"}>
+            Login
+          </Link>
         </div>
       );
     }
@@ -34,8 +40,10 @@ function NavBar() {
 
   return (
     <>
-      <h1>Nyght</h1>
-      {getLinks()}
+      <nav id="main-nav">
+        <h1 id="main-logo">Nyght</h1>
+        <div id="nav-links-container">{getLinks()}</div>
+      </nav>
     </>
   );
 }

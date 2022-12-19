@@ -1,0 +1,18 @@
+#main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 62px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 
+}
+
+#signup-form-nav-link {
+    margin-right: 20px;
+}
+
