@@ -21,10 +21,12 @@ form>.errors {
 }
 
 #root {
-    min-height: 900px;
-    background-image: image("https://vastphotos.com/files/uploads/photos/10321/black-white-new-york-city-photo-l.jpg?v=20220712073521");
-    /* background-image: linear-gradient(0deg, #77828C 0%, #F2DCC9 100%); */
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
 }
+
 
 html {
     min-height: 100%;

@@ -18,6 +18,7 @@ function NavBar() {
   const logoutUser = (e) => {
     e.preventDefault();
     dispatch(logout());
+    setShowLoginModal(false);
   };
 
   const getLinks = () => {
@@ -29,7 +30,7 @@ function NavBar() {
             Profile
           </Link>
           {/* <Link to={"/tweets/new"}>Write a Tweet</Link> */}
-          <div className="logged-in-nav-link" onClick={logoutUser}>
+          <div id="logout-nav-link" className="logged-in-nav-link" onClick={logoutUser}>
             Logout
           </div>
         </div>

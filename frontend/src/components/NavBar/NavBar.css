@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 62px;
+    padding: 20px 60px 20px 60px;
     color: white;
+    width: 90%;
 }
 
 .nav-link {
@@ -32,8 +33,11 @@
     text-decoration: none;
     font-size: 22px;
     font-weight: 500;
-    margin-right: 42px;
+    margin-right: 40px;
     color: white;
     cursor: pointer;
+}
+#logout-nav-link {
+    margin-right: 56px;
 }
 
