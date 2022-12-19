@@ -1,13 +1,28 @@
+/* 
+    Main colors:
+        Slate: #77828C 
+        Light gray: #AAB5BF 
+        Cream: #F2DCC9 
+        Dark gray: #403B39 
+        Black: #0D0000
+*/
+
 form>.errors {
     color: red;
     font-size: 0.875em;
     height: 15px;
     display: flex;
+    padding: 4px 0px;
     align-items: center;
 }
 
 * {
     font-family: 'Poppins', sans-serif;
+}
+
+#root {
+    min-height: 900px;
+    background-image: linear-gradient(0deg, #77828C 0%, #F2DCC9 100%);
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -103,6 +118,7 @@ video {
     font: inherit;
     vertical-align: baseline;
     font-family: 'Poppins', sans-serif;
+    color: #403B39;
 }
 
 /* HTML5 display-role reset for older browsers */
