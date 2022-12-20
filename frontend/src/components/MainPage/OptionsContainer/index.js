@@ -10,6 +10,9 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const [barIdx, setBarIdx] = useState(randomNum(10));
   const [dessertIdx, setDessertIdx] = useState(randomNum(10));
 
+  const [modalCategory, setModalCategory] = useState("");
+  const [indexType, setIndexType] = useState("");
+
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
     setRestaurantIdx(randomNum(10));
@@ -23,11 +26,16 @@ const OptionsContainer = ({ venues, isDessert }) => {
     <>
       <div id="main-page-options-container">
         <div
-          className="main-page-option-container activity"
-          onClick={() => setShowModifyVenueModal(true)}
+          className="main-page-option-container"
+          onClick={() => {
+            setModalCategory("activity");
+            setIndexType(activityIdx);
+            setShowModifyVenueModal(true);
+          }}
         >
           <img
             className="main-page-option-image"
+            type=""
             src={venues.activity[activityIdx].imageUrl}
             alt="activity"
           />
@@ -89,7 +97,11 @@ const OptionsContainer = ({ venues, isDessert }) => {
             onClick={() => setShowModifyVenueModal(false)}
             src={x}
             className="form-x"
+            alt="close modal"
           />
+          <div className="venue-title">
+            <h3>{venues[modalCategory][indexType].title}</h3>
+          </div>
         </ModifyVenueModal>
       )}
     </>
