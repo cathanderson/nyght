@@ -1465,6 +1465,7 @@ const data = [
 
 // evan added 121922 4:33 PM
 data.forEach((venue) => {
+  if (!venue.imageUrl) venue.imageUrl = "";
   venue.imageUrl = "https://nyght-seeds.s3.amazonaws.com/images/"
     .concat(
       venue.neighborhood,

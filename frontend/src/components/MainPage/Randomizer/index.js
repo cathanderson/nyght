@@ -1,26 +1,12 @@
 import "./index.css";
 import { useState, useEffect } from "react";
-import {
-  getVenues,
-  fetchVenues,
-  fetchVenuesByFilter
-} from "../../../store/venues";
+import { getVenues, fetchVenuesByFilter } from "../../../store/venues";
 import { useDispatch, useSelector } from "react-redux";
 import OptionsContainer from "../OptionsContainer";
 
-const Randomizer = ({ neighborhood }) => {
+const Randomizer = ({ neighborhood, isDessert }) => {
   const dispatch = useDispatch();
   const venues = useSelector(getVenues);
-  const venuesByCategory = (venues) => {
-    if (!venues) return {};
-    const venuesSorted = {};
-    venues.forEach((venue) => {
-      !venuesSorted[venue.category]
-        ? (venuesSorted[venue.category] = [])
-        : venuesSorted[venue.category].push(venue);
-    });
-    return venuesSorted;
-  };
 
   const categories = ["restaurant", "activity", "dessert", "bar"];
 
@@ -28,8 +14,24 @@ const Randomizer = ({ neighborhood }) => {
     categories.forEach((category) => {
       dispatch(fetchVenuesByFilter(neighborhood, category));
     });
-  }, [dispatch]);
-  return <OptionsContainer venues={venuesByCategory} />;
+    // dispatch(fetchVenuesByFilter("harlem", "bar"));
+  }, [dispatch, neighborhood]);
+
+  const venuesByCategory = () => {
+    if (!venues) return {};
+    const venuesSorted = {};
+    venues.forEach((venue) => {
+      console.log(venue);
+      !venuesSorted[venue.category]
+        ? (venuesSorted[venue.category] = [])
+        : venuesSorted[venue.category].push(venue);
+    });
+    return venuesSorted;
+  };
+
+  // console.log(venuesByCategory());
+
+  return <OptionsContainer venues={venuesByCategory()} isDessert={isDessert} />;
 };
 
 export default Randomizer;

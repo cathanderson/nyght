@@ -37,13 +37,13 @@ export const fetchVenuesByFilter =
   };
 
 const venuesReducer = (state = {}, action) => {
-  // const newState = { ...state };
+  const newState = { ...state };
   switch (action.type) {
     // case RECEIVE_VENUE:
     //   newState[action.venue._id] = action.venue;
     //   return newState[action.venue._id];
     case RECEIVE_VENUES:
-      return { ...action.venues };
+      return { ...newState, ...action.venues };
     default:
       return state;
   }
