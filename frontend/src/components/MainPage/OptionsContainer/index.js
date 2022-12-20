@@ -1,3 +1,4 @@
+import "./index.css";
 import randomNum from "../../../store/random";
 import { useState } from "react";
 import { ModifyVenueModal } from "../../../context/Modal";
@@ -99,8 +100,18 @@ const OptionsContainer = ({ venues, isDessert }) => {
             className="form-x"
             alt="close modal"
           />
-          <div className="venue-title">
-            <h3>{venues[modalCategory][indexType].title}</h3>
+          <div className="modal-card">
+            {" "}
+            <div className="venue-title">
+              <h3>{venues[modalCategory][indexType].title}</h3>
+            </div>
+            <div className="venue-image">
+              <img
+                src={venues[modalCategory][indexType].imageUrl}
+                alt="venue"
+              />
+            </div>
+            <div className="confirm-button">Confirm Venue</div>
           </div>
         </ModifyVenueModal>
       )}
