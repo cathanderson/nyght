@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import { AuthRoute, ProtectedRoute } from "./components/Routes/Routes";
 import NavBar from "./components/NavBar/NavBar";
@@ -23,9 +23,12 @@ function App() {
       <>
         <NavBar />
         <Switch>
-          <AuthRoute exact path="/" component={MainPage} />
+          <Route path="/">
+            <MainPage/>
+          </Route>
+          {/* <AuthRoute exact path="/" component={MainPage} />
           <AuthRoute exact path="/login" component={LoginForm} />
-          <AuthRoute exact path="/signup" component={SignupForm} />
+          <AuthRoute exact path="/signup" component={SignupForm} /> */}
         </Switch>
       </>
     )

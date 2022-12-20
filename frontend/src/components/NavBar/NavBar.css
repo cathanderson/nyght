@@ -1,0 +1,43 @@
+#main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px 20px 60px;
+    color: white;
+    width: 90%;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-size: 22px;
+    font-weight: 500;
+    margin-right: 80px;
+    color: white;
+}
+
+#signup-form-nav-link {
+    margin-right: 30px;
+}
+
+#main-logo {
+    height: 90px;
+}
+
+.links-nav {
+    display: flex;
+    margin-right: 10px;
+}
+
+.logged-in-nav-link {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 500;
+    margin-right: 40px;
+    color: white;
+    cursor: pointer;
+}
+#logout-nav-link {
+    margin-right: 56px;
+}
+

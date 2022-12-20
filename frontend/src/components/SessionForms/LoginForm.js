@@ -28,7 +28,6 @@ function LoginForm() {
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
-      <h2>Log In Form</h2>
       <div className="errors">{errors?.email}</div>
       <label>
         <span>Email</span>
@@ -49,7 +48,7 @@ function LoginForm() {
           placeholder="Password"
         />
       </label>
-      <input type="submit" value="Log In" disabled={!email || !password} />
+      <input id="session-form-submit" type="submit" value="Log In" disabled={!email || !password} />
     </form>
   );
 }
