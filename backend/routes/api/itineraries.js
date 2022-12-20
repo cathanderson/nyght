@@ -42,7 +42,7 @@ router.get("/users/:userId/", async (req, res, next) => {
 
 router.post(
   "/",
-  // requireUser,
+  requireUser,
   validateItineraryInput,
   async (req, res, next) => {
     try {

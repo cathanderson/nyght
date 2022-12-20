@@ -27,6 +27,11 @@ const itinerarySchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "Venue",
     },
+    isDessert: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   },
   {
     timestamps: true,
