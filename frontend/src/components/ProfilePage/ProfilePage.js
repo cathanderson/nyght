@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/session";
+import { fetchItinerariesByUser } from "../../store/itineraries";
 import ItinerariesList from "./ItinerariesList";
 import "./ProfilePage.css";
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.session.user);
+  const itineraries = useSelector((state) => Object.values(state.itineraries));
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCurrentUser());
+    dispatch(fetchItinerariesByUser(currentUser._id));
   }, []);
-
-  // off the bat will have to fetch all of the user's itineraries then feed that
-  // collection as a prop to a separate ItineratiesList component
 
   return (
     <>
@@ -21,9 +21,7 @@ function ProfilePage() {
         <div id="profile-page-header-container">
           <h2 id="profile-page-header">Hey there {currentUser.firstName}!</h2>
         </div>
-        {/* this will be the real function that's used */}
-        {/* <ItinerariesList itineraries={itineraries}/> */}
-        <ItinerariesList />
+        <ItinerariesList itineraries={itineraries}/>
       </main>
     </>
   );

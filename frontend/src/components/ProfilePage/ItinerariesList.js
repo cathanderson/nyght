@@ -1,16 +1,8 @@
 import { useHistory } from "react-router-dom";
 
-// this will be the real function that's used
-// function ItinerariesList({itineraries}) {
-function ItinerariesList() {
-    const history = useHistory();
 
-    // this is a dummy test object for styling purposes 
-    const itineraries = [
-      { name: "Night out in Midtown" },
-      { name: "Night out in Midtown" },
-      { name: "Night out in Midtown" },
-    ];
+function ItinerariesList({itineraries}) {
+    const history = useHistory();
 
   return (
     <>
@@ -22,7 +14,7 @@ function ItinerariesList() {
               onClick={() => history.push(`/itineraries/${itinerary._id}`)}
               key={itinerary._id}
             >
-              {itinerary.name}
+              {itinerary.title}
             </li>
           ))}
         </ul>
