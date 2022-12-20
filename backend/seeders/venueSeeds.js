@@ -1472,7 +1472,11 @@ data.forEach((venue) => {
       "/",
       venue.category,
       "/",
-      venue.title.toLowerCase().replace(/[^a-z0-9]/gm, "")
+      venue.title
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/gm, "")
     )
     .concat(".jpg");
 });

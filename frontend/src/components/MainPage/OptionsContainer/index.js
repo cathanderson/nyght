@@ -2,11 +2,6 @@ import randomNum from "../../../store/random";
 import { useState } from "react";
 
 const OptionsContainer = ({ venues, isDessert }) => {
-  // break venues array into categories
-
-  // pick one venue from each category as featuredVenue
-
-  // const venues = venuesByCategory;
   const [activityIdx, setActivityIdx] = useState(randomNum(10));
   const [restaurantIdx, setRestaurantIdx] = useState(randomNum(10));
   const [barIdx, setBarIdx] = useState(randomNum(10));
@@ -18,7 +13,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
     setBarIdx(randomNum(10));
     setDessertIdx(randomNum(10));
   };
-  // console.log(venues);
 
   if (!Object.values(venues).length) return null;
 
