@@ -45,7 +45,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
             alt="restaurant"
           />
           <div className="option-venue-name">
-            {venues.restaurant[restaurantIdx].title}
+            Have dinner at {venues.restaurant[restaurantIdx].title}
           </div>
         </div>
         <div
@@ -62,9 +62,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
             alt={isDessert ? "Dessert" : "Drinks"}
           />
           <div className="option-venue-name">
+            Have
             {isDessert
-              ? venues.dessert[dessertIdx].title
-              : venues.bar[barIdx].title}
+              ? ` dessert at ${venues.dessert[dessertIdx].title}`
+              : ` drinks at ${venues.bar[barIdx].title}`}
           </div>
         </div>
       </div>

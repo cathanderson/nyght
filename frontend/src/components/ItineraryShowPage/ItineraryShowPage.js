@@ -11,63 +11,70 @@ function ItineraryShowPage() {
   const { itineraryId } = useParams();
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
-
-  console.log(itinerary);
-  // console.log(itinerary.bar);
+  const venues = useSelector((state) => Object.values(state.venues));
+  let bar;
+  let dessert;
+  let activity = venues[0];
+  let restaurant = venues[1];
+  itinerary.bar ? (bar = venues[2]) : (dessert = venues[2]);
 
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
-    //   // dispatch(fetchVenue(itinerary.bar));
   }, []);
 
-  // if (!Object.values(itinerary).length) return null;
+  useEffect(() => {
+    if (itinerary.dinner) {
+      dispatch(fetchVenue(itinerary.event));
+      dispatch(fetchVenue(itinerary.dinner));
+      itinerary.bar
+        ? dispatch(fetchVenue(itinerary.bar))
+        : dispatch(fetchVenue(itinerary.dessert));
+    }
+  }, [itinerary]);
+
+  if (!Object.values(itinerary).length) return null;
 
   return (
     <>
       <div id="itinerary-show-page-container">
         <div id="itinerary-show-subheader-container">
-          <h2 id="itinerary-show-subheader">{itinerary.title}</h2>
+          <h2 id="itinerary-show-page-subheader">{itinerary.title}</h2>
         </div>
         <div id="options-container">
           <div className="option-container activity">
             <img
               className="option-image"
-              // src={venues.activity[activityIdx].imageUrl}
+              src={activity.imageUrl}
               alt="activity"
             />
-            <div className="option-venue-name">
-              {/* {venues.activity[activityIdx].title} */}
-            </div>
+            <div className="option-venue-name">{activity.title}</div>
           </div>
           <div className="option-container restaurant">
             <img
               className="option-image"
-              // src={venues.restaurant[restaurantIdx].imageUrl}
+              src={restaurant.imageUrl}
               alt="restaurant"
             />
-            <div className="option-venue-name">
-              {/* {venues.restaurant[restaurantIdx].title} */}
-            </div>
+            <div className="option-venue-name">Have dinner at {restaurant.title}</div>
           </div>
           <div className="option-container Drinks-dessert">
-            {/* <img
-                className="option-image"
-                src={
-                  isDessert
-                    ? venues.dessert[dessertIdx].imageUrl
-                    : venues.bar[barIdx].imageUrl
-                }
-                alt={isDessert ? "Dessert" : "Drinks"}
-              /> */}
+            <img
+              className="option-image"
+              src={bar ? bar.imageUrl : dessert.imageUrl}
+              alt={bar ? "Drinks" : "Dessert"}
+            />
             <div className="option-venue-name">
-              {/* {isDessert
-                  ? venues.dessert[dessertIdx].title
-                  : venues.bar[barIdx].title} */}
+              Have 
+              {bar ? ` drinks at ${bar.title}` : ` dessert at ${dessert.title}`}
             </div>
           </div>
         </div>
-        <div id="itinerary-show-right-content-container">
+        <div id="itinerary-show-map-container">
           <img src={mapFiller} />
+        </div>
+        <div id="itinerary-show-buttons-container">
+          <button className="itinerary-show-button">Modify plan</button>
+          <button className="itinerary-show-button">Delete plan</button>
         </div>
       </div>
     </>
