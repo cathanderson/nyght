@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItinerary } from "../../store/itineraries";
 import { fetchVenue } from "../../store/venues";
 import mapFiller from "../../assets/images/map-filler.webp";
-import venueFiller from "../../assets/images/venue_filler_img.jpeg";
+import { EmailModal } from "../../context/Modal";
+import x from "../../assets/icons/close.png"
 
 function ItineraryShowPage() {
+  const [showEmailModal, setShowEmailModal] = useState(false);
   const { itineraryId } = useParams();
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
@@ -55,7 +57,9 @@ function ItineraryShowPage() {
               src={restaurant.imageUrl}
               alt="restaurant"
             />
-            <div className="option-venue-name">Have dinner at {restaurant.title}</div>
+            <div className="option-venue-name">
+              Have dinner at {restaurant.title}
+            </div>
           </div>
           <div className="option-container Drinks-dessert">
             <img
@@ -64,7 +68,7 @@ function ItineraryShowPage() {
               alt={bar ? "Drinks" : "Dessert"}
             />
             <div className="option-venue-name">
-              Have 
+              Have
               {bar ? ` drinks at ${bar.title}` : ` dessert at ${dessert.title}`}
             </div>
           </div>
@@ -75,8 +79,24 @@ function ItineraryShowPage() {
         <div id="itinerary-show-buttons-container">
           <button className="itinerary-show-button">Modify plan</button>
           <button className="itinerary-show-button">Delete plan</button>
+          <button
+            className="itinerary-show-button"
+            onClick={() => setShowEmailModal(true)}
+          >
+            Email to friends
+          </button>
         </div>
       </div>
+      {showEmailModal && (
+        <EmailModal onClose={() => setShowEmailModal(false)}>
+          <img
+            onClick={() => setShowEmailModal(false)}
+            src={x}
+            className="form-x"
+          />
+          <EmailForm/>
+        </EmailModal>
+      )}
     </>
   );
 }

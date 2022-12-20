@@ -58,3 +58,16 @@ export function ModifyVenueModal({ onClose, children }) {
     modalNode
   );
 }
+
+export function EmailModal({ onClose, children }) {
+  const modalNode = useContext(ModalContext);
+  if (!modalNode) return null;
+
+  return ReactDOM.createPortal(
+    <div id="email-modal">
+      <div id="modal-background" onClick={onClose} />
+      <div id="email-modal-content">{children}</div>
+    </div>,
+    modalNode
+  );
+}
