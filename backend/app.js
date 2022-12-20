@@ -12,6 +12,7 @@ const { isProduction } = require("./config/keys");
 require("./models/User");
 require("./models/Venue");
 require("./models/Itinerary");
+require("./models/Email");
 
 require("./config/passport");
 const passport = require("passport");
@@ -46,8 +47,8 @@ app.use(
     cookie: {
       secure: isProduction,
       sameSite: isProduction && "Lax",
-      httpOnly: true
-    }
+      httpOnly: true,
+    },
   })
 );
 
@@ -74,7 +75,7 @@ app.use((err, req, res, next) => {
   res.json({
     message: err.message,
     statusCode,
-    errors: err.errors
+    errors: err.errors,
   });
 });
 

@@ -5,6 +5,8 @@ const { requireUser } = require("../../config/passport");
 const User = require("../../models/User");
 const validateItineraryInput = require("../../validations/itineraries");
 const Itinerary = mongoose.model("Itinerary");
+const nodemailer = require("nodemailer");
+const hbs = require("nodemailer-express-handlebars");
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -18,6 +20,49 @@ router.get("/:id", async (req, res, next) => {
     };
     return next(error);
   }
+});
+
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    type: "OAuth2",
+    user: process.env.EMAIL,
+    pass: process.env.WORD,
+    clientId: process.env.OAUTH_CLIENTID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+  },
+});
+
+transporter.verify((err, success) => {
+  err ? console.log(err) : console.log("Ready to send email");
+});
+
+const handlebarOptions = {
+  viewEngine: {
+    partialsDir: path.resolve("./template/"),
+    defaultLayout: false,
+  },
+  viewPath: path.resolve("./template/"),
+};
+
+transporter.use("compile", hbs(handlebarOptions));
+
+router.post("/send", (req, res) => {
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: `${req.body.list}`,
+    subject: `Message From NYGHT`,
+    template: "email",
+  };
+  transporter.sendMail(mailOptions, (err, data) => {
+    if (err) {
+      res.json({ status: "fail" });
+    } else {
+      console.log("Message sent");
+      res.json({ status: "success" });
+    }
+  });
 });
 
 router.get("/users/:userId", async (req, res, next) => {
@@ -41,8 +86,8 @@ router.get("/users/:userId", async (req, res, next) => {
 });
 
 router.post(
-  "/users/userId",
-  requireUser,
+  "/users/:userId",
+  // requireUser,
   validateItineraryInput,
   async (req, res, next) => {
     try {
