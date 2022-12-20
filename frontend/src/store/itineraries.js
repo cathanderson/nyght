@@ -26,13 +26,13 @@ export const getItinerary = (itineraryId) => (state) =>
 
 export const fetchItinerary = (itineraryId) => async (dispatch) => {
   const res = await jwtFetch(`/api/itineraries/${itineraryId}`);
-  const data = res.json();
+  const data = await res.json();
   dispatch(receiveItinerary(data));
 };
 
 export const fetchItinerariesByUser = (userId) => async (dispatch) => {
   const res = await jwtFetch(`/api/itineraries/users/${userId}`);
-  const data = res.json();
+  const data = await res.json();
   dispatch(receiveItineraries(data));
 };
 
