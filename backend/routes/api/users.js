@@ -84,6 +84,8 @@ router.get("/current", restoreUser, (req, res) => {
   res.json({
     _id: req.user._id,
     email: req.user.email,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
   });
 });
 
