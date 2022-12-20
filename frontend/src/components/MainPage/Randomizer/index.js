@@ -8,28 +8,25 @@ const Randomizer = ({ neighborhood, isDessert }) => {
   const dispatch = useDispatch();
   const venues = useSelector(getVenues);
 
-  const categories = ["restaurant", "activity", "dessert", "bar"];
+  // const categories = ["restaurant", "activity", "dessert", "bar"];
 
   useEffect(() => {
-    categories.forEach((category) => {
-      dispatch(fetchVenuesByFilter(neighborhood, category));
-    });
-    // dispatch(fetchVenuesByFilter("harlem", "bar"));
+    dispatch(fetchVenuesByFilter(neighborhood));
   }, [dispatch, neighborhood]);
 
   const venuesByCategory = () => {
     if (!venues) return {};
     const venuesSorted = {};
     venues.forEach((venue) => {
-      console.log(venue);
+      // console.log(venue);
       !venuesSorted[venue.category]
-        ? (venuesSorted[venue.category] = [])
+        ? (venuesSorted[venue.category] = [venue])
         : venuesSorted[venue.category].push(venue);
     });
     return venuesSorted;
   };
 
-  // console.log(venuesByCategory());
+  console.log(venuesByCategory());
 
   return <OptionsContainer venues={venuesByCategory()} isDessert={isDessert} />;
 };

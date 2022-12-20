@@ -7,8 +7,17 @@ const OptionsContainer = ({ venues, isDessert }) => {
   // pick one venue from each category as featuredVenue
 
   // const venues = venuesByCategory;
-  const [randomIdx, setRandomIdx] = useState(randomNum(10));
+  const [activityIdx, setActivityIdx] = useState(randomNum(10));
+  const [restaurantIdx, setRestaurantIdx] = useState(randomNum(10));
+  const [barIdx, setBarIdx] = useState(randomNum(10));
+  const [dessertIdx, setDessertIdx] = useState(randomNum(10));
 
+  const randomizeIndeces = () => {
+    setActivityIdx(randomNum(10));
+    setRestaurantIdx(randomNum(10));
+    setBarIdx(randomNum(10));
+    setDessertIdx(randomNum(10));
+  };
   // console.log(venues);
 
   if (!Object.values(venues).length) return null;
@@ -19,30 +28,38 @@ const OptionsContainer = ({ venues, isDessert }) => {
         <div className="main-page-option-container activity">
           <img
             className="main-page-option-image"
-            src={venues.activity[randomIdx].imageUrl}
+            src={venues.activity[activityIdx].imageUrl}
             alt="activity"
           />
-          <div className="main-page-option-venue-name">Venue Name</div>
+          <div className="main-page-option-venue-name">
+            {venues.activity[activityIdx].title}
+          </div>
         </div>
         <div className="main-page-option-container restaurant">
           <img
             className="main-page-option-image"
-            src={venues.restaurant[randomIdx].imageUrl}
+            src={venues.restaurant[restaurantIdx].imageUrl}
             alt="restaurant"
           />
-          <div className="main-page-option-venue-name">Venue Name</div>
+          <div className="main-page-option-venue-name">
+            {venues.restaurant[restaurantIdx].title}
+          </div>
         </div>
         <div className="main-page-option-container Drinks-dessert">
           <img
             className="main-page-option-image"
             src={
               isDessert
-                ? venues.bar[randomIdx].imageUrl
-                : venues.dessert[randomIdx].imageUrl
+                ? venues.dessert[dessertIdx].imageUrl
+                : venues.bar[barIdx].imageUrl
             }
             alt={isDessert ? "Dessert" : "Drinks"}
           />
-          <div className="main-page-option-venue-name">Venue Name</div>
+          <div className="main-page-option-venue-name">
+            {isDessert
+              ? venues.dessert[dessertIdx].title
+              : venues.bar[barIdx].title}
+          </div>
         </div>
       </div>
       <div id="main-page-instructions-container">
@@ -53,12 +70,12 @@ const OptionsContainer = ({ venues, isDessert }) => {
       </div>
       <div id="main-page-buttons-container">
         <button
-          className="main-page-button"
-          onClick={() => setRandomIdx(randomNum(10))}
+          className="main-page-button randomize"
+          onClick={() => randomizeIndeces()}
         >
           Randomize plan
         </button>
-        <button className="main-page-button">Confirm plan</button>
+        <button className="main-page-button comfirm">Confirm plan</button>
       </div>
     </>
   );

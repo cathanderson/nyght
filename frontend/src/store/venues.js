@@ -27,14 +27,11 @@ export const fetchVenues = () => async (dispatch) => {
   dispatch(receiveVenues(venues));
 };
 
-export const fetchVenuesByFilter =
-  (neighborhood, category) => async (dispatch) => {
-    const res = await jwtFetch(
-      `/api/venues/neighborhood/${neighborhood}/categories/${category}`
-    );
-    const venues = await res.json();
-    dispatch(receiveVenues(venues));
-  };
+export const fetchVenuesByFilter = (neighborhood) => async (dispatch) => {
+  const res = await jwtFetch(`/api/venues/neighborhood/${neighborhood}`);
+  const venues = await res.json();
+  dispatch(receiveVenues(venues));
+};
 
 const venuesReducer = (state = {}, action) => {
   const newState = { ...state };
