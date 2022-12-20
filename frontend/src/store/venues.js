@@ -10,8 +10,10 @@ const RECEIVE_VENUES = "venues/RECEIVE_VENUES";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
-  venues,
+  venues
 });
+
+export const getVenues = ({ venues }) => (venues ? Object.values(venues) : []);
 
 // export const fetchVenue = (id) => async (dispatch) => {
 //   const res = await jwtFetch(`/api/venues/${id}`);

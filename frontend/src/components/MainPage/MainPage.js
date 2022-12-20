@@ -1,6 +1,7 @@
 import "./MainPage.css";
 import fillerImage from "../../assets/images/venue_filler_img.jpeg";
 import React, { useState, useEffect } from "react";
+import Randomizer from "./Randomizer";
 
 function MainPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -82,7 +83,8 @@ function MainPage() {
           </div>
         </div>
         <h2 id="main-page-subheader">Your proposed plan for the night:</h2>
-        <div id="main-page-options-container">
+        <Randomizer />
+        {/* <div id="main-page-options-container">
           <div className="main-page-option-container">
             <img className="main-page-option-image" src={fillerImage} />
             <div className="main-page-option-venue-name">Venue Name</div>
@@ -95,7 +97,7 @@ function MainPage() {
             <img className="main-page-option-image" src={fillerImage} />
             <div className="main-page-option-venue-name">Venue Name</div>
           </div>
-        </div>
+        </div> */}
         <div id="main-page-instructions-container">
           <div id="main-page-instructions">
             Click a venue to change it specifically or randomize your entire
