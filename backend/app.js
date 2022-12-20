@@ -11,6 +11,7 @@ const { isProduction } = require("./config/keys");
 //models
 require("./models/User");
 require("./models/Venue");
+require("./models/Itinerary");
 
 require("./config/passport");
 const passport = require("passport");
@@ -19,6 +20,7 @@ const passport = require("passport");
 const usersRouter = require("./routes/api/users");
 const csrfRouter = require("./routes/api/csrf");
 const venuesRouter = require("./routes/api/venues");
+const itinerariesRouter = require("./routes/api/itineraries");
 
 const app = express();
 
@@ -53,6 +55,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/csrf", csrfRouter);
 app.use("/api/venues", venuesRouter);
+app.use("/api/itineraries", itinerariesRouter);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
