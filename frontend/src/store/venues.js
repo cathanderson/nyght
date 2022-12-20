@@ -10,8 +10,10 @@ const RECEIVE_VENUES = "venues/RECEIVE_VENUES";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
-  venues,
+  venues
 });
+
+export const getVenues = ({ venues }) => (venues ? Object.values(venues) : []);
 
 // export const fetchVenue = (id) => async (dispatch) => {
 //   const res = await jwtFetch(`/api/venues/${id}`);
@@ -25,23 +27,20 @@ export const fetchVenues = () => async (dispatch) => {
   dispatch(receiveVenues(venues));
 };
 
-export const fetchVenuesByFilter =
-  (neighborhood, category) => async (dispatch) => {
-    const res = await jwtFetch(
-      `/api/venues/neighborhood/${neighborhood}/categories/${category}`
-    );
-    const venues = await res.json();
-    dispatch(receiveVenues(venues));
-  };
+export const fetchVenuesByFilter = (neighborhood) => async (dispatch) => {
+  const res = await jwtFetch(`/api/venues/neighborhood/${neighborhood}`);
+  const venues = await res.json();
+  dispatch(receiveVenues(venues));
+};
 
 const venuesReducer = (state = {}, action) => {
-  // const newState = { ...state };
+  const newState = { ...state };
   switch (action.type) {
     // case RECEIVE_VENUE:
     //   newState[action.venue._id] = action.venue;
     //   return newState[action.venue._id];
     case RECEIVE_VENUES:
-      return { ...action.venues };
+      return { ...newState, ...action.venues };
     default:
       return state;
   }

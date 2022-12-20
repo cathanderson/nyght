@@ -26,24 +26,20 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.get(
-  "/neighborhood/:neighborhood/categories/:category",
-  async (req, res, next) => {
-    try {
-      const events = await Venue.find({
-        category: req.params.category,
-        neighborhood: req.params.neighborhood,
-      });
-      return res.json(events);
-    } catch (err) {
-      const error = new Error("Invalid category");
-      error.statusCode = 404;
-      error.errors = {
-        message: `No venues were found with a category of ${req.params.category}`,
-      };
-      return next(error);
-    }
+router.get("/neighborhood/:neighborhood", async (req, res, next) => {
+  try {
+    const events = await Venue.find({
+      neighborhood: req.params.neighborhood
+    });
+    return res.json(events);
+  } catch (err) {
+    const error = new Error("Invalid category");
+    error.statusCode = 404;
+    error.errors = {
+      message: `No venues were found with a neighborhood of ${req.params.neighborhood}`
+    };
+    return next(error);
   }
-);
+});
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import "./MainPage.css";
 import fillerImage from "../../assets/images/venue_filler_img.jpeg";
 import React, { useState, useEffect } from "react";
+import Randomizer from "./Randomizer";
 
 function MainPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -36,6 +37,9 @@ function MainPage() {
     }
   };
 
+  // midtown is default neighborhood
+  const [neighborhood, setNeighborhood] = useState("midtown");
+
   return (
     <>
       <main id="main-page-container">
@@ -46,10 +50,12 @@ function MainPage() {
             </button>
             {showMenu && (
               <ul className="profile-dropdown">
-                <li>Midtown</li>
-                <li>The Village</li>
-                <li>Harlem</li>
-                <li>Williamsburg</li>
+                <li onClick={() => setNeighborhood("midtown")}>Midtown</li>
+                <li onClick={() => setNeighborhood("village")}>The Village</li>
+                <li onClick={() => setNeighborhood("harlem")}>Harlem</li>
+                <li onClick={() => setNeighborhood("williamsburg")}>
+                  Williamsburg
+                </li>
               </ul>
             )}
           </div>
@@ -82,7 +88,8 @@ function MainPage() {
           </div>
         </div>
         <h2 id="main-page-subheader">Your proposed plan for the night:</h2>
-        <div id="main-page-options-container">
+        <Randomizer isDessert={checked} neighborhood={neighborhood} />
+        {/* <div id="main-page-options-container">
           <div className="main-page-option-container">
             <img className="main-page-option-image" src={fillerImage} />
             <div className="main-page-option-venue-name">Venue Name</div>
@@ -95,8 +102,8 @@ function MainPage() {
             <img className="main-page-option-image" src={fillerImage} />
             <div className="main-page-option-venue-name">Venue Name</div>
           </div>
-        </div>
-        <div id="main-page-instructions-container">
+        </div> */}
+        {/* <div id="main-page-instructions-container">
           <div id="main-page-instructions">
             Click a venue to change it specifically or randomize your entire
             plan below!
@@ -105,7 +112,7 @@ function MainPage() {
         <div id="main-page-buttons-container">
           <button className="main-page-button">Randomize plan</button>
           <button className="main-page-button">Confirm plan</button>
-        </div>
+        </div> */}
       </main>
     </>
   );

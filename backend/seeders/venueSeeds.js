@@ -1465,13 +1465,18 @@ const data = [
 
 // evan added 121922 4:33 PM
 data.forEach((venue) => {
+  if (!venue.imageUrl) venue.imageUrl = "";
   venue.imageUrl = "https://nyght-seeds.s3.amazonaws.com/images/"
     .concat(
       venue.neighborhood,
       "/",
       venue.category,
       "/",
-      venue.title.toLowerCase().replace(/[^a-z0-9]/gm, "")
+      venue.title
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/gm, "")
     )
     .concat(".jpg");
 });

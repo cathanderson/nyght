@@ -5,35 +5,38 @@ const venueSchema = Schema(
   {
     neighborhood: {
       type: String,
-      required: true,
+      required: true
     },
     category: {
       type: String,
-      required: true,
+      required: true
     },
     title: {
       type: String,
-      required: true,
+      required: true
     },
     lat: {
       type: Schema.Types.Decimal128,
-      required: true,
+      required: true
     },
     lng: {
       type: Schema.Types.Decimal128,
-      required: true,
+      required: true
     },
     address: {
       type: String,
-      required: true,
+      required: true
     },
     resLink: {
       type: String,
-      required: true,
+      required: true
     },
+    imageUrl: {
+      type: String
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
