@@ -28,40 +28,30 @@ function ItineraryShowPage() {
         <div id="itinerary-show-subheader-container">
           <h2 id="itinerary-show-subheader">{itinerary.title}</h2>
         </div>
-        <div id="itinerary-show-content-container">
-          <div id="main-page-options-container">
-            <div
-              className="main-page-option-container activity"
-              // onClick={() => setShowModifyVenueModal(true)}
-            >
-              <img
-                className="main-page-option-image"
-                // src={venues.activity[activityIdx].imageUrl}
-                alt="activity"
-              />
-              <div className="main-page-option-venue-name">
-                {/* {venues.activity[activityIdx].title} */}
-              </div>
+        <div id="options-container">
+          <div className="option-container activity">
+            <img
+              className="option-image"
+              // src={venues.activity[activityIdx].imageUrl}
+              alt="activity"
+            />
+            <div className="option-venue-name">
+              {/* {venues.activity[activityIdx].title} */}
             </div>
-            <div
-              className="main-page-option-container restaurant"
-              // onClick={() => setShowModifyVenueModal(true)}
-            >
-              <img
-                className="main-page-option-image"
-                // src={venues.restaurant[restaurantIdx].imageUrl}
-                alt="restaurant"
-              />
-              <div className="main-page-option-venue-name">
-                {/* {venues.restaurant[restaurantIdx].title} */}
-              </div>
+          </div>
+          <div className="option-container restaurant">
+            <img
+              className="option-image"
+              // src={venues.restaurant[restaurantIdx].imageUrl}
+              alt="restaurant"
+            />
+            <div className="option-venue-name">
+              {/* {venues.restaurant[restaurantIdx].title} */}
             </div>
-            <div
-              className="main-page-option-container Drinks-dessert"
-              // onClick={() => setShowModifyVenueModal(true)}
-            >
-              {/* <img
-                className="main-page-option-image"
+          </div>
+          <div className="option-container Drinks-dessert">
+            {/* <img
+                className="option-image"
                 src={
                   isDessert
                     ? venues.dessert[dessertIdx].imageUrl
@@ -69,16 +59,15 @@ function ItineraryShowPage() {
                 }
                 alt={isDessert ? "Dessert" : "Drinks"}
               /> */}
-              <div className="main-page-option-venue-name">
-                {/* {isDessert
+            <div className="option-venue-name">
+              {/* {isDessert
                   ? venues.dessert[dessertIdx].title
                   : venues.bar[barIdx].title} */}
-              </div>
             </div>
           </div>
-          <div id="itinerary-show-right-content-container">
-            <img src={mapFiller} />
-          </div>
+        </div>
+        <div id="itinerary-show-right-content-container">
+          <img src={mapFiller} />
         </div>
       </div>
     </>
