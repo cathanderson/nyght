@@ -1,0 +1,12 @@
+#itinerary-show-page-container {
+    background-color: rgba(255, 255, 255, 0.784);
+    border-radius: 140px;
+    padding: 80px;
+    min-height: 480px;
+    max-width: 1250px;
+    min-width: 1250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
