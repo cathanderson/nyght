@@ -14,6 +14,14 @@
   font-size: 26px;
 }
 
+.modal-card-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
 .venue-image {
   /* width: 600px; */
   height: 400px;
@@ -31,4 +39,22 @@
   border-radius: 10px;
   padding: 10px;
   color: white;
+}
+
+.modal-card-main-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.modal-card-main-content div.nav-left-arrow,
+.modal-card-main-content div.nav-right-arrow {
+  padding: 40px;
+  /* width: 50px; */
+  /* font-size: 40px; */
+}
+.modal-card-main-content div.nav-left-arrow img,
+.modal-card-main-content div.nav-right-arrow img {
+  width: 50px;
 }

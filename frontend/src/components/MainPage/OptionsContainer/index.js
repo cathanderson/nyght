@@ -3,6 +3,8 @@ import randomNum from "../../../store/random";
 import { useState } from "react";
 import { ModifyVenueModal } from "../../../context/Modal";
 import x from "../../../assets/icons/close.png";
+import leftArrow from "../../../assets/icons/left-arrow.png";
+import rightArrow from "../../../assets/icons/right-arrow.png";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -115,11 +117,21 @@ const OptionsContainer = ({ venues, isDessert }) => {
             <div className="venue-title">
               <h3>{venues[modalCategory][indexType].title}</h3>
             </div>
-            <div className="venue-image">
-              <img
-                src={venues[modalCategory][indexType].imageUrl}
-                alt="venue"
-              />
+            <div className="modal-card-main-content">
+              <div className="nav-left-arrow">
+                <img src={leftArrow}></img>
+              </div>
+              <div className="modal-card-center">
+                <div className="venue-image">
+                  <img
+                    src={venues[modalCategory][indexType].imageUrl}
+                    alt="venue"
+                  />
+                </div>
+              </div>
+              <div className="nav-right-arrow">
+                <img src={rightArrow}></img>
+              </div>
             </div>
             <div className="confirm-button">Confirm Venue</div>
           </div>
