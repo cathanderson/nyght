@@ -20,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/users/:userId/", async (req, res, next) => {
+router.get("/users/:userId", async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.params.userId);
@@ -41,7 +41,7 @@ router.get("/users/:userId/", async (req, res, next) => {
 });
 
 router.post(
-  "/",
+  "/users/userId",
   requireUser,
   validateItineraryInput,
   async (req, res, next) => {
@@ -49,7 +49,7 @@ router.post(
       console.log("before creating");
       const newItn = new Itinerary({
         title: req.body.title,
-        user: req.body.userId, //replace with userId
+        user: req.params.userId,
         event: req.body.eventId,
         dinner: req.body.dinnerId,
         bar: req.body.barId,
