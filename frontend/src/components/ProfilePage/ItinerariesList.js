@@ -20,6 +20,7 @@ function ItinerariesList() {
             <li
               id="itineraries-list-item"
               onClick={() => history.push(`/itineraries/${itinerary._id}`)}
+              key={itinerary._id}
             >
               {itinerary.name}
             </li>
