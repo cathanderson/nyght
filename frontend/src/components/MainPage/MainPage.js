@@ -1,5 +1,5 @@
-import "./MainPage.css"
-import fillerImage from "../../assets/images/venue_filler_img.jpeg"
+import "./MainPage.css";
+import fillerImage from "../../assets/images/venue_filler_img.jpeg";
 import React, { useState, useEffect } from "react";
 
 function MainPage() {
@@ -40,22 +40,22 @@ function MainPage() {
             )}
           </div>
           <div className="toggle-container">
-            <div className="toggle-switch-drink-label"></div>
+            <div className="toggle-switch-label">Drinks</div>
             <div className="toggle-switch">
-              Drinks{" "}
-              <input
-                type="checkbox"
-                className="checkbox"
-                name="drinks"
-                id="drinks"
-              />
-              <label className="label" htmlFor="drinks">
-                <span className="inner" />
-                <span className="switch" />
-              </label>{" "}
-              Dessert
+              <div className="inner-toggle-switch-container">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  name="drinks"
+                  id="drinks"
+                />
+                <label className="label" htmlFor="drinks">
+                  <span className="inner" />
+                  <span className="switch" />
+                </label>
+              </div>
             </div>
-            <div className="toggle-switch-dessert-label"></div>
+            <div className="toggle-switch-label">Dessert</div>
           </div>
         </div>
         <h2 id="main-page-subheader">Your proposed plan for the night:</h2>
@@ -75,8 +75,8 @@ function MainPage() {
         </div>
         <div id="main-page-instructions-container">
           <div id="main-page-instructions">
-            Click a venue to change it specifically or randomize all events
-            below!
+            Click a venue to change it specifically or randomize your entire
+            plan below!
           </div>
         </div>
         <div id="main-page-buttons-container">
