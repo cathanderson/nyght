@@ -58,7 +58,6 @@ function SignupForm() {
 
   return (
     <form className="session-form" onSubmit={usernameSubmit}>
-      <h2>Sign Up Form</h2>
       <div className="errors">{errors?.firstName}</div>
       <label>
         <span>First name</span>
@@ -112,6 +111,7 @@ function SignupForm() {
         />
       </label>
       <input
+        id="session-form-submit"
         type="submit"
         value="Sign Up"
         disabled={
