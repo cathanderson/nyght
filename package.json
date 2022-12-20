@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1278.0",
+    "mongodb": "^4.13.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

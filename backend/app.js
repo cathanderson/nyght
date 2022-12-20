@@ -44,8 +44,8 @@ app.use(
     cookie: {
       secure: isProduction,
       sameSite: isProduction && "Lax",
-      httpOnly: true,
-    },
+      httpOnly: true
+    }
   })
 );
 
@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
   res.json({
     message: err.message,
     statusCode,
-    errors: err.errors,
+    errors: err.errors
   });
 });
 
