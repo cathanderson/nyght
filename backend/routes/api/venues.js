@@ -21,7 +21,7 @@ router.get("/:id", async (req, res, next) => {
   } catch (err) {
     const error = new Error("Venue not found");
     error.statusCode = 404;
-    error.errors = { message: "No venue found with that id" };
+    error.errors = { message: `No venue found with id of ${req.params.id}` };
     return next(error);
   }
 });
