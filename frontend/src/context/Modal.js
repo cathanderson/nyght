@@ -46,8 +46,9 @@ export function SignupModal({ onClose, children }) {
   );
 }
 
-export function ModifyVenueModal({ onClose, children }) {
+export function ModifyVenueModal({ activityIdx, onClose, children }) {
   const modalNode = useContext(ModalContext);
+  console.log(activityIdx);
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(

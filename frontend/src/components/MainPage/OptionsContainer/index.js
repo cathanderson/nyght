@@ -23,6 +23,35 @@ const OptionsContainer = ({ venues, isDessert }) => {
     setDessertIdx(randomNum(10));
   };
 
+  const incrementIndex = () => {
+    modifyIndex(1);
+  };
+
+  const decrementIndex = () => {
+    modifyIndex(-1);
+  };
+
+  const modifyIndex = (modifier) => {
+    // debugger;
+    switch (modalCategory) {
+      case "activity":
+        setActivityIdx((activityIdx + modifier) % 10);
+        break;
+      case "restaurant":
+        setRestaurantIdx((restaurantIdx + modifier) % 10);
+        break;
+      case "bar":
+        setBarIdx((barIdx + modifier) % 10);
+        break;
+      case "dessert":
+        setDessertIdx((dessertIdx + modifier) % 10);
+        break;
+      default:
+        break;
+    }
+    // debugger;
+  };
+
   if (!Object.values(venues).length) return null;
 
   return (
@@ -105,7 +134,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
         <button className="main-page-button comfirm">Confirm plan</button>
       </div>
       {showModifyVenueModal && (
-        <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
+        <ModifyVenueModal
+          activityIdx={activityIdx}
+          onClose={() => setShowModifyVenueModal(false)}
+        >
           <img
             onClick={() => setShowModifyVenueModal(false)}
             src={x}
@@ -118,8 +150,8 @@ const OptionsContainer = ({ venues, isDessert }) => {
               <h3>{venues[modalCategory][indexType].title}</h3>
             </div>
             <div className="modal-card-main-content">
-              <div className="nav-left-arrow">
-                <img src={leftArrow}></img>
+              <div className="nav-left-arrow" onClick={decrementIndex}>
+                <img src={leftArrow} alt="left"></img>
               </div>
               <div className="modal-card-center">
                 <div className="venue-image">
@@ -129,8 +161,8 @@ const OptionsContainer = ({ venues, isDessert }) => {
                   />
                 </div>
               </div>
-              <div className="nav-right-arrow">
-                <img src={rightArrow}></img>
+              <div className="nav-right-arrow" onClick={incrementIndex}>
+                <img src={rightArrow} alt="right"></img>
               </div>
             </div>
             <div className="confirm-button">Confirm Venue</div>

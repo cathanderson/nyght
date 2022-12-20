@@ -30,7 +30,9 @@
 .venue-image img {
   height: 100%;
   /* width: 100%; */
+  max-width: 500px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .confirm-button {
