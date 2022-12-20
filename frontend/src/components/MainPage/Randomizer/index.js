@@ -1,4 +1,3 @@
-import "./index.css";
 import { useEffect } from "react";
 import { getVenues, fetchVenuesByFilter } from "../../../store/venues";
 import { useDispatch, useSelector } from "react-redux";

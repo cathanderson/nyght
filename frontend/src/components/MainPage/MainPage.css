@@ -3,7 +3,8 @@
     border-radius: 140px;
     padding: 20px;
     min-height: 600px;
-    width: 80%;
+    max-width: 1250px;
+    min-width: 1250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -29,7 +30,7 @@
     justify-content: flex-start;
     align-items: center;
     background-color: white;
-    height: 280px;
+    height: 300px;
     width: 280px;
     margin: 30px;
     border-radius: 30px;
@@ -47,6 +48,7 @@
     margin-top: 18px;
     font-size: 16px;
     font-weight: 500;
+    text-align: center;
 }
 
 #main-page-instructions-container {
@@ -93,7 +95,7 @@
     cursor: pointer;
 }
 
-.profile-dropdown {
+.neighborhood-dropdown {
     display: flex;
     position: absolute;
     justify-content: space-around;
@@ -110,6 +112,10 @@
     background-color: white;
     text-decoration: none;
     z-index: 10;
+}
+
+.neighborhood-dropdown > li {
+    cursor: pointer;
 }
 
 #main-page-customization-container {

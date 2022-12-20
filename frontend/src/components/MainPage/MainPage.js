@@ -40,6 +40,13 @@ function MainPage() {
   // midtown is default neighborhood
   const [neighborhood, setNeighborhood] = useState("midtown");
 
+  const titleizedNeighborhoods = {
+    midtown: "Midtown",
+    village: "the Village",
+    harlem: "Harlem",
+    williamsburg: "Willaimsburg",
+  };
+
   return (
     <>
       <main id="main-page-container">
@@ -49,7 +56,7 @@ function MainPage() {
               Select a Neighborhood
             </button>
             {showMenu && (
-              <ul className="profile-dropdown">
+              <ul className="neighborhood-dropdown">
                 <li onClick={() => setNeighborhood("midtown")}>Midtown</li>
                 <li onClick={() => setNeighborhood("village")}>The Village</li>
                 <li onClick={() => setNeighborhood("harlem")}>Harlem</li>
@@ -87,32 +94,11 @@ function MainPage() {
             </div>
           </div>
         </div>
-        <h2 id="main-page-subheader">Your proposed plan for the night:</h2>
+        <h2 id="main-page-subheader">
+          Your proposed plan for the night in{" "}
+          {titleizedNeighborhoods[neighborhood]}:
+        </h2>
         <Randomizer isDessert={checked} neighborhood={neighborhood} />
-        {/* <div id="main-page-options-container">
-          <div className="main-page-option-container">
-            <img className="main-page-option-image" src={fillerImage} />
-            <div className="main-page-option-venue-name">Venue Name</div>
-          </div>
-          <div className="main-page-option-container">
-            <img className="main-page-option-image" src={fillerImage} />
-            <div className="main-page-option-venue-name">Venue Name</div>
-          </div>
-          <div className="main-page-option-container">
-            <img className="main-page-option-image" src={fillerImage} />
-            <div className="main-page-option-venue-name">Venue Name</div>
-          </div>
-        </div> */}
-        {/* <div id="main-page-instructions-container">
-          <div id="main-page-instructions">
-            Click a venue to change it specifically or randomize your entire
-            plan below!
-          </div>
-        </div>
-        <div id="main-page-buttons-container">
-          <button className="main-page-button">Randomize plan</button>
-          <button className="main-page-button">Confirm plan</button>
-        </div> */}
       </main>
     </>
   );
