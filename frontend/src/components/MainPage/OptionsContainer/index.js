@@ -46,7 +46,12 @@ const OptionsContainer = ({ venues, isDessert }) => {
         </div>
         <div
           className="main-page-option-container restaurant"
-          onClick={() => setShowModifyVenueModal(true)}
+          onClick={() => {
+            setModalCategory("restaurant");
+            setIndexType(restaurantIdx);
+            setShowModifyVenueModal(true);
+          }}
+          // onClick={() => setShowModifyVenueModal(true)}
         >
           <img
             className="main-page-option-image"
@@ -59,7 +64,12 @@ const OptionsContainer = ({ venues, isDessert }) => {
         </div>
         <div
           className="main-page-option-container Drinks-dessert"
-          onClick={() => setShowModifyVenueModal(true)}
+          onClick={() => {
+            setModalCategory(isDessert ? "dessert" : "bar");
+            setIndexType(isDessert ? dessertIdx : barIdx);
+            setShowModifyVenueModal(true);
+          }}
+          // onClick={() => setShowModifyVenueModal(true)}
         >
           <img
             className="main-page-option-image"
