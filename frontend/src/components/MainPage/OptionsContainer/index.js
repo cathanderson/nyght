@@ -1,7 +1,10 @@
 import randomNum from "../../../store/random";
 import { useState } from "react";
+import { ModifyVenueModal } from "../../../context/Modal";
+import x from "../../../assets/icons/close.png";
 
 const OptionsContainer = ({ venues, isDessert }) => {
+  const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
   const [activityIdx, setActivityIdx] = useState(randomNum(10));
   const [restaurantIdx, setRestaurantIdx] = useState(randomNum(10));
   const [barIdx, setBarIdx] = useState(randomNum(10));
@@ -19,7 +22,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
   return (
     <>
       <div id="main-page-options-container">
-        <div className="main-page-option-container activity">
+        <div
+          className="main-page-option-container activity"
+          onClick={() => setShowModifyVenueModal(true)}
+        >
           <img
             className="main-page-option-image"
             src={venues.activity[activityIdx].imageUrl}
@@ -29,7 +35,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
             {venues.activity[activityIdx].title}
           </div>
         </div>
-        <div className="main-page-option-container restaurant">
+        <div
+          className="main-page-option-container restaurant"
+          onClick={() => setShowModifyVenueModal(true)}
+        >
           <img
             className="main-page-option-image"
             src={venues.restaurant[restaurantIdx].imageUrl}
@@ -39,7 +48,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
             {venues.restaurant[restaurantIdx].title}
           </div>
         </div>
-        <div className="main-page-option-container Drinks-dessert">
+        <div
+          className="main-page-option-container Drinks-dessert"
+          onClick={() => setShowModifyVenueModal(true)}
+        >
           <img
             className="main-page-option-image"
             src={
@@ -71,6 +83,15 @@ const OptionsContainer = ({ venues, isDessert }) => {
         </button>
         <button className="main-page-button comfirm">Confirm plan</button>
       </div>
+      {showModifyVenueModal && (
+        <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
+          <img
+            onClick={() => setShowModifyVenueModal(false)}
+            src={x}
+            className="form-x"
+          />
+        </ModifyVenueModal>
+      )}
     </>
   );
 };
