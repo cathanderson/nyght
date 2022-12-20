@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 function MainPage() {
   const [showMenu, setShowMenu] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -21,6 +22,19 @@ function MainPage() {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+  const changeLabel = () => {
+    setChecked(!checked);
+    const dessert = document.querySelector(".toggle-switch-label-desserts");
+    const drink = document.querySelector(".toggle-switch-label-drinks");
+    if (!checked) {
+      dessert.style.fontWeight = "bold";
+      drink.style.fontWeight = "normal";
+    } else if (checked) {
+      drink.style.fontWeight = "bold";
+      dessert.style.fontWeight = "normal";
+    }
+  };
 
   return (
     <>
@@ -40,7 +54,12 @@ function MainPage() {
             )}
           </div>
           <div className="toggle-container">
-            <div className="toggle-switch-label">Drinks</div>
+            <div
+              className="toggle-switch-label toggle-switch-label-drinks"
+              style={{ fontWeight: "bold" }}
+            >
+              Drinks
+            </div>
             <div className="toggle-switch">
               <div className="inner-toggle-switch-container">
                 <input
@@ -48,6 +67,8 @@ function MainPage() {
                   className="checkbox"
                   name="drinks"
                   id="drinks"
+                  defaultChecked={checked}
+                  onChange={changeLabel}
                 />
                 <label className="label" htmlFor="drinks">
                   <span className="inner" />
@@ -55,7 +76,9 @@ function MainPage() {
                 </label>
               </div>
             </div>
-            <div className="toggle-switch-label">Dessert</div>
+            <div className="toggle-switch-label toggle-switch-label-desserts">
+              Dessert
+            </div>
           </div>
         </div>
         <h2 id="main-page-subheader">Your proposed plan for the night:</h2>
