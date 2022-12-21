@@ -52,7 +52,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
   };
 
   if (!Object.values(venues).length) return null;
-  // debugger;
 
   const handleModalConfirm = (e, category) => {
     e.preventDefault();
@@ -73,7 +72,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
         return;
     }
     setShowModifyVenueModal(false);
-    console.log("test");
   };
 
   const handleItineraryConfirm = (e) => {
@@ -91,6 +89,19 @@ const OptionsContainer = ({ venues, isDessert }) => {
     const res = dispatch(createItinerary(myUser, data));
     console.log(`result: ${res}`);
     res.then((data) => history.push(`/itineraries/${data._id}`));
+  };
+
+  const displayLoggedOutMessage = () => {
+    const confirmButton = document.querySelector("div.confirm-button-errors");
+    const h3 = document.createElement("h3");
+    h3.innerText = "Please Sign Up or Login to Confirm";
+    confirmButton.appendChild(h3);
+  };
+
+  const removeLoggedOutMessage = () => {
+    const confirmButton = document.querySelector("div.confirm-button-errors");
+    const h3 = document.querySelector(".confirm-button-errors h3");
+    confirmButton.removeChild(h3);
   };
 
   return (
@@ -172,17 +183,39 @@ const OptionsContainer = ({ venues, isDessert }) => {
             Randomize plan
           </button>
         </div>
-        <div className="confirm button-container">
-          <button
-            className="main-page-button confirm"
-            disabled={!myUser}
-            onClick={(e) => {
-              handleItineraryConfirm(e);
-            }}
+
+        {!!myUser && (
+          <div className="confirm button-container">
+            <button
+              className="main-page-button confirm"
+              // disabled={!myUser}
+              onClick={(e) => {
+                handleItineraryConfirm(e);
+              }}
+            >
+              Confirm plan
+            </button>
+
+            <div className="confirm-button-errors"></div>
+          </div>
+        )}
+        {!myUser && (
+          <div
+            className="confirm button-container"
+            onMouseOver={displayLoggedOutMessage}
+            onMouseOut={removeLoggedOutMessage}
           >
-            Confirm plan
-          </button>
-        </div>
+            <button
+              className="main-page-button confirm logged-out"
+              onClick={(e) => {
+                handleItineraryConfirm(e);
+              }}
+            >
+              Confirm plan
+            </button>
+            <div className="confirm-button-errors"></div>
+          </div>
+        )}
       </div>
       {showModifyVenueModal && (
         <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
