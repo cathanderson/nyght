@@ -41,25 +41,27 @@ const OptionsContainer = ({ venues, isDessert }) => {
   if (!Object.values(venues).length) return null;
   // debugger;
 
-  // const handleModalConfirm = (category) => {
-  //   switch (category) {
-  //     case "activity":
-  //       setActivityIdx(modalIdx);
-  //       break;
-  //     case "restaurant":
-  //       setRestaurantIdx(modalIdx);
-  //       break;
-  //     case "bar":
-  //       setBarIdx(modalIdx);
-  //       break;
-  //     case "dessert":
-  //       setDessertIdx(modalIdx);
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  //   setShowModifyVenueModal(false);
-  // };
+  const handleModalConfirm = (e, category) => {
+    e.preventDefault();
+    switch (category) {
+      case "activity":
+        setActivityIdx(modalIdx);
+        break;
+      case "restaurant":
+        setRestaurantIdx(modalIdx);
+        break;
+      case "bar":
+        setBarIdx(modalIdx);
+        break;
+      case "dessert":
+        setDessertIdx(modalIdx);
+        break;
+      default:
+        return;
+    }
+    setShowModifyVenueModal(false);
+    console.log("test");
+  };
 
   // const handleItineraryConfirm = () => {
   //   const data = {
@@ -176,9 +178,9 @@ const OptionsContainer = ({ venues, isDessert }) => {
             </div>
             <div
               className="confirm-button"
-              // onClick={handleModalConfirm(
-              //   venues[modalCategory][modalIdx].category
-              // )}
+              onClick={(e) =>
+                handleModalConfirm(e, venues[modalCategory][modalIdx].category)
+              }
             >
               Confirm Venue
             </div>
