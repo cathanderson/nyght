@@ -43,7 +43,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
     <>
       <div id="options-container">
         <div
-          className="main-page-option-container"
+          className="option-container"
           onClick={() => {
             setModalCategory("activity");
             setModalIdx(activityIdx);
@@ -51,7 +51,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           }}
         >
           <img
-            className="main-page-option-image"
+            className="option-image"
             src={venues.activity[activityIdx].imageUrl}
             alt="activity"
           />
@@ -60,7 +60,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           </div>
         </div>
         <div
-          className="main-page-option-container restaurant"
+          className="option-container restaurant"
           onClick={() => {
             setModalCategory("restaurant");
             setModalIdx(restaurantIdx);
@@ -77,7 +77,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           </div>
         </div>
         <div
-          className="main-page-option-container Drinks-dessert"
+          className="option-container Drinks-dessert"
           onClick={() => {
             setModalCategory(isDessert ? "dessert" : "bar");
             setModalIdx(isDessert ? dessertIdx : barIdx);

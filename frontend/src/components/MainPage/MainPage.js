@@ -44,7 +44,7 @@ function MainPage() {
     midtown: "Midtown",
     village: "the Village",
     harlem: "Harlem",
-    williamsburg: "Willaimsburg",
+    williamsburg: "Willaimsburg"
   };
 
   return (
