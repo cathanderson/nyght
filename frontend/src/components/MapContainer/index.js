@@ -12,14 +12,38 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
 
   const [selected, setSelected] = useState({});
 
+  console.log(restaurant)
+
   const onSelect = (item) => {
     setSelected(item);
   };
 
-  let defaultCenter = {
-    lng: -73.98772938211399,
-    lat: 40.74694716164171,
+
+  let defaultCenters = {
+    midtown: {
+      lng: -73.98170604212119,
+      lat: 40.75809060417673,
+    },
+    village: {
+      lng: -73.99270604212119,
+      lat: 40.72509060417673,
+    },
+    williamsburg: {
+      lng: -73.98170604212119,
+      lat: 40.75809060417673,
+    },
+    harlem: {
+      lng: -73.98170604212119,
+      lat: 40.75809060417673,
+    },
   };
+
+  let defaultZooms = {
+    midtown: 15,
+    village: 15,
+    williamsburg: 15,
+    harlem: 15,
+  }
 
   let locations = {
     activity: {
@@ -68,11 +92,11 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
       <GoogleMap
         mapContainerStyle={mapContainerStyles}
-        zoom={13}
-        center={defaultCenter}
-        // options={{
-        //   styles: MapStyles,
-        // }}
+        zoom={defaultZooms[restaurant.neighborhood]}
+        center={defaultCenters[restaurant.neighborhood]}
+        options={{
+          styles: MapStyles,
+        }}
       >
         {Object.values(locations).map((item) => {
           return (
@@ -80,7 +104,7 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
               key={item.name}
               position={item.location}
               onClick={() => onSelect(item)}
-              //   icon={pin}
+              icon={pin}
             />
           );
         })}
