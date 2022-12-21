@@ -2,12 +2,17 @@ import "./ItineraryShowPage.css";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItinerary, deleteItinerary } from "../../store/itineraries";
+import {
+  fetchItinerary,
+  deleteItinerary,
+  updateItinerary
+} from "../../store/itineraries";
 import { fetchVenue, clearVenues } from "../../store/venues";
 import { EmailModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
 import MapContainer from "../MapContainer";
 import EmailFormAndList from "../EmailForm/EmailFormAndList";
+import pencil from "../../assets/icons/pencil.png";
 
 function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -58,6 +63,11 @@ function ItineraryShowPage() {
   if (!Object.values(itinerary).length || Object.values(venues).length <= 2)
     return null;
 
+  const handleModifyItinerary = (e) => {
+    e.preventDefault();
+    dispatch(updateItinerary(itinerary));
+  };
+
   const handleDeleteItinerary = (e) => {
     e.preventDefault();
     dispatch(deleteItinerary(itineraryId)).then(history.push("/profile"));
@@ -68,6 +78,9 @@ function ItineraryShowPage() {
       <div id="itinerary-show-page-container">
         <div id="itinerary-show-subheader-container">
           <h2 className="itinerary-show-page-subheader">{itinerary.title}</h2>
+          <div className="edit-title-button">
+            <img src={pencil} alt="edit itinerary" />
+          </div>
         </div>
         <div id="options-container">
           <div className="option-container activity no-pointer">
@@ -110,7 +123,12 @@ function ItineraryShowPage() {
           dessert={dessert}
         />
         <div id="itinerary-show-buttons-container">
-          <button className="itinerary-show-button">Modify plan</button>
+          <button
+            className="itinerary-show-button"
+            onClick={(e) => handleModifyItinerary(e)}
+          >
+            Modify plan
+          </button>
           <button
             className="itinerary-show-button"
             onClick={(e) => handleDeleteItinerary(e)}
