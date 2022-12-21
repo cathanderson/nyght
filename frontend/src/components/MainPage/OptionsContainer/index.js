@@ -1,10 +1,17 @@
 import "./index.css";
 import randomNum from "../../../store/random";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModifyVenueModal } from "../../../context/Modal";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
+import {
+  getVenues,
+  fetchVenuesByFilter,
+  clearVenues,
+} from "../../../store/venues";
+import { useDispatch } from "react-redux";
+import { clearItinerary } from "../../../store/itineraries";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -15,6 +22,12 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const [modalCategory, setModalCategory] = useState("");
   const [modalIdx, setModalIdx] = useState(0);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(clearVenues());
+    dispatch(clearItinerary());
+  }, []);
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -37,7 +50,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
     setModalIdx((modalIdx + modifier) % 10);
   };
 
-  if (!Object.values(venues).length) return null;
+  if (Object.values(venues).length < 4) return null;
 
   return (
     <>

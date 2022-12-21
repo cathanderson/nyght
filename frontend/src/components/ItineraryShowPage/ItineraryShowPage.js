@@ -17,7 +17,6 @@ function ItineraryShowPage() {
 
   let activity, restaurant, bar, dessert;
   if (Object.values(venues).length >= 3) {
-    console.log("in assignment");
     Object.values(venues).forEach((venue) => {
       switch (venue.category) {
         case "activity":

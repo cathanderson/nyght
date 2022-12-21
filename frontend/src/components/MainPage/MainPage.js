@@ -2,15 +2,24 @@ import "./MainPage.css";
 import fillerImage from "../../assets/images/venue_filler_img.jpeg";
 import React, { useState, useEffect } from "react";
 import Randomizer from "./Randomizer";
+import { clearVenues } from "../../store/venues";
+import { clearItinerary } from "../../store/itineraries";
+import { useDispatch } from "react-redux";
 
 function MainPage() {
   const [showMenu, setShowMenu] = useState(false);
   const [checked, setChecked] = useState(false);
+  const dispatch = useDispatch();
 
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    dispatch(clearVenues());
+    dispatch(clearItinerary());
+  }, []);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -44,7 +53,7 @@ function MainPage() {
     midtown: "Midtown",
     village: "the Village",
     harlem: "Harlem",
-    williamsburg: "Willaimsburg"
+    williamsburg: "Williamsburg",
   };
 
   return (
