@@ -7,6 +7,7 @@ import { fetchVenue, clearVenues } from "../../store/venues";
 import mapFiller from "../../assets/images/map-filler.webp";
 import { EmailModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
+import MapContainer from "../MapContainer";
 
 function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -94,9 +95,7 @@ function ItineraryShowPage() {
             </div>
           </div>
         </div>
-        <div id="itinerary-show-map-container">
-          <img src={mapFiller} />
-        </div>
+        <MapContainer />
         <div id="itinerary-show-buttons-container">
           <button className="itinerary-show-button">Modify plan</button>
           <button className="itinerary-show-button">Delete plan</button>
