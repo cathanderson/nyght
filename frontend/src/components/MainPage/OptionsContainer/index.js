@@ -21,39 +21,39 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   return (
     <>
-      <div id="main-page-options-container">
+      <div id="options-container">
         <div
-          className="main-page-option-container activity"
+          className="option-container activity"
           onClick={() => setShowModifyVenueModal(true)}
         >
           <img
-            className="main-page-option-image"
+            className="option-image"
             src={venues.activity[activityIdx].imageUrl}
             alt="activity"
           />
-          <div className="main-page-option-venue-name">
+          <div className="option-venue-name">
             {venues.activity[activityIdx].title}
           </div>
         </div>
         <div
-          className="main-page-option-container restaurant"
+          className="option-container restaurant"
           onClick={() => setShowModifyVenueModal(true)}
         >
           <img
-            className="main-page-option-image"
+            className="option-image"
             src={venues.restaurant[restaurantIdx].imageUrl}
             alt="restaurant"
           />
-          <div className="main-page-option-venue-name">
-            {venues.restaurant[restaurantIdx].title}
+          <div className="option-venue-name">
+            Have dinner at {venues.restaurant[restaurantIdx].title}
           </div>
         </div>
         <div
-          className="main-page-option-container Drinks-dessert"
+          className="option-container Drinks-dessert"
           onClick={() => setShowModifyVenueModal(true)}
         >
           <img
-            className="main-page-option-image"
+            className="option-image"
             src={
               isDessert
                 ? venues.dessert[dessertIdx].imageUrl
@@ -61,10 +61,11 @@ const OptionsContainer = ({ venues, isDessert }) => {
             }
             alt={isDessert ? "Dessert" : "Drinks"}
           />
-          <div className="main-page-option-venue-name">
+          <div className="option-venue-name">
+            Have
             {isDessert
-              ? venues.dessert[dessertIdx].title
-              : venues.bar[barIdx].title}
+              ? ` dessert at ${venues.dessert[dessertIdx].title}`
+              : ` drinks at ${venues.bar[barIdx].title}`}
           </div>
         </div>
       </div>
