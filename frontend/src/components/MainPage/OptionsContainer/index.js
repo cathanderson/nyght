@@ -162,7 +162,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
                 </div>
               </div>
               <div className="nav-right-arrow" onClick={incrementIndex}>
-                <img src={rightArrow} alt="right"></img>
+                <img src={rightArrow} alt="right" />
               </div>
             </div>
             <div className="confirm-button">Confirm Venue</div>
