@@ -61,7 +61,7 @@ function ItineraryShowPage() {
     <>
       <div id="itinerary-show-page-container">
         <div id="itinerary-show-subheader-container">
-          <h2 id="itinerary-show-page-subheader">{itinerary.title}</h2>
+          <h2 className="itinerary-show-page-subheader">{itinerary.title}</h2>
         </div>
         <div id="options-container">
           <div className="option-container activity">
@@ -94,6 +94,7 @@ function ItineraryShowPage() {
             </div>
           </div>
         </div>
+        <h2 className="itinerary-show-page-subheader" id="map-subheader">Where you're going:</h2>
         <MapContainer
           activity={activity}
           restaurant={restaurant}
