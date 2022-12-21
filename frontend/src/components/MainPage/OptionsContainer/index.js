@@ -1,17 +1,14 @@
 import "./index.css";
 import randomNum from "../../../store/random";
 import { useEffect, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 import { ModifyVenueModal } from "../../../context/Modal";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
-import {
-  getVenues,
-  fetchVenuesByFilter,
-  clearVenues,
-} from "../../../store/venues";
-import { useDispatch } from "react-redux";
-import { clearItinerary } from "../../../store/itineraries";
+import { createItinerary } from "../../../store/itineraries";
+import { useHistory } from "react-router-dom";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -20,14 +17,18 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const [barIdx, setBarIdx] = useState(randomNum(10));
   const [dessertIdx, setDessertIdx] = useState(randomNum(10));
 
-  const [modalCategory, setModalCategory] = useState("");
+  const [modalCategory, setModalCategory] = useState("activity");
   const [modalIdx, setModalIdx] = useState(0);
 
   const dispatch = useDispatch();
+  const myUser = useSelector((state) => state.session.user?._id);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
-    dispatch(clearVenues());
-    dispatch(clearItinerary());
-  }, []);
+    if (!myUser) setLoggedIn(false);
+    else setLoggedIn(true);
+  }, [myUser, loggedIn]);
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -50,7 +51,47 @@ const OptionsContainer = ({ venues, isDessert }) => {
     setModalIdx((modalIdx + modifier) % 10);
   };
 
-  if (Object.values(venues).length < 4) return null;
+  if (!Object.values(venues).length) return null;
+  // debugger;
+
+  const handleModalConfirm = (e, category) => {
+    e.preventDefault();
+    switch (category) {
+      case "activity":
+        setActivityIdx(modalIdx);
+        break;
+      case "restaurant":
+        setRestaurantIdx(modalIdx);
+        break;
+      case "bar":
+        setBarIdx(modalIdx);
+        break;
+      case "dessert":
+        setDessertIdx(modalIdx);
+        break;
+      default:
+        return;
+    }
+    setShowModifyVenueModal(false);
+    console.log("test");
+  };
+
+  const handleItineraryConfirm = (e) => {
+    e.preventDefault();
+
+    const data = {
+      title: `Night in ${venues.activity[0].neighborhood}`,
+      eventId: venues.activity[activityIdx]._id,
+      dinnerId: venues.restaurant[restaurantIdx]._id,
+      barId: venues.bar[barIdx]._id,
+      dessertId: venues.dessert[dessertIdx]._id,
+      isDessert: isDessert
+    };
+
+    const res = dispatch(createItinerary(myUser, data));
+    console.log(`result: ${res}`);
+    res.then((data) => history.push(`/itineraries/${data._id}`));
+  };
 
   return (
     <>
@@ -61,6 +102,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
             setModalCategory("activity");
             setModalIdx(activityIdx);
             setShowModifyVenueModal(true);
+            console.log(showModifyVenueModal);
           }}
         >
           <img
@@ -121,19 +163,29 @@ const OptionsContainer = ({ venues, isDessert }) => {
         </div>
       </div>
       <div id="main-page-buttons-container">
-        <button
-          className="main-page-button randomize"
-          onClick={() => randomizeIndeces()}
-        >
-          Randomize plan
-        </button>
-        <button className="main-page-button comfirm">Confirm plan</button>
+        <div className="randomize button-container">
+          {" "}
+          <button
+            className="main-page-button randomize"
+            onClick={() => randomizeIndeces()}
+          >
+            Randomize plan
+          </button>
+        </div>
+        <div className="confirm button-container">
+          <button
+            className="main-page-button confirm"
+            disabled={!myUser}
+            onClick={(e) => {
+              handleItineraryConfirm(e);
+            }}
+          >
+            Confirm plan
+          </button>
+        </div>
       </div>
       {showModifyVenueModal && (
-        <ModifyVenueModal
-          activityIdx={activityIdx}
-          onClose={() => setShowModifyVenueModal(false)}
-        >
+        <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
           <img
             onClick={() => setShowModifyVenueModal(false)}
             src={x}
@@ -161,7 +213,14 @@ const OptionsContainer = ({ venues, isDessert }) => {
                 <img src={rightArrow} alt="right"></img>
               </div>
             </div>
-            <div className="confirm-button">Confirm Venue</div>
+            <div
+              className="confirm-button"
+              onClick={(e) =>
+                handleModalConfirm(e, venues[modalCategory][modalIdx].category)
+              }
+            >
+              Confirm Venue
+            </div>
           </div>
         </ModifyVenueModal>
       )}

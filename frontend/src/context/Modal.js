@@ -46,7 +46,8 @@ export function SignupModal({ onClose, children }) {
   );
 }
 
-export function ModifyVenueModal({ activityIdx, onClose, children }) {
+export function ModifyVenueModal({ onClose, children }) {
+  // console.log(activityIdx);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
