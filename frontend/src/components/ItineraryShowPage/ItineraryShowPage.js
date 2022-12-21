@@ -64,7 +64,7 @@ function ItineraryShowPage() {
           <h2 className="itinerary-show-page-subheader">{itinerary.title}</h2>
         </div>
         <div id="options-container">
-          <div className="option-container activity">
+          <div className="option-container activity no-pointer">
             <img
               className="option-image"
               src={activity.imageUrl}
@@ -72,7 +72,7 @@ function ItineraryShowPage() {
             />
             <div className="option-venue-name">{activity.title}</div>
           </div>
-          <div className="option-container restaurant">
+          <div className="option-container restaurant no-pointer">
             <img
               className="option-image"
               src={restaurant.imageUrl}
@@ -82,7 +82,7 @@ function ItineraryShowPage() {
               Have dinner at {restaurant.title}
             </div>
           </div>
-          <div className="option-container Drinks-dessert">
+          <div className="option-container Drinks-dessert no-pointer">
             <img
               className="option-image"
               src={bar ? bar.imageUrl : dessert.imageUrl}
@@ -94,7 +94,9 @@ function ItineraryShowPage() {
             </div>
           </div>
         </div>
-        <h2 className="itinerary-show-page-subheader" id="map-subheader">Where you're going:</h2>
+        <h2 className="itinerary-show-page-subheader" id="map-subheader">
+          Where you're going:
+        </h2>
         <MapContainer
           activity={activity}
           restaurant={restaurant}
