@@ -27,19 +27,16 @@
 }
 
 .venue-image img {
-  /* height: 100%; */
-  /* width: 100%; */
-  /* max-width: 500px; */
   border-radius: 10px;
   object-fit: cover;
   height: 400px;
   width: 500px;
 }
 
-.main-page-button.confirm:disabled {
+.main-page-button.confirm.logged-out {
   border-color: #7e9ff1a9;
   background-color: #7e9ff1a9;
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .confirm-button {
@@ -57,11 +54,20 @@
   justify-content: space-between;
 }
 
+.confirm-button-errors {
+  display: flex;
+  justify-content: center;
+  margin-top: -8px;
+}
+
+.confirm-button-errors h3 {
+  color: red;
+  position: fixed;
+}
+
 .modal-card-main-content div.nav-left-arrow,
 .modal-card-main-content div.nav-right-arrow {
   padding: 40px;
-  /* width: 50px; */
-  /* font-size: 40px; */
 }
 .modal-card-main-content div.nav-left-arrow img,
 .modal-card-main-content div.nav-right-arrow img {
