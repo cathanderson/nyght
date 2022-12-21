@@ -3,7 +3,6 @@ import randomNum from "../../../store/random";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ModifyVenueModal } from "../../../context/Modal";
-import { getCurrentUser } from "../../../store/session";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
@@ -22,21 +21,13 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const dispatch = useDispatch();
   const myUser = useSelector((state) => state.session.user?._id);
-  const errors = useSelector((state) => state.errors.session);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const history = useHistory();
-  // console.log(currentUser);
-  // let currentUser;
-
-  // console.log(myUser);
 
   useEffect(() => {
     if (!myUser) setLoggedIn(false);
     else setLoggedIn(true);
   }, [myUser, loggedIn]);
-
-  // useEffect(() => {}, [myUser]);
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -86,33 +77,20 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const handleItineraryConfirm = (e) => {
     e.preventDefault();
-    // check if user is signed in
-    if (!currentUser) {
-    }
 
     const data = {
-      title: `Night in ${venues.neighborhood}`,
-      user: currentUser,
-      event: venues.activity[activityIdx]._id,
-      dinner: venues.restaurant[restaurantIdx]._id,
-      bar: venues.bar[barIdx]._id,
-      dessert: venues.dessert[dessertIdx]._id,
+      title: `Night in ${venues.activity[0].neighborhood}`,
+      eventId: venues.activity[activityIdx]._id,
+      dinnerId: venues.restaurant[restaurantIdx]._id,
+      barId: venues.bar[barIdx]._id,
+      dessertId: venues.dessert[dessertIdx]._id,
       isDessert: isDessert
     };
 
-    const res = dispatch(createItinerary(currentUser, data)).then(() => {
-      // history.push(`/itineraries/`);
-      console.log(res);
-    });
+    const res = dispatch(createItinerary(myUser, data));
+    console.log(`result: ${res}`);
+    res.then((data) => history.push(`/itineraries/${data._id}`));
   };
-
-  // const confirmButton = document.querySelector("button.confirm");
-  // if (confirmButton && !loggedIn) {
-  //   confirmButton.classList.add("logged-out");
-  // }
-  console.log(myUser);
-
-  // debugger;
 
   return (
     <>
@@ -203,26 +181,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
           >
             Confirm plan
           </button>
-          {/* {loggedIn && (
-            <button
-              className="main-page-button confirm"
-              onClick={(e) => {
-                handleItineraryConfirm(e);
-              }}
-            >
-              Confirm plan
-            </button>
-          )}
-          {!loggedIn && (
-            <button
-              className="main-page-button confirm logged-out"
-              onClick={(e) => {
-                handleItineraryConfirm(e);
-              }}
-            >
-              Confirm plan
-            </button>
-          )} */}
         </div>
       </div>
       {showModifyVenueModal && (

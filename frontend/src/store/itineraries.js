@@ -46,6 +46,8 @@ export const createItinerary = (userId, itinerary) => async (dispatch) => {
   });
   const data = await res.json();
   dispatch(receiveItinerary(data));
+  console.log(data);
+  return data;
 };
 
 export const deleteItinerary = (itineraryId) => async (dispatch) => {
