@@ -1,8 +1,8 @@
 import "./ItineraryShowPage.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItinerary } from "../../store/itineraries";
+import { fetchItinerary, deleteItinerary } from "../../store/itineraries";
 import { fetchVenue, clearVenues } from "../../store/venues";
 import { EmailModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
@@ -13,6 +13,7 @@ function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const { itineraryId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const itinerary = useSelector((state) => state.itineraries);
   const venues = useSelector((state) => Object.values(state.venues));
 
@@ -56,6 +57,11 @@ function ItineraryShowPage() {
 
   if (!Object.values(itinerary).length || Object.values(venues).length <= 2)
     return null;
+
+  const handleDeleteItinerary = (e) => {
+    e.preventDefault();
+    dispatch(deleteItinerary(itineraryId)).then(history.push("/profile"));
+  };
 
   return (
     <>
@@ -105,7 +111,12 @@ function ItineraryShowPage() {
         />
         <div id="itinerary-show-buttons-container">
           <button className="itinerary-show-button">Modify plan</button>
-          <button className="itinerary-show-button">Delete plan</button>
+          <button
+            className="itinerary-show-button"
+            onClick={(e) => handleDeleteItinerary(e)}
+          >
+            Delete plan
+          </button>
           <button
             className="itinerary-show-button"
             onClick={() => setShowEmailModal(true)}
