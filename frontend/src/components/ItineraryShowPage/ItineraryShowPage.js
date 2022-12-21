@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItinerary } from "../../store/itineraries";
 import { fetchVenue, clearVenues } from "../../store/venues";
-import mapFiller from "../../assets/images/map-filler.webp";
 import { EmailModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
 import MapContainer from "../MapContainer";
+import EmailFormAndList from "../EmailForm/EmailFormAndList";
 
 function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -119,7 +119,7 @@ function ItineraryShowPage() {
             src={x}
             className="form-x"
           />
-          {/* <EmailForm /> */}
+          <EmailFormAndList />
         </EmailModal>
       )}
     </>
