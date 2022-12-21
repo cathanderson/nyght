@@ -6,17 +6,17 @@ const REMOVE_ITINERARY = "itineraries/REMOVE_ITINERARY";
 
 export const removeItinerary = (itinerary) => ({
   type: REMOVE_ITINERARY,
-  itinerary,
+  itinerary
 });
 
 export const receiveItinerary = (itinerary) => ({
   type: RECEIVE_ITINERARY,
-  itinerary,
+  itinerary
 });
 
 export const receiveItineraries = (itineraries) => ({
   type: RECEIVE_ITINERARIES,
-  itineraries,
+  itineraries
 });
 
 export const getItineraries = (state) =>
@@ -41,8 +41,8 @@ export const createItinerary = (userId, itinerary) => async (dispatch) => {
     method: "POST",
     body: JSON.stringify(itinerary),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   });
   const data = await res.json();
   dispatch(receiveItinerary(data));
@@ -50,7 +50,7 @@ export const createItinerary = (userId, itinerary) => async (dispatch) => {
 
 export const deleteItinerary = (itineraryId) => async (dispatch) => {
   await jwtFetch(`/api/itineraries/${itineraryId}`, {
-    method: "DELETE",
+    method: "DELETE"
   });
   dispatch(removeItinerary(itineraryId));
 };
@@ -60,11 +60,12 @@ export const updateItinerary = (itinerary) => async (dispatch) => {
     method: "PATCH",
     body: JSON.stringify(itinerary),
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"
+    }
   });
   const data = await res.json();
   dispatch(receiveItinerary(data));
+  return data;
 };
 
 const itinerariesReducer = (state = {}, action) => {

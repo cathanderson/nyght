@@ -36,9 +36,10 @@
   width: 500px;
 }
 
-.main-page-button.confirm.logged-out {
+.main-page-button.confirm:disabled {
   border-color: #7e9ff1a9;
   background-color: #7e9ff1a9;
+  cursor: not-allowed;
 }
 
 .confirm-button {

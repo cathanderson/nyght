@@ -1,13 +1,14 @@
 import "./index.css";
 import randomNum from "../../../store/random";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ModifyVenueModal } from "../../../context/Modal";
 import { getCurrentUser } from "../../../store/session";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
-// import { debug } from "console";
+import { createItinerary } from "../../../store/itineraries";
+import { useHistory } from "react-router-dom";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -19,10 +20,23 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const [modalCategory, setModalCategory] = useState("activity");
   const [modalIdx, setModalIdx] = useState(0);
 
-  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const myUser = useSelector((state) => state.session.user?._id);
   const errors = useSelector((state) => state.errors.session);
-  // const [loggedIn, setLoggedIn]
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const history = useHistory();
+  // console.log(currentUser);
+  // let currentUser;
+
+  // console.log(myUser);
+
+  useEffect(() => {
+    if (!myUser) setLoggedIn(false);
+    else setLoggedIn(true);
+  }, [myUser, loggedIn]);
+
+  // useEffect(() => {}, [myUser]);
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -86,13 +100,19 @@ const OptionsContainer = ({ venues, isDessert }) => {
       isDessert: isDessert
     };
 
-    // const res =
+    const res = dispatch(createItinerary(currentUser, data)).then(() => {
+      // history.push(`/itineraries/`);
+      console.log(res);
+    });
   };
 
-  const confirmButton = document.querySelector(".main-page-button.confirm");
-  if (!currentUser) {
-    confirmButton.classList.add("logged-out");
-  }
+  // const confirmButton = document.querySelector("button.confirm");
+  // if (confirmButton && !loggedIn) {
+  //   confirmButton.classList.add("logged-out");
+  // }
+  console.log(myUser);
+
+  // debugger;
 
   return (
     <>
@@ -164,20 +184,46 @@ const OptionsContainer = ({ venues, isDessert }) => {
         </div>
       </div>
       <div id="main-page-buttons-container">
-        <button
-          className="main-page-button randomize"
-          onClick={() => randomizeIndeces()}
-        >
-          Randomize plan
-        </button>
-        <button
-          className="main-page-button confirm"
-          onClick={(e) => {
-            handleItineraryConfirm(e);
-          }}
-        >
-          Confirm plan
-        </button>
+        <div className="randomize button-container">
+          {" "}
+          <button
+            className="main-page-button randomize"
+            onClick={() => randomizeIndeces()}
+          >
+            Randomize plan
+          </button>
+        </div>
+        <div className="confirm button-container">
+          <button
+            className="main-page-button confirm"
+            disabled={!myUser}
+            onClick={(e) => {
+              handleItineraryConfirm(e);
+            }}
+          >
+            Confirm plan
+          </button>
+          {/* {loggedIn && (
+            <button
+              className="main-page-button confirm"
+              onClick={(e) => {
+                handleItineraryConfirm(e);
+              }}
+            >
+              Confirm plan
+            </button>
+          )}
+          {!loggedIn && (
+            <button
+              className="main-page-button confirm logged-out"
+              onClick={(e) => {
+                handleItineraryConfirm(e);
+              }}
+            >
+              Confirm plan
+            </button>
+          )} */}
+        </div>
       </div>
       {showModifyVenueModal && (
         <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>

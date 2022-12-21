@@ -1,3 +1,4 @@
+import { useState } from "react";
 import jwtFetch from "./jwt";
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
@@ -8,36 +9,38 @@ export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
 // Dispatch receiveCurrentUser when a user logs in.
 const receiveCurrentUser = (currentUser) => ({
   type: RECEIVE_CURRENT_USER,
-  currentUser,
+  currentUser
 });
 
 // Dispatch receiveErrors to show authentication errors on the frontend.
 const receiveErrors = (errors) => ({
   type: RECEIVE_SESSION_ERRORS,
-  errors,
+  errors
 });
 
 // Dispatch logoutUser to clear the session user when a user logs out.
 const logoutUser = () => ({
-  type: RECEIVE_USER_LOGOUT,
+  type: RECEIVE_USER_LOGOUT
 });
 
 // Dispatch clearSessionErrors to clear any session errors.
 export const clearSessionErrors = () => ({
-  type: CLEAR_SESSION_ERRORS,
+  type: CLEAR_SESSION_ERRORS
 });
 
 export const signup = (user) => startSession(user, "api/users/register");
 export const login = (user) => startSession(user, "api/users/login");
 
 const startSession = (userInfo, route) => async (dispatch) => {
+  // const [loggedIn, setLoggedIn] = useState(false);
   try {
     const res = await jwtFetch(route, {
       method: "POST",
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify(userInfo)
     });
     const { user, token } = await res.json();
     localStorage.setItem("jwtToken", token);
+    // setLoggedIn(true);
     return dispatch(receiveCurrentUser(user));
   } catch (err) {
     const res = await err.json();
@@ -73,7 +76,7 @@ export const sessionErrorsReducer = (state = nullErrors, action) => {
 };
 
 const initialState = {
-  user: undefined,
+  user: undefined
 };
 
 const sessionReducer = (state = initialState, action) => {
