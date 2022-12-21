@@ -15,6 +15,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const [modalCategory, setModalCategory] = useState("");
   const [indexType, setIndexType] = useState("");
+  const [modalIdx, setModalIdx] = useState(0);
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -23,12 +24,16 @@ const OptionsContainer = ({ venues, isDessert }) => {
     setDessertIdx(randomNum(10));
   };
 
-  const incrementIndex = () => {
-    modifyIndex(1);
+  const incrementModalIndex = () => {
+    modifyModalIndex(1);
   };
 
-  const decrementIndex = () => {
-    modifyIndex(-1);
+  const decrementModalIndex = () => {
+    modifyModalIndex(-1);
+  };
+
+  const modifyModalIndex = (modifier) => {
+    setModalIdx((modalIdx + modifier) % 10);
   };
 
   const modifyIndex = (modifier) => {
@@ -52,6 +57,10 @@ const OptionsContainer = ({ venues, isDessert }) => {
     // debugger;
   };
 
+  // const modifyModalIdx = () => {
+
+  // };
+
   if (!Object.values(venues).length) return null;
 
   return (
@@ -62,6 +71,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           onClick={() => {
             setModalCategory("activity");
             setIndexType(activityIdx);
+            setModalIdx(activityIdx);
             setShowModifyVenueModal(true);
           }}
         >
@@ -80,6 +90,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           onClick={() => {
             setModalCategory("restaurant");
             setIndexType(restaurantIdx);
+            setModalIdx(restaurantIdx);
             setShowModifyVenueModal(true);
           }}
           // onClick={() => setShowModifyVenueModal(true)}
@@ -98,6 +109,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
           onClick={() => {
             setModalCategory(isDessert ? "dessert" : "bar");
             setIndexType(isDessert ? dessertIdx : barIdx);
+            setModalIdx(isDessert ? dessertIdx : barIdx);
             setShowModifyVenueModal(true);
           }}
           // onClick={() => setShowModifyVenueModal(true)}
@@ -147,22 +159,22 @@ const OptionsContainer = ({ venues, isDessert }) => {
           <div className="modal-card">
             {" "}
             <div className="venue-title">
-              <h3>{venues[modalCategory][indexType].title}</h3>
+              <h3>{venues[modalCategory][modalIdx].title}</h3>
             </div>
             <div className="modal-card-main-content">
-              <div className="nav-left-arrow" onClick={decrementIndex}>
+              <div className="nav-left-arrow" onClick={decrementModalIndex}>
                 <img src={leftArrow} alt="left"></img>
               </div>
               <div className="modal-card-center">
                 <div className="venue-image">
                   <img
-                    src={venues[modalCategory][indexType].imageUrl}
+                    src={venues[modalCategory][modalIdx].imageUrl}
                     alt="venue"
                   />
                 </div>
               </div>
-              <div className="nav-right-arrow" onClick={incrementIndex}>
-                <img src={rightArrow} alt="right" />
+              <div className="nav-right-arrow" onClick={incrementModalIndex}>
+                <img src={rightArrow} alt="right"></img>
               </div>
             </div>
             <div className="confirm-button">Confirm Venue</div>
