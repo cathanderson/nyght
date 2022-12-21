@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import { fetchItinerariesByUser } from "../../store/itineraries";
 import ItinerariesList from "./ItinerariesList";
+import { clearVenues } from "../../store/venues";
 import "./ProfilePage.css";
 
 function ProfilePage() {
@@ -11,6 +12,7 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(clearVenues());
     dispatch(getCurrentUser());
     dispatch(fetchItinerariesByUser(currentUser._id));
   }, []);
@@ -21,7 +23,7 @@ function ProfilePage() {
         <div id="profile-page-header-container">
           <h2 id="profile-page-header">Hey there {currentUser.firstName}!</h2>
         </div>
-        <ItinerariesList itineraries={itineraries}/>
+        <ItinerariesList itineraries={itineraries} />
       </main>
     </>
   );

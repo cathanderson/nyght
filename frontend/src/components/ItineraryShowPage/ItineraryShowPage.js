@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItinerary } from "../../store/itineraries";
-import { fetchVenue } from "../../store/venues";
+import { fetchVenue, clearVenues } from "../../store/venues";
 import mapFiller from "../../assets/images/map-filler.webp";
 import { EmailModal } from "../../context/Modal";
-import x from "../../assets/icons/close.png"
+import x from "../../assets/icons/close.png";
 
 function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -14,15 +14,35 @@ function ItineraryShowPage() {
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
   const venues = useSelector((state) => Object.values(state.venues));
-  let bar;
-  let dessert;
-  let activity = venues[0];
-  let restaurant = venues[1];
-  itinerary.bar ? (bar = venues[2]) : (dessert = venues[2]);
+
+  let activity, restaurant, bar, dessert;
+  if (Object.values(venues).length >= 3) {
+    console.log("in assignment");
+    Object.values(venues).forEach((venue) => {
+      switch (venue.category) {
+        case "activity":
+          if (venue._id === itinerary.event) activity = venue;
+          break;
+        case "bar":
+          if (venue._id === itinerary.bar) bar = venue;
+          break;
+        case "restaurant":
+          if (venue._id === itinerary.dinner) restaurant = venue;
+          break;
+        case "dessert":
+          if (venue._id === itinerary.dessert) dessert = venue;
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  if (itinerary) console.log(`itinerary: ${itinerary.title}`);
 
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
-  }, []);
+  }, [itineraryId]);
 
   useEffect(() => {
     if (itinerary.dinner) {
@@ -32,9 +52,10 @@ function ItineraryShowPage() {
         ? dispatch(fetchVenue(itinerary.bar))
         : dispatch(fetchVenue(itinerary.dessert));
     }
-  }, [itinerary]);
+  }, [itinerary, itineraryId]);
 
-  if (!Object.values(itinerary).length) return null;
+  if (!Object.values(itinerary).length || Object.values(venues).length <= 2)
+    return null;
 
   return (
     <>
@@ -94,7 +115,7 @@ function ItineraryShowPage() {
             src={x}
             className="form-x"
           />
-          <EmailForm/>
+          {/* <EmailForm /> */}
         </EmailModal>
       )}
     </>

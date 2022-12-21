@@ -2,6 +2,7 @@ import jwtFetch from "./jwt";
 
 const RECEIVE_VENUE = "venues/RECEIVE_VENUE";
 const RECEIVE_VENUES = "venues/RECEIVE_VENUES";
+const CLEAR_VENUES = "venues/CLEAR_VENUES";
 
 const receiveVenue = (venue) => ({
   type: RECEIVE_VENUE,
@@ -11,6 +12,10 @@ const receiveVenue = (venue) => ({
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
   venues,
+});
+
+export const clearVenues = () => ({
+  type: CLEAR_VENUES,
 });
 
 export const getVenues = ({ venues }) => (venues ? Object.values(venues) : []);
@@ -41,6 +46,8 @@ const venuesReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_VENUES:
       return { ...newState, ...action.venues };
+    case CLEAR_VENUES:
+      return {};
     default:
       return state;
   }
