@@ -109,3 +109,33 @@
   transform: translate(-50%, -50%);
   border-radius: 20px;
 }
+
+#email-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#email-modal-content {
+    position: absolute;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-size: 12px;
+    height: 300px;
+    width: 400px;
+    color: black;
+    font-weight: 700;
+    padding: 50px;
+    top: 410px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+}
