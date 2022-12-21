@@ -25,12 +25,17 @@ function NavBar() {
     if (loggedIn) {
       return (
         <div className="links-nav">
-          {/* <Link to={"/tweets"}>All Tweets</Link> */}
+          <Link className="logged-in-nav-link" to={"/about"}>
+            About
+          </Link>
           <Link className="logged-in-nav-link" to={"/profile"}>
             Profile
           </Link>
-          {/* <Link to={"/tweets/new"}>Write a Tweet</Link> */}
-          <div id="logout-nav-link" className="logged-in-nav-link" onClick={logoutUser}>
+          <div
+            id="logout-nav-link"
+            className="logged-in-nav-link"
+            onClick={logoutUser}
+          >
             Logout
           </div>
         </div>
@@ -39,6 +44,9 @@ function NavBar() {
       return (
         <>
           <div className="links-auth">
+            <Link className="logged-in-nav-link" to={"/about"}> {/* fix janky class name here later... user is logged out when they see this link but we need this class name for spacing purposes*/}
+              About
+            </Link>
             <Link
               id="signup-form-nav-link"
               className="nav-link"

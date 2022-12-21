@@ -6,6 +6,7 @@ import { AuthRoute, ProtectedRoute } from "./components/Routes/Routes";
 import NavBar from "./components/NavBar/NavBar";
 
 import MainPage from "./components/MainPage/MainPage";
+import AboutPage from "./components/AboutPage/AboutPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ItineraryShowPage from "./components/ItineraryShowPage/ItineraryShowPage";
 import EmailFormPage from "./components/EmailPage/EmailFormPage";
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <MainPage />
+          </Route>
+          <Route exact path="/about">
+            <AboutPage />
           </Route>
           <ProtectedRoute exact path="/profile" component={ProfilePage} />
           <ProtectedRoute
