@@ -7,6 +7,7 @@ import { fetchVenue, clearVenues } from "../../store/venues";
 import mapFiller from "../../assets/images/map-filler.webp";
 import { EmailModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
+import MapContainer from "../MapContainer";
 
 function ItineraryShowPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -17,7 +18,6 @@ function ItineraryShowPage() {
 
   let activity, restaurant, bar, dessert;
   if (Object.values(venues).length >= 3) {
-    console.log("in assignment");
     Object.values(venues).forEach((venue) => {
       switch (venue.category) {
         case "activity":
@@ -38,7 +38,7 @@ function ItineraryShowPage() {
     });
   }
 
-  if (itinerary) console.log(`itinerary: ${itinerary.title}`);
+  // if (itinerary) console.log(`itinerary: ${itinerary.title}`);
 
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
@@ -61,7 +61,7 @@ function ItineraryShowPage() {
     <>
       <div id="itinerary-show-page-container">
         <div id="itinerary-show-subheader-container">
-          <h2 id="itinerary-show-page-subheader">{itinerary.title}</h2>
+          <h2 className="itinerary-show-page-subheader">{itinerary.title}</h2>
         </div>
         <div id="options-container">
           <div className="option-container activity">
@@ -94,9 +94,13 @@ function ItineraryShowPage() {
             </div>
           </div>
         </div>
-        <div id="itinerary-show-map-container">
-          <img src={mapFiller} />
-        </div>
+        <h2 className="itinerary-show-page-subheader" id="map-subheader">Where you're going:</h2>
+        <MapContainer
+          activity={activity}
+          restaurant={restaurant}
+          bar={bar}
+          dessert={dessert}
+        />
         <div id="itinerary-show-buttons-container">
           <button className="itinerary-show-button">Modify plan</button>
           <button className="itinerary-show-button">Delete plan</button>
