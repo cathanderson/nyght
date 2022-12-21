@@ -14,7 +14,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const [dessertIdx, setDessertIdx] = useState(randomNum(10));
 
   const [modalCategory, setModalCategory] = useState("");
-  const [indexType, setIndexType] = useState("");
   const [modalIdx, setModalIdx] = useState(0);
 
   const randomizeIndeces = () => {
@@ -27,43 +26,16 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const incrementModalIndex = () => {
     if (modalIdx < 9) modifyModalIndex(1);
     else setModalIdx(0);
-    console.log(modalIdx);
   };
 
   const decrementModalIndex = () => {
     if (modalIdx > 0) modifyModalIndex(-1);
     else setModalIdx(9);
-    console.log(modalIdx);
   };
 
   const modifyModalIndex = (modifier) => {
     setModalIdx((modalIdx + modifier) % 10);
   };
-
-  const modifyIndex = (modifier) => {
-    // debugger;
-    switch (modalCategory) {
-      case "activity":
-        setActivityIdx((activityIdx + modifier) % 10);
-        break;
-      case "restaurant":
-        setRestaurantIdx((restaurantIdx + modifier) % 10);
-        break;
-      case "bar":
-        setBarIdx((barIdx + modifier) % 10);
-        break;
-      case "dessert":
-        setDessertIdx((dessertIdx + modifier) % 10);
-        break;
-      default:
-        break;
-    }
-    // debugger;
-  };
-
-  // const modifyModalIdx = () => {
-
-  // };
 
   if (!Object.values(venues).length) return null;
 
@@ -74,7 +46,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
           className="main-page-option-container"
           onClick={() => {
             setModalCategory("activity");
-            setIndexType(activityIdx);
             setModalIdx(activityIdx);
             setShowModifyVenueModal(true);
           }}
@@ -93,11 +64,9 @@ const OptionsContainer = ({ venues, isDessert }) => {
           className="main-page-option-container restaurant"
           onClick={() => {
             setModalCategory("restaurant");
-            setIndexType(restaurantIdx);
             setModalIdx(restaurantIdx);
             setShowModifyVenueModal(true);
           }}
-          // onClick={() => setShowModifyVenueModal(true)}
         >
           <img
             className="main-page-option-image"
@@ -112,11 +81,9 @@ const OptionsContainer = ({ venues, isDessert }) => {
           className="main-page-option-container Drinks-dessert"
           onClick={() => {
             setModalCategory(isDessert ? "dessert" : "bar");
-            setIndexType(isDessert ? dessertIdx : barIdx);
             setModalIdx(isDessert ? dessertIdx : barIdx);
             setShowModifyVenueModal(true);
           }}
-          // onClick={() => setShowModifyVenueModal(true)}
         >
           <img
             className="main-page-option-image"
