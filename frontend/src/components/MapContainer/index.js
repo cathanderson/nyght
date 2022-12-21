@@ -95,7 +95,6 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
   console.log(Object.values(locations));
 
   return (
-    // <LoadScript googleMapsApiKey="AIzaSyB1BxZST3Zm7-b1cgmTBnFoRCYHZ6NkI10">
     <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
       <GoogleMap
         mapContainerStyle={mapContainerStyles}
