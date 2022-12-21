@@ -18,7 +18,6 @@ function ItineraryShowPage() {
 
   let activity, restaurant, bar, dessert;
   if (Object.values(venues).length >= 3) {
-    console.log("in assignment");
     Object.values(venues).forEach((venue) => {
       switch (venue.category) {
         case "activity":
@@ -39,7 +38,7 @@ function ItineraryShowPage() {
     });
   }
 
-  if (itinerary) console.log(`itinerary: ${itinerary.title}`);
+  // if (itinerary) console.log(`itinerary: ${itinerary.title}`);
 
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
@@ -95,7 +94,12 @@ function ItineraryShowPage() {
             </div>
           </div>
         </div>
-        <MapContainer />
+        <MapContainer
+          activity={activity}
+          restaurant={restaurant}
+          bar={bar}
+          dessert={dessert}
+        />
         <div id="itinerary-show-buttons-container">
           <button className="itinerary-show-button">Modify plan</button>
           <button className="itinerary-show-button">Delete plan</button>

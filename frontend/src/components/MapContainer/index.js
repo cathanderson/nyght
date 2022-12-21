@@ -8,7 +8,8 @@ import { useState, React } from "react";
 import MapStyles from "./MapStyles";
 import pin from "../../assets/icons/pin.png";
 
-const MapContainer = () => {
+const MapContainer = ({ activity, restaurant, bar, dessert }) => {
+
   const [selected, setSelected] = useState({});
 
   const onSelect = (item) => {
@@ -21,34 +22,46 @@ const MapContainer = () => {
   };
 
   let locations = {
-    1: {
-      name: "Philippe Chow",
+    activity: {
+      name: activity.title,
       location: {
-        lng: -73.9703347582011,
-        lat: 40.7640451702822,
+        lng: parseFloat(activity.lng.$numberDecimal),
+        lat: parseFloat(activity.lat.$numberDecimal),
       },
     },
-    2: {
-      name: "The Rum House",
+    restaurant: {
+      name: restaurant.title,
       location: {
-        lng: -73.9865878484881,
-        lat: 40.7595739126703,
-      },
-    },
-    3: {
-      name: "Visit the Museum of Modern Art",
-      location: {
-        lng: -73.977649980508,
-        lat: 40.7614106916124,
+        lng: parseFloat(restaurant.lng.$numberDecimal),
+        lat: parseFloat(restaurant.lat.$numberDecimal),
       },
     },
   };
+
+  if (bar) {
+    locations.bar = {
+      name: bar.title,
+      location: {
+        lng: parseFloat(bar.lng.$numberDecimal),
+        lat: parseFloat(bar.lat.$numberDecimal),
+      },
+    };
+  } else {
+    locations.dessert = {
+      name: dessert.title,
+      location: {
+        lng: parseFloat(dessert.lng.$numberDecimal),
+        lat: parseFloat(dessert.lat.$numberDecimal),
+      },
+    };
+  }
 
   const mapContainerStyles = {
     height: "80vh",
     width: "80%",
   };
-  console.log(process.env);
+
+  console.log(Object.values(locations));
 
   return (
     // <LoadScript googleMapsApiKey="AIzaSyB1BxZST3Zm7-b1cgmTBnFoRCYHZ6NkI10">
