@@ -22,6 +22,9 @@ function ItineraryShowPage() {
   const itinerary = useSelector((state) => state.itineraries);
   const venues = useSelector((state) => Object.values(state.venues));
 
+  const [showEditTitleForm, setShowEditTitleForm] = useState(false);
+  const [title, setTitle] = useState(itinerary.title);
+
   let activity, restaurant, bar, dessert;
   if (Object.values(venues).length >= 3) {
     Object.values(venues).forEach((venue) => {
@@ -73,13 +76,51 @@ function ItineraryShowPage() {
     dispatch(deleteItinerary(itineraryId)).then(history.push("/profile"));
   };
 
+  const handleEditTitle = (e) => {
+    e.preventDefault();
+    // const editTitleContainer = document.getElementById(
+    //   "itinerary-show-subheader-container"
+    // );
+    // while (editTitleContainer.firstChild) {
+    //   editTitleContainer.removeChild(editTitleContainer.lastChild);
+    // }
+    setShowEditTitleForm(true);
+  };
+
+  const handleSubmitUpdateTitle = (e) => {
+    e.preventDefault();
+    const data = { ...itinerary, title: title };
+    dispatch(updateItinerary(data));
+    setShowEditTitleForm(false);
+  };
+
   return (
     <>
       <div id="itinerary-show-page-container">
         <div id="itinerary-show-subheader-container">
-          <h2 className="itinerary-show-page-subheader">{itinerary.title}</h2>
-          <div className="edit-title-button">
-            <img src={pencil} alt="edit itinerary" />
+          <div className="edit-title-form">
+            {!showEditTitleForm && (
+              <>
+                <h2 className="itinerary-show-page-subheader">
+                  {itinerary.title}
+                </h2>
+                <div
+                  className="edit-title-button"
+                  onClick={(e) => handleEditTitle(e)}
+                >
+                  <img src={pencil} alt="edit itinerary" />
+                </div>
+              </>
+            )}
+            {showEditTitleForm && (
+              <form onSubmit={handleSubmitUpdateTitle}>
+                <input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <button>Update Title</button>
+              </form>
+            )}
           </div>
         </div>
         <div id="options-container">

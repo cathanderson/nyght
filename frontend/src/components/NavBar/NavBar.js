@@ -7,7 +7,7 @@ import { useState } from "react";
 import { LoginModal, SignupModal } from "../../context/Modal";
 import LoginForm from "../SessionForms/LoginForm";
 import SignupForm from "../SessionForms/SignupForm";
-import x from "../../assets/icons/close.png"
+import x from "../../assets/icons/close.png";
 
 function NavBar() {
   const loggedIn = useSelector((state) => !!state.session.user);
@@ -30,7 +30,11 @@ function NavBar() {
             Profile
           </Link>
           {/* <Link to={"/tweets/new"}>Write a Tweet</Link> */}
-          <div id="logout-nav-link" className="logged-in-nav-link" onClick={logoutUser}>
+          <div
+            id="logout-nav-link"
+            className="logged-in-nav-link"
+            onClick={logoutUser}
+          >
             Logout
           </div>
         </div>
@@ -56,6 +60,7 @@ function NavBar() {
                 onClick={() => setShowLoginModal(false)}
                 src={x}
                 className="form-x"
+                alt="close form"
               />
               <h3 className="modal-title">Log in</h3>
               <LoginForm />
@@ -81,7 +86,7 @@ function NavBar() {
     <>
       <nav id="main-nav">
         <Link id="main-logo-container" className="nav-link" to={"/"}>
-          <img id="main-logo" src={logo}/>
+          <img id="main-logo" src={logo} />
           {/* <h1>Nyght</h1> */}
         </Link>
         <div id="nav-links-container">{getLinks()}</div>
