@@ -1,7 +1,12 @@
 import { useEffect } from "react";
-import { getVenues, fetchVenuesByFilter } from "../../../store/venues";
+import {
+  getVenues,
+  fetchVenuesByFilter,
+  clearVenues,
+} from "../../../store/venues";
 import { useDispatch, useSelector } from "react-redux";
 import OptionsContainer from "../OptionsContainer";
+import { clearItinerary } from "../../../store/itineraries";
 
 const Randomizer = ({ neighborhood, isDessert }) => {
   const dispatch = useDispatch();
@@ -10,6 +15,11 @@ const Randomizer = ({ neighborhood, isDessert }) => {
   useEffect(() => {
     dispatch(fetchVenuesByFilter(neighborhood));
   }, [dispatch, neighborhood]);
+
+  useEffect(() => {
+    dispatch(clearVenues());
+    dispatch(clearItinerary());
+  }, []);
 
   const venuesByCategory = () => {
     if (!venues) return {};
@@ -22,7 +32,7 @@ const Randomizer = ({ neighborhood, isDessert }) => {
     return venuesSorted;
   };
 
-  console.log(venuesByCategory());
+  // console.log(venuesByCategory());
 
   return <OptionsContainer venues={venuesByCategory()} isDessert={isDessert} />;
 };

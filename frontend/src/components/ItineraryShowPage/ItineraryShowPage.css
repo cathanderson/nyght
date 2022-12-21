@@ -32,8 +32,13 @@
     cursor: pointer;
 }
 
-#itinerary-show-page-subheader {
+.itinerary-show-page-subheader {
     color: #2d3958;
     font-weight: 500;
     font-size: 28px;
+}
+
+#map-subheader {
+    margin: 30px 0px;
+    font-size: 24px;
 }

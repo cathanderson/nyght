@@ -1,6 +1,7 @@
 import "./index.css";
 import randomNum from "../../../store/random";
 import { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { ModifyVenueModal } from "../../../context/Modal";
 import x from "../../../assets/icons/close.png";

@@ -4,12 +4,12 @@ const RECEIVE_VENUE = "venues/RECEIVE_VENUE";
 const RECEIVE_VENUES = "venues/RECEIVE_VENUES";
 const CLEAR_VENUES = "venues/CLEAR_VENUES";
 
-const receiveVenue = (venue) => ({
+export const receiveVenue = (venue) => ({
   type: RECEIVE_VENUE,
   venue,
 });
 
-const receiveVenues = (venues) => ({
+export const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
   venues,
 });

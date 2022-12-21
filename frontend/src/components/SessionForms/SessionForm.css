@@ -1,30 +1,33 @@
 .session-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0px;
 }
 
 .session-form label {
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
 }
 .session-form input {
-    width: 300px;
-    height: 30px;
+  width: 300px;
+  height: 30px;
 }
 
 #session-form-submit {
-    width: 310px;
-    height: 38px;
-    margin-top: 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    border-style: solid;
-    border-color: #2d3958;
-    background-color: #2d3958;
-    color: white;
-    cursor: pointer;
+  width: 310px;
+  height: 38px;
+  margin-top: 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #2d3958;
+  background-color: #2d3958;
+  color: white;
+  cursor: pointer;
+}
+
+.errors > p {
+  color: red !important;
 }

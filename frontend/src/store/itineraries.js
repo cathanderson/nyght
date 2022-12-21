@@ -3,6 +3,7 @@ import jwtFetch from "./jwt";
 const RECEIVE_ITINERARY = "itineraries/RECEIVE_ITINERARY";
 const RECEIVE_ITINERARIES = "itineraries/RECEIVE_ITINERARIES";
 const REMOVE_ITINERARY = "itineraries/REMOVE_ITINERARY";
+const CLEAR_ITINERARY = "itineraries/CLEAR_ITINERARY";
 
 export const removeItinerary = (itinerary) => ({
   type: REMOVE_ITINERARY,
@@ -17,6 +18,10 @@ export const receiveItinerary = (itinerary) => ({
 export const receiveItineraries = (itineraries) => ({
   type: RECEIVE_ITINERARIES,
   itineraries
+});
+
+export const clearItinerary = () => ({
+  type: CLEAR_ITINERARY,
 });
 
 export const getItineraries = (state) =>
@@ -78,6 +83,8 @@ const itinerariesReducer = (state = {}, action) => {
       return newState[action.itinerary._id];
     case RECEIVE_ITINERARIES:
       return { ...action.itineraries };
+    case CLEAR_ITINERARY:
+      return {};
     default:
       return state;
   }

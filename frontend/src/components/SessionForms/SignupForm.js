@@ -46,19 +46,58 @@ function SignupForm() {
 
   const usernameSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
+    dispatch(signup({ firstName, lastName, email, password }));
+  };
 
-    dispatch(signup(user));
+  const displayError = (input) => {
+    let messages = {
+      email: {
+        1: "Wrong or invalid email address. Please correct and try again.",
+        2: "Enter your email.",
+      },
+      firstName: {
+        1: "Enter your first name",
+      },
+      lastName: {
+        1: "Enter your last name",
+      },
+      password: {
+        1: "Minimum 6 characters required",
+      },
+      secondpassword: {
+        1: "Type your password again",
+      },
+    };
+    let result = "";
+    if (errors) {
+      switch (input) {
+        case "email":
+          if (errors.email && email.length < 1) {
+            result = messages.email[2];
+          } else if (errors.email) {
+            result = messages.email[1];
+          }
+          break;
+        case "firstName":
+        case "lastName":
+        case "password":
+          if (errors[input]) result = messages[input][1];
+          break;
+        case "secondpassword":
+          if (password !== password2) {
+            result = "Confirm password must match password";
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    return <p>{result}</p>;
   };
 
   return (
     <form className="session-form" onSubmit={usernameSubmit}>
-      <div className="errors">{errors?.firstName}</div>
       <label>
         <span>First name</span>
         <input
@@ -68,7 +107,7 @@ function SignupForm() {
           placeholder="First name"
         />
       </label>
-      <div className="errors">{errors?.lastName}</div>
+      <div className="errors">{displayError("firstName")}</div>
       <label>
         <span>Last name</span>
         <input
@@ -78,7 +117,7 @@ function SignupForm() {
           placeholder="Last name"
         />
       </label>
-      <div className="errors">{errors?.email}</div>
+      <div className="errors">{displayError("lastName")}</div>
       <label>
         <span>Email</span>
         <input
@@ -88,7 +127,7 @@ function SignupForm() {
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors?.password}</div>
+      <div className="errors">{displayError("email")}</div>
       <label>
         <span>Password</span>
         <input
@@ -98,9 +137,7 @@ function SignupForm() {
           placeholder="Password"
         />
       </label>
-      <div className="errors">
-        {password !== password2 && "Confirm Password field must match"}
-      </div>
+      <div className="errors">{displayError("password")}</div>
       <label>
         <span>Confirm Password</span>
         <input
@@ -110,19 +147,8 @@ function SignupForm() {
           placeholder="Confirm Password"
         />
       </label>
-      <input
-        id="session-form-submit"
-        type="submit"
-        value="Sign Up"
-        disabled={
-          !firstName ||
-          !firstName ||
-          !email ||
-          !lastName ||
-          !password ||
-          password !== password2
-        }
-      />
+      <div className="errors">{displayError("secondpassword")}</div>
+      <input id="session-form-submit" type="submit" value="Sign Up" />
     </form>
   );
 }

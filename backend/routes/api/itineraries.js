@@ -41,27 +41,29 @@ transporter.verify((err, success) => {
 
 const handlebarOptions = {
   viewEngine: {
-    partialsDir: path.resolve("./template/"),
+    partialsDir: path.resolve("./routes/api/template/"),
     defaultLayout: false,
   },
-  viewPath: path.resolve("./template/"),
+  viewPath: path.resolve("./routes/api/template/"),
 };
 
 transporter.use("compile", hbs(handlebarOptions));
 
 router.post("/send", (req, res) => {
+  console.log(req.body);
   const mailOptions = {
     from: process.env.EMAIL,
     to: `${req.body.list}`,
     subject: `Message From NYGHT`,
+    // text: "test",
     template: "email",
-    context: {
-      name: `${req.body.firstName}`,
-    },
+    // context: {
+    //   name: `${req.body.firstName}`,
+    // },
   };
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-      res.json({ status: "fail" });
+      res.json({ status: `fail: ${err}` });
     } else {
       console.log("Message sent");
       res.json({ status: "success" });
@@ -91,7 +93,7 @@ router.get("/users/:userId", async (req, res, next) => {
 
 router.post(
   "/users/:userId",
-  requireUser,
+  // requireUser,
   validateItineraryInput,
   async (req, res, next) => {
     try {
