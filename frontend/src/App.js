@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar/NavBar";
 import MainPage from "./components/MainPage/MainPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ItineraryShowPage from "./components/ItineraryShowPage/ItineraryShowPage";
+import EmailFormPage from "./components/EmailPage/EmailFormPage";
 
 import { getCurrentUser } from "./store/session";
 
@@ -23,11 +24,18 @@ function App() {
       <>
         <NavBar />
         <Switch>
+          <Route exact path="/test">
+            <EmailFormPage />
+          </Route>
           <Route exact path="/">
             <MainPage />
           </Route>
           <ProtectedRoute exact path="/profile" component={ProfilePage} />
-          <ProtectedRoute exact path="/itineraries/:itineraryId" component={ItineraryShowPage} />
+          <ProtectedRoute
+            exact
+            path="/itineraries/:itineraryId"
+            component={ItineraryShowPage}
+          />
           {/* <AuthRoute exact path="/" component={MainPage} />
           <AuthRoute exact path="/login" component={LoginForm} />
           <AuthRoute exact path="/signup" component={SignupForm} /> */}

@@ -54,6 +54,9 @@ router.post("/send", (req, res) => {
     to: `${req.body.list}`,
     subject: `Message From NYGHT`,
     template: "email",
+    context: {
+      name: `${req.body.firstName}`,
+    },
   };
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
@@ -87,11 +90,10 @@ router.get("/users/:userId", async (req, res, next) => {
 
 router.post(
   "/users/:userId",
-  // requireUser,
+  requireUser,
   validateItineraryInput,
   async (req, res, next) => {
     try {
-      console.log("before creating");
       const newItn = new Itinerary({
         title: req.body.title,
         user: req.params.userId,
@@ -108,19 +110,15 @@ router.post(
   }
 );
 
-router.delete(
-  "/:id",
-  //  requireUser,
-  async (req, res, next) => {
-    Itinerary.findByIdAndDelete(req.params.id, (err, itn) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.send({ Success: "Itinerary deleted" });
-      }
-    });
-  }
-);
+router.delete("/:id", requireUser, async (req, res, next) => {
+  Itinerary.findByIdAndDelete(req.params.id, (err, itn) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send({ Success: "Itinerary deleted" });
+    }
+  });
+});
 
 router.patch("/:id", requireUser, async (req, res, next) => {
   Itinerary.findByIdAndUpdate(req.params.id, req.body, (err, itn) => {
