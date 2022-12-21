@@ -76,16 +76,25 @@ const OptionsContainer = ({ venues, isDessert }) => {
     console.log("test");
   };
 
+  const titleizedNeighborhoods = {
+    midtown: "Midtown",
+    village: "the Village",
+    harlem: "Harlem",
+    williamsburg: "Williamsburg",
+  };
+
   const handleItineraryConfirm = (e) => {
     e.preventDefault();
 
     const data = {
-      title: `Night in ${venues.activity[0].neighborhood}`,
+      title: `Night in ${
+        titleizedNeighborhoods[venues.activity[0].neighborhood]
+      }`,
       eventId: venues.activity[activityIdx]._id,
       dinnerId: venues.restaurant[restaurantIdx]._id,
       barId: venues.bar[barIdx]._id,
       dessertId: venues.dessert[dessertIdx]._id,
-      isDessert: isDessert
+      isDessert: isDessert,
     };
 
     const res = dispatch(createItinerary(myUser, data));
