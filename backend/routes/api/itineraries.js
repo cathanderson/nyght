@@ -7,6 +7,7 @@ const validateItineraryInput = require("../../validations/itineraries");
 const Itinerary = mongoose.model("Itinerary");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
+const path = require("path");
 
 router.get("/:id", async (req, res, next) => {
   try {
