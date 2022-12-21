@@ -25,11 +25,15 @@ const OptionsContainer = ({ venues, isDessert }) => {
   };
 
   const incrementModalIndex = () => {
-    modifyModalIndex(1);
+    if (modalIdx < 9) modifyModalIndex(1);
+    else setModalIdx(0);
+    console.log(modalIdx);
   };
 
   const decrementModalIndex = () => {
-    modifyModalIndex(-1);
+    if (modalIdx > 0) modifyModalIndex(-1);
+    else setModalIdx(9);
+    console.log(modalIdx);
   };
 
   const modifyModalIndex = (modifier) => {
