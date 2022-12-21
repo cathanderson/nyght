@@ -36,6 +36,11 @@
   width: 500px;
 }
 
+.main-page-button.confirm.logged-out {
+  border-color: #7e9ff1a9;
+  background-color: #7e9ff1a9;
+}
+
 .confirm-button {
   background: #42a362;
   font-size: 35px;

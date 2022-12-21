@@ -1,7 +1,9 @@
 import "./index.css";
 import randomNum from "../../../store/random";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ModifyVenueModal } from "../../../context/Modal";
+import { getCurrentUser } from "../../../store/session";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
@@ -16,6 +18,11 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const [modalCategory, setModalCategory] = useState("activity");
   const [modalIdx, setModalIdx] = useState(0);
+
+  const currentUser = useSelector((state) => state.session.user);
+  const dispatch = useDispatch();
+  const errors = useSelector((state) => state.errors.session);
+  // const [loggedIn, setLoggedIn]
 
   const randomizeIndeces = () => {
     setActivityIdx(randomNum(10));
@@ -63,11 +70,29 @@ const OptionsContainer = ({ venues, isDessert }) => {
     console.log("test");
   };
 
-  // const handleItineraryConfirm = () => {
-  //   const data = {
-  //     title: `Night in ${venue.neighborhood}`
-  //   };
-  // };
+  const handleItineraryConfirm = (e) => {
+    e.preventDefault();
+    // check if user is signed in
+    if (!currentUser) {
+    }
+
+    const data = {
+      title: `Night in ${venues.neighborhood}`,
+      user: currentUser,
+      event: venues.activity[activityIdx]._id,
+      dinner: venues.restaurant[restaurantIdx]._id,
+      bar: venues.bar[barIdx]._id,
+      dessert: venues.dessert[dessertIdx]._id,
+      isDessert: isDessert
+    };
+
+    // const res =
+  };
+
+  const confirmButton = document.querySelector(".main-page-button.confirm");
+  if (!currentUser) {
+    confirmButton.classList.add("logged-out");
+  }
 
   return (
     <>
@@ -145,7 +170,14 @@ const OptionsContainer = ({ venues, isDessert }) => {
         >
           Randomize plan
         </button>
-        <button className="main-page-button comfirm">Confirm plan</button>
+        <button
+          className="main-page-button confirm"
+          onClick={(e) => {
+            handleItineraryConfirm(e);
+          }}
+        >
+          Confirm plan
+        </button>
       </div>
       {showModifyVenueModal && (
         <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
