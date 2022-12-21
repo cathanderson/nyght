@@ -5,6 +5,7 @@ import { ModifyVenueModal } from "../../../context/Modal";
 import x from "../../../assets/icons/close.png";
 import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
+// import { debug } from "console";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -13,7 +14,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
   const [barIdx, setBarIdx] = useState(randomNum(10));
   const [dessertIdx, setDessertIdx] = useState(randomNum(10));
 
-  const [modalCategory, setModalCategory] = useState("");
+  const [modalCategory, setModalCategory] = useState("activity");
   const [modalIdx, setModalIdx] = useState(0);
 
   const randomizeIndeces = () => {
@@ -38,6 +39,33 @@ const OptionsContainer = ({ venues, isDessert }) => {
   };
 
   if (!Object.values(venues).length) return null;
+  // debugger;
+
+  // const handleModalConfirm = (category) => {
+  //   switch (category) {
+  //     case "activity":
+  //       setActivityIdx(modalIdx);
+  //       break;
+  //     case "restaurant":
+  //       setRestaurantIdx(modalIdx);
+  //       break;
+  //     case "bar":
+  //       setBarIdx(modalIdx);
+  //       break;
+  //     case "dessert":
+  //       setDessertIdx(modalIdx);
+  //       break;
+  //     default:
+  //       return;
+  //   }
+  //   setShowModifyVenueModal(false);
+  // };
+
+  // const handleItineraryConfirm = () => {
+  //   const data = {
+  //     title: `Night in ${venue.neighborhood}`
+  //   };
+  // };
 
   return (
     <>
@@ -48,6 +76,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
             setModalCategory("activity");
             setModalIdx(activityIdx);
             setShowModifyVenueModal(true);
+            console.log(showModifyVenueModal);
           }}
         >
           <img
@@ -117,10 +146,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
         <button className="main-page-button comfirm">Confirm plan</button>
       </div>
       {showModifyVenueModal && (
-        <ModifyVenueModal
-          activityIdx={activityIdx}
-          onClose={() => setShowModifyVenueModal(false)}
-        >
+        <ModifyVenueModal onClose={() => setShowModifyVenueModal(false)}>
           <img
             onClick={() => setShowModifyVenueModal(false)}
             src={x}
@@ -148,7 +174,14 @@ const OptionsContainer = ({ venues, isDessert }) => {
                 <img src={rightArrow} alt="right"></img>
               </div>
             </div>
-            <div className="confirm-button">Confirm Venue</div>
+            <div
+              className="confirm-button"
+              // onClick={handleModalConfirm(
+              //   venues[modalCategory][modalIdx].category
+              // )}
+            >
+              Confirm Venue
+            </div>
           </div>
         </ModifyVenueModal>
       )}
