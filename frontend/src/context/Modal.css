@@ -1,114 +1,113 @@
 #login-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 #modal-background {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: rgba(50, 50, 50, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(50, 50, 50, 0.5);
 }
 
 #login-modal-content {
-    position: absolute;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    font-size: 12px;
-    height: 280px;
-    width: 360px;
-    color: black;
-    font-weight: 700;
-    padding: 50px;
-    top: 350px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  font-size: 12px;
+  height: 280px;
+  width: 360px;
+  color: black;
+  font-weight: 700;
+  padding: 50px;
+  top: 350px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
 .form-x {
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
 }
 
-
 .modal-title {
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    margin: 16px 0px;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin: 16px 0px;
 }
 
 #signup-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 #signup-modal-content {
-    position: absolute;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    margin-top: 60px;
-    font-size: 12px;
-    height: 490px;
-    width: 360px;
-    color: black;
-    font-weight: 700;
-    padding: 50px;
-    top: 350px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  font-size: 12px;
+  height: 490px;
+  width: 360px;
+  color: black;
+  font-weight: 700;
+  padding: 50px;
+  top: 350px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
 #modify-venue-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 #modify-venue-modal-content {
-    position: absolute;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    font-size: 12px;
-    height: 600px;
-    width: 800px;
-    color: black;
-    font-weight: 700;
-    padding: 50px;
-    top: 410px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  font-size: 12px;
+  height: 600px;
+  width: 800px;
+  color: black;
+  font-weight: 700;
+  padding: 50px;
+  top: 410px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
 #email-modal {
