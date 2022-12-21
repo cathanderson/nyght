@@ -55,9 +55,7 @@
 }
 
 #main-page-instructions-container {
-  /* background-color: white;
-    padding: 10px;
-    border-radius: 15px; */
+  margin-bottom: 12px;
 }
 #main-page-instructions {
   color: #2d3958;
@@ -70,6 +68,7 @@
   /* margin-top: 16px; */
   display: flex;
   flex-direction: row;
+  margin-bottom: 2px;
 }
 
 .main-page-button {
