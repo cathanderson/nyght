@@ -1,6 +1,6 @@
 # NYGHT
 
-![Logo](./frontend/src/assets/images/logo.png)
+# <p align="center"/> <img src="./frontend/src/assets/images/logo_1.png" width="500" height="175" />
 
 Live link here (MUST ADD ONCE IMPLEMENTED).
 
@@ -13,13 +13,14 @@ To create a plan, the user can navigate to the home page, select a neighborhood,
 Once the user is satisfied with their plan, they can hit confirm. This will bring them to the itinerary's page which includes a map for their plan and functionality to email their plan to themself and their friends. They also have the ability to modify/cancel their plan from that page.
 
 ## Technologies and APIs Used
-* MongoDB
-* Express 
-* React/Redux 
-* Nodejs
-* Google Maps API 
-* AWS 
-* nodemailer
+
+- MongoDB
+- Express
+- React/Redux
+- Nodejs
+- Google Maps API
+- AWS
+- nodemailer
 
 ## Feature Highlights
 
