@@ -46,19 +46,3 @@
 .option-container.no-pointer {
   cursor: default;
 }
-
-#itinerary-show-subheader-container {
-  display: flex;
-  justify-content: center;
-}
-
-.edit-title-form {
-  display: flex;
-  justify-content: center;
-}
-
-.edit-title-button img {
-  width: 25px;
-  margin: -1px 0 0 30px;
-  position: absolute;
-}
