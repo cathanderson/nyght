@@ -13,7 +13,7 @@ import { getItinerary } from "../../store/itineraries";
 import { getVenues } from "../../store/venues";
 import { useParams } from "react-router-dom";
 
-function EmailFormAndList() {
+function EmailFormAndList({visible}) {
   const [mailerState, setMailerState] = useState("");
   const list = useSelector(getList);
   const { itineraryId } = useParams();
@@ -78,9 +78,10 @@ function EmailFormAndList() {
 
   let emailList = list.map((email, idx) => {
     return (
-      <div>
+      <div id="emails-list-item">
         <li>
           <input
+            id="emails-list-item-input"
             className={`update-input-${idx}`}
             type="email"
             value={emails[idx]}
@@ -88,14 +89,25 @@ function EmailFormAndList() {
             disabled={idx in updateDisabled ? updateDisabled[idx] : true}
           ></input>
         </li>
-        <button onClick={(e) => handleDelete(e, email)}>Delete</button>
-        <button onClick={(e) => handleUpdate(e, idx, email)}>Edit</button>
+        <button
+          id="emails-list-item-button"
+          onClick={(e) => handleDelete(e, email)}
+        >
+          Delete
+        </button>
+        <button
+          id="emails-list-item-button"
+          onClick={(e) => handleUpdate(e, idx, email)}
+        >
+          Edit
+        </button>
       </div>
     );
   });
 
   const submitEmail = async (e) => {
     e.preventDefault();
+    visible(false);
     const emails = list.map((item) => item.email);
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
@@ -135,12 +147,17 @@ function EmailFormAndList() {
             <h4 id="email-form-list-subheader">Add a friend's email:</h4>
             <form id="add-email-form" onSubmit={addEmail}>
               <input
+                id="add-email-text-input"
                 type="email"
                 placeholder="Add email"
                 onChange={handleStateChange}
                 value={mailerState}
               />
-              <input type="submit" value="Add email" />
+              <input
+                id="add-email-submit-input"
+                type="submit"
+                value="Add email"
+              />
             </form>
           </div>
         </div>

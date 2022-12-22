@@ -10,7 +10,7 @@
     height: 100%;
 }
 
-#inner-top-email-form-list-container {
+#inner-top-email-form-list-container, #outter-bottom-email-form-list-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -18,14 +18,35 @@
     align-items: center;
 }
 
-#outter-bottom-email-form-list-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#add-email-form {
+#add-email-form, #emails-list {
     display: flex;
 flex-direction: column;
+align-items: center;
+width: 340px;
+height: 400px;
+}
+
+#emails-list-item {
+    display: flex;
+    flex-direction: row;
+    width: 320px;
+}
+
+#emails-list-item-input {
+    width: 200px;
+    margin-right: 3px;
+}
+
+#emails-list-item-button {
+    min-width: 60px;
+    margin: 0px 3px;
+}
+
+#add-email-submit-input {
+    width: 120px;
+    margin: 6px;
+}
+
+#add-email-text-input {
+    width: 260px;
 }
