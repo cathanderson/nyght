@@ -59,6 +59,11 @@ router.post("/send", (req, res) => {
     template: "email",
     // context: {
     //   name: `${req.body.firstName}`,
+    //   title: ,
+    //   activity: ,
+    //   restaurant: ,
+    //   dessertOrbar: ||: ,
+    //
     // },
   };
   transporter.sendMail(mailOptions, (err, data) => {
@@ -114,7 +119,7 @@ router.post(
 );
 
 router.delete("/:id", requireUser, async (req, res, next) => {
-  Itinerary.findByIdAndDelete(req.params.id, (err, itn) => {
+  Itinerary.findByIdAndDelete(req.body.id, (err, itn) => {
     if (err) {
       res.status(400).send(err);
     } else {
