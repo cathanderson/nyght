@@ -78,7 +78,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
     midtown: "Midtown",
     village: "the Village",
     harlem: "Harlem",
-    williamsburg: "Williamsburg",
+    williamsburg: "Williamsburg"
   };
 
   const handleItineraryConfirm = (e) => {
@@ -92,7 +92,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
       dinnerId: venues.restaurant[restaurantIdx]._id,
       barId: venues.bar[barIdx]._id,
       dessertId: venues.dessert[dessertIdx]._id,
-      isDessert: isDessert,
+      isDessert: isDessert
     };
 
     const res = dispatch(createItinerary(myUser, data));

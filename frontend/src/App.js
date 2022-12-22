@@ -9,6 +9,8 @@ import MainPage from "./components/MainPage/MainPage";
 import AboutPage from "./components/AboutPage/AboutPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ItineraryShowPage from "./components/ItineraryShowPage/ItineraryShowPage";
+import ItineraryEditPage from "./components/ItineraryEditPage/index.js";
+// import ShowContainer from "./components/ItineraryShowPage/ShowContainer";
 import EmailFormPage from "./components/EmailPage/EmailFormPage";
 
 import { getCurrentUser } from "./store/session";
@@ -39,6 +41,11 @@ function App() {
             exact
             path="/itineraries/:itineraryId"
             component={ItineraryShowPage}
+          />
+          <ProtectedRoute
+            exact
+            path="/itineraries/:itineraryId/edit"
+            component={ItineraryEditPage}
           />
           {/* <AuthRoute exact path="/" component={MainPage} />
           <AuthRoute exact path="/login" component={LoginForm} />

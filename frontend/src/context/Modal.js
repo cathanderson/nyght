@@ -60,6 +60,20 @@ export function ModifyVenueModal({ onClose, children }) {
   );
 }
 
+export function EditItineraryModifyVenueModal({ onClose, children }) {
+  // console.log(activityIdx);
+  const modalNode = useContext(ModalContext);
+  if (!modalNode) return null;
+
+  return ReactDOM.createPortal(
+    <div id="modify-venue-modal">
+      <div id="modal-background" onClick={onClose} />
+      <div id="modify-venue-modal-content">{children}</div>
+    </div>,
+    modalNode
+  );
+}
+
 export function EmailModal({ onClose, children }) {
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { LoginModal, SignupModal } from "../../context/Modal";
 import LoginForm from "../SessionForms/LoginForm";
 import SignupForm from "../SessionForms/SignupForm";
-import x from "../../assets/icons/close.png"
+import x from "../../assets/icons/close.png";
 
 function NavBar() {
   const loggedIn = useSelector((state) => !!state.session.user);
@@ -44,7 +44,9 @@ function NavBar() {
       return (
         <>
           <div className="links-auth">
-            <Link className="logged-in-nav-link" to={"/about"}> {/* fix janky class name here later... user is logged out when they see this link but we need this class name for spacing purposes*/}
+            <Link className="logged-in-nav-link" to={"/about"}>
+              {" "}
+              {/* fix janky class name here later... user is logged out when they see this link but we need this class name for spacing purposes*/}
               About
             </Link>
             <Link
@@ -64,6 +66,7 @@ function NavBar() {
                 onClick={() => setShowLoginModal(false)}
                 src={x}
                 className="form-x"
+                alt="close form"
               />
               <h3 className="modal-title">Log in</h3>
               <LoginForm />
@@ -89,7 +92,7 @@ function NavBar() {
     <>
       <nav id="main-nav">
         <Link id="main-logo-container" className="nav-link" to={"/"}>
-          <img id="main-logo" src={logo}/>
+          <img id="main-logo" src={logo} />
           {/* <h1>Nyght</h1> */}
         </Link>
         <div id="nav-links-container">{getLinks()}</div>
