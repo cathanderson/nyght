@@ -1,7 +1,7 @@
 import "./EmailFormAndList.css";
 import { useEffect, useState } from "react";
 import jwtFetch from "../../store/jwt";
-import { fetchList, getList, createEmail } from "../../store/emails";
+import { fetchList, getList, createEmail, deleteEmail } from "../../store/emails";
 import { useDispatch, useSelector } from "react-redux";
 import { getItinerary } from "../../store/itineraries";
 import { getVenues } from "../../store/venues";
@@ -13,11 +13,12 @@ function EmailFormAndList() {
   const { itineraryId } = useParams();
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
+  const currentUser = useSelector((state) => state.session.user);
   const venues = useSelector((state) => Object.values(state.venues));
 
   useEffect(() => {
     dispatch(fetchList(itineraryId));
-  }, [dispatch, itineraryId]);
+  }, [dispatch, itineraryId, list.length]);
 
   function handleStateChange(e) {
     setMailerState(e.target.value);
@@ -29,18 +30,38 @@ function EmailFormAndList() {
     setMailerState("");
   };
 
+  const handleDelete = (e, email) => {
+    e.preventDefault();
+    console.log(`Email: ${email._id}`);
+    dispatch(deleteEmail(email._id, itineraryId))
+    dispatch(fetchList(itineraryId))
+  }
+
   let emailList = list.map((email) => {
-    return <li>{email.email}</li>;
+    return (
+      <div>
+        <li>{email.email}</li>
+        <button onClick={(e) => handleDelete(e, email)}>Delete</button>
+      </div>
+    );
   });
 
   const submitEmail = async (e) => {
     e.preventDefault();
+    const emails = list.map((item) => item.email);
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ list: list }),
+      body: JSON.stringify({ 
+        firstName: currentUser.firstName,
+        list: emails, 
+        title:  itinerary.title,
+        activity: venues[0],
+        restaurant: venues[1],
+        dessertOrBar: venues[2]
+      }),
     })
       .then((res) => res.json())
       .then(async (res) => {

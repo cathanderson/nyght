@@ -50,21 +50,23 @@ const handlebarOptions = {
 transporter.use("compile", hbs(handlebarOptions));
 
 router.post("/send", (req, res) => {
-  console.log(req.body);
   const mailOptions = {
     from: process.env.EMAIL,
     to: `${req.body.list}`,
     subject: `Message From NYGHT`,
     // text: "test",
     template: "email",
-    // context: {
-    //   name: `${req.body.firstName}`,
-    //   title: ,
-    //   activity: ,
-    //   restaurant: ,
-    //   dessertOrbar: ||: ,
-    //
-    // },
+    context: {
+      name: `${req.body.firstName}`,
+      title: `${req.body.title}`,
+      activity: `${req.body.activity.title}`,
+      activityAddress: `${req.body.activity.address}`,
+      restaurant: `${req.body.restaurant.title}`,
+      restaurantAddress: `${req.body.restaurant.address}`,
+      dessertOrBar: `${req.body.dessertOrBar.title}`,
+      dessertOrBarAddress: `${req.body.dessertOrBar.address}`,
+    
+    },
   };
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
