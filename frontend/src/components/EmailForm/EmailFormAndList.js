@@ -1,7 +1,13 @@
 import "./EmailFormAndList.css";
 import { useEffect, useState } from "react";
 import jwtFetch from "../../store/jwt";
-import { fetchList, getList, createEmail, deleteEmail } from "../../store/emails";
+import {
+  fetchList,
+  getList,
+  createEmail,
+  deleteEmail,
+  updateEmails,
+} from "../../store/emails";
 import { useDispatch, useSelector } from "react-redux";
 import { getItinerary } from "../../store/itineraries";
 import { getVenues } from "../../store/venues";
@@ -15,10 +21,32 @@ function EmailFormAndList() {
   const itinerary = useSelector((state) => state.itineraries);
   const currentUser = useSelector((state) => state.session.user);
   const venues = useSelector((state) => Object.values(state.venues));
+  const [updateDisabled, setUpdateDisabled] = useState({});
+  const [emails, setEmailed] = useState({});
 
   useEffect(() => {
     dispatch(fetchList(itineraryId));
   }, [dispatch, itineraryId, list.length]);
+
+  useEffect(() => {
+    list.forEach((email, idx) => {
+      setEmailed({
+        ...emails,
+        [idx]: email.email,
+      });
+    });
+  }, [list]);
+
+  const handleBlur = (e) => {
+    const idx = e.currentTarget.idx;
+    setUpdateDisabled({
+      ...updateDisabled,
+      [e.currentTarget.idx]: true,
+    });
+    dispatch(updateEmails(e.currentTarget.email, e.currentTarget.value));
+
+    e.currentTarget.removeEventListener("blur", handleBlur);
+  };
 
   function handleStateChange(e) {
     setMailerState(e.target.value);
@@ -27,20 +55,41 @@ function EmailFormAndList() {
   const addEmail = (e) => {
     e.preventDefault();
     dispatch(createEmail(itineraryId, mailerState));
-    setMailerState("");
+    setMailerState(" ");
   };
 
   const handleDelete = (e, email) => {
     e.preventDefault();
-    dispatch(deleteEmail(email._id, itineraryId))
-    dispatch(fetchList(itineraryId))
-  }
+    dispatch(deleteEmail(email._id, itineraryId));
+    dispatch(fetchList(itineraryId));
+  };
 
-  let emailList = list.map((email) => {
+  const handleUpdate = (e, idx, email) => {
+    const input = document.querySelector(`.update-input-${idx}`);
+    e.preventDefault();
+    setUpdateDisabled({
+      ...updateDisabled,
+      [idx]: false,
+    });
+    input.addEventListener("blur", handleBlur);
+    input.idx = idx;
+    input.email = email;
+  };
+
+  let emailList = list.map((email, idx) => {
     return (
       <div>
-        <li><input type="text" value={email.email} disabled></input></li>
+        <li>
+          <input
+            className={`update-input-${idx}`}
+            type="email"
+            value={emails[idx]}
+            onChange={(e) => setEmailed({ ...emails, [idx]: e.target.value })}
+            disabled={idx in updateDisabled ? updateDisabled[idx] : true}
+          ></input>
+        </li>
         <button onClick={(e) => handleDelete(e, email)}>Delete</button>
+        <button onClick={(e) => handleUpdate(e, idx, email)}>Edit</button>
       </div>
     );
   });
@@ -53,13 +102,13 @@ function EmailFormAndList() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         firstName: currentUser.firstName,
-        list: emails, 
-        title:  itinerary.title,
+        list: emails,
+        title: itinerary.title,
         activity: venues[0],
         restaurant: venues[1],
-        dessertOrBar: venues[2]
+        dessertOrBar: venues[2],
       }),
     })
       .then((res) => res.json())
