@@ -4,12 +4,14 @@ import session from "./session";
 import errors from "./errors";
 import venues from "./venues";
 import itineraries from "./itineraries";
+import emails from "./emails";
 
 const rootReducer = combineReducers({
   session,
   errors,
   venues,
   itineraries,
+  emails,
 });
 
 let enhancer;

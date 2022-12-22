@@ -1,10 +1,23 @@
 import "./EmailFormAndList.css";
 import { useEffect, useState } from "react";
 import jwtFetch from "../../store/jwt";
+import { fetchList, getList, createEmail } from "../../store/emails";
+import { useDispatch, useSelector } from "react-redux";
+import { getItinerary } from "../../store/itineraries";
+import { getVenues } from "../../store/venues";
+import { useParams } from "react-router-dom";
 
 function EmailFormAndList() {
   const [mailerState, setMailerState] = useState("");
-  const [list, setList] = useState([]);
+  const list = useSelector(getList);
+  const { itineraryId } = useParams();
+  const dispatch = useDispatch();
+  const itinerary = useSelector((state) => state.itineraries);
+  const venues = useSelector((state) => Object.values(state.venues));
+
+  useEffect(() => {
+    dispatch(fetchList(itineraryId));
+  }, [dispatch, itineraryId]);
 
   function handleStateChange(e) {
     setMailerState(e.target.value);
@@ -12,12 +25,12 @@ function EmailFormAndList() {
 
   const addEmail = (e) => {
     e.preventDefault();
-    setList([...list, mailerState]);
+    dispatch(createEmail(itineraryId, mailerState));
     setMailerState("");
   };
 
   let emailList = list.map((email) => {
-    return <li style={{ color: "white" }}>{email}</li>;
+    return <li>{email.email}</li>;
   });
 
   const submitEmail = async (e) => {
@@ -52,7 +65,12 @@ function EmailFormAndList() {
           <div id="email-form-container">
             <h4 id="email-form-list-subheader">Add a friend's email:</h4>
             <form id="add-email-form" onSubmit={addEmail}>
-              <input type="email" placeholder="Add email" />
+              <input
+                type="email"
+                placeholder="Add email"
+                onChange={handleStateChange}
+                value={mailerState}
+              />
               <input type="submit" value="Add email" />
             </form>
           </div>
