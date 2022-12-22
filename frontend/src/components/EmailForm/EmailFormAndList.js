@@ -30,13 +30,10 @@ function EmailFormAndList({ visible }) {
 
   useEffect(() => {
     list.forEach((email, idx) => {
-      console.log(email);
-      console.log(idx);
-      console.log(emails);
-      setEmailed({
+      setEmailed((emails) => ({
         ...emails,
         [idx]: email.email,
-      });
+      }));
     });
   }, [list]);
 
@@ -56,6 +53,7 @@ function EmailFormAndList({ visible }) {
   }
 
   const addEmail = (e) => {
+    const size = Object.keys(emails).length;
     e.preventDefault();
     dispatch(createEmail(itineraryId, mailerState));
     setMailerState(" ");
@@ -87,8 +85,6 @@ function EmailFormAndList({ visible }) {
     );
   } else {
     emailList = list.map((email, idx) => {
-      // console.log(email);
-      // debugger;
       return (
         <div id="emails-list-item">
           <li>

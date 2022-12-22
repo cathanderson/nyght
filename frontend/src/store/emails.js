@@ -68,7 +68,7 @@ export const updateEmails = (email, newEmail) => async (dispatch) => {
     },
   });
   const data = await res.json();
-  dispatch(updateEmail(data.email));
+  dispatch(updateEmail(data));
 };
 
 const emailsReducer = (state = {}, action) => {
@@ -88,9 +88,10 @@ const emailsReducer = (state = {}, action) => {
       delete newState[keyToDelete];
       return newState;
     case UPDATE_EMAIL:
+      console.log(`action email:`);
       console.log(action.email);
       const keyToUpdate = keys.find(
-        (key) => newState[key].id === action.email.id
+        (key) => newState[key]._id === action.email._id
       );
       newState[keyToUpdate] = action.email;
       return newState;
