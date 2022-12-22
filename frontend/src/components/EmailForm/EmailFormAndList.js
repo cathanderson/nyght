@@ -30,6 +30,9 @@ function EmailFormAndList({ visible }) {
 
   useEffect(() => {
     list.forEach((email, idx) => {
+      console.log(email);
+      console.log(idx);
+      console.log(emails);
       setEmailed({
         ...emails,
         [idx]: email.email,
@@ -76,12 +79,16 @@ function EmailFormAndList({ visible }) {
     input.email = email;
   };
 
-  let emailList
+  let emailList;
 
   if (list.length === 0) {
-    emailList = <div id="no-emails-div">No emails yet! Add one on the left 😉</div>
+    emailList = (
+      <div id="no-emails-div">No emails yet! Add one on the left 😉</div>
+    );
   } else {
     emailList = list.map((email, idx) => {
+      // console.log(email);
+      // debugger;
       return (
         <div id="emails-list-item">
           <li>
