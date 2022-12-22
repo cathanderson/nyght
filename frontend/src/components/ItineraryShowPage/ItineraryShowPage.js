@@ -94,6 +94,8 @@ function ItineraryShowPage() {
     setShowEditTitleForm(false);
   };
 
+  const showEditTitlePopup = () => {};
+
   return (
     <>
       <div id="itinerary-show-page-container">
@@ -108,7 +110,11 @@ function ItineraryShowPage() {
                   className="edit-title-button"
                   onClick={(e) => handleEditTitle(e)}
                 >
-                  <img src={pencil} alt="edit itinerary" />
+                  <img
+                    src={pencil}
+                    alt="edit itinerary"
+                    onMouseOver={showEditTitlePopup}
+                  />
                 </div>
               </>
             )}
