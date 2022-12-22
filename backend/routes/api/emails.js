@@ -32,12 +32,14 @@ router.post("/:itinerary", async (req, res, next) => {
   }
 });
 
-router.delete("/:itinerary", requireUser, async (req, res, next) => {
-  Email.findByIdAndDelete(req.body.id, (err, email) => {
+router.delete("/:id", requireUser, async (req, res, next) => {
+  console.log(`${req.body.id}`);
+  const id = req.body.id;
+  Email.findByIdAndDelete(req.params.id, (err, email) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.send({ Success: "Email deleted" });
+      res.send({ Success: "Email deleted", id: id });
     }
   });
 });

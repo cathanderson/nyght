@@ -41,10 +41,9 @@ export const createEmail = (itineraryId, email) => async (dispatch) => {
   return data;
 };
 
-export const deleteEmail = (id, itineraryId) => async (dispatch) => {
-  const res = await jwtFetch(`/api/emails/${itineraryId}`, {
+export const deleteEmail = (id) => async (dispatch) => {
+  const res = await jwtFetch(`/api/emails/${id}`, {
     method: "DELETE",
-    body: JSON.stringify({ id: id }),
     headers: {
       "content-type": "application/json",
     },

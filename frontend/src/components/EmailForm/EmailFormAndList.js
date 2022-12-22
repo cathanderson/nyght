@@ -32,7 +32,6 @@ function EmailFormAndList() {
 
   const handleDelete = (e, email) => {
     e.preventDefault();
-    console.log(`Email: ${email._id}`);
     dispatch(deleteEmail(email._id, itineraryId))
     dispatch(fetchList(itineraryId))
   }
@@ -40,7 +39,7 @@ function EmailFormAndList() {
   let emailList = list.map((email) => {
     return (
       <div>
-        <li>{email.email}</li>
+        <li><input type="text" value={email.email} disabled></input></li>
         <button onClick={(e) => handleDelete(e, email)}>Delete</button>
       </div>
     );
