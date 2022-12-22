@@ -424,7 +424,7 @@ function ItineraryShowPage() {
             src={x}
             className="form-x"
           />
-          <EmailFormAndList />
+          <EmailFormAndList visible={setShowEmailModal} />
         </EmailModal>
       )}
     </>

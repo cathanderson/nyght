@@ -22,6 +22,7 @@ const usersRouter = require("./routes/api/users");
 const csrfRouter = require("./routes/api/csrf");
 const venuesRouter = require("./routes/api/venues");
 const itinerariesRouter = require("./routes/api/itineraries");
+const emailRouter = require("./routes/api/emails");
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/csrf", csrfRouter);
 app.use("/api/venues", venuesRouter);
 app.use("/api/itineraries", itinerariesRouter);
+app.use("/api/emails", emailRouter);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");

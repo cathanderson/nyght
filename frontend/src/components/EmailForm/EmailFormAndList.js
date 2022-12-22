@@ -1,33 +1,138 @@
 import "./EmailFormAndList.css";
 import { useEffect, useState } from "react";
 import jwtFetch from "../../store/jwt";
+import {
+  fetchList,
+  getList,
+  createEmail,
+  deleteEmail,
+  updateEmails,
+} from "../../store/emails";
+import { useDispatch, useSelector } from "react-redux";
+import { getItinerary } from "../../store/itineraries";
+import { getVenues } from "../../store/venues";
+import { useParams } from "react-router-dom";
 
-function EmailFormAndList() {
+function EmailFormAndList({ visible }) {
   const [mailerState, setMailerState] = useState("");
-  const [list, setList] = useState([]);
+  const list = useSelector(getList);
+  const { itineraryId } = useParams();
+  const dispatch = useDispatch();
+  const itinerary = useSelector((state) => state.itineraries);
+  const currentUser = useSelector((state) => state.session.user);
+  const venues = useSelector((state) => Object.values(state.venues));
+  const [updateDisabled, setUpdateDisabled] = useState({});
+  const [emails, setEmailed] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchList(itineraryId));
+  }, [dispatch, itineraryId, list.length]);
+
+  useEffect(() => {
+    list.forEach((email, idx) => {
+      setEmailed((emails) => ({
+        ...emails,
+        [idx]: email.email,
+      }));
+    });
+  }, [list]);
+
+  const handleBlur = (e) => {
+    const idx = e.currentTarget.idx;
+    setUpdateDisabled({
+      ...updateDisabled,
+      [e.currentTarget.idx]: true,
+    });
+    dispatch(updateEmails(e.currentTarget.email, e.currentTarget.value));
+
+    e.currentTarget.removeEventListener("blur", handleBlur);
+  };
 
   function handleStateChange(e) {
     setMailerState(e.target.value);
   }
 
   const addEmail = (e) => {
+    const size = Object.keys(emails).length;
     e.preventDefault();
-    setList([...list, mailerState]);
-    setMailerState("");
+    dispatch(createEmail(itineraryId, mailerState));
+    setMailerState(" ");
   };
 
-  let emailList = list.map((email) => {
-    return <li style={{ color: "white" }}>{email}</li>;
-  });
+  const handleDelete = (e, email) => {
+    e.preventDefault();
+    dispatch(deleteEmail(email._id, itineraryId));
+    dispatch(fetchList(itineraryId));
+  };
+
+  const handleUpdate = (e, idx, email) => {
+    const input = document.querySelector(`.update-input-${idx}`);
+    e.preventDefault();
+    setUpdateDisabled({
+      ...updateDisabled,
+      [idx]: false,
+    });
+    input.addEventListener("blur", handleBlur);
+    input.idx = idx;
+    input.email = email;
+  };
+
+  let emailList;
+
+  if (list.length === 0) {
+    emailList = (
+      <div id="no-emails-div">No emails yet! Add one on the left 😉</div>
+    );
+  } else {
+    emailList = list.map((email, idx) => {
+      return (
+        <div id="emails-list-item">
+          <li>
+            <input
+              id="emails-list-item-input"
+              className={`update-input-${idx}`}
+              type="email"
+              value={emails[idx]}
+              onChange={(e) => setEmailed({ ...emails, [idx]: e.target.value })}
+              disabled={idx in updateDisabled ? updateDisabled[idx] : true}
+            ></input>
+          </li>
+          <button
+            id="emails-list-item-button"
+            className="email-form-list-button"
+            onClick={(e) => handleDelete(e, email)}
+          >
+            Delete
+          </button>
+          <button
+            id="emails-list-item-button"
+            className="email-form-list-button"
+            onClick={(e) => handleUpdate(e, idx, email)}
+          >
+            Edit
+          </button>
+        </div>
+      );
+    });
+  }
 
   const submitEmail = async (e) => {
     e.preventDefault();
+    visible(false);
+    const emails = list.map((item) => item.email);
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ list: list }),
+      body: JSON.stringify({
+        firstName: currentUser.firstName,
+        list: emails,
+        title: itinerary.title,
+        activity: venues[0],
+        restaurant: venues[1],
+        dessertOrBar: venues[2],
+      }),
     })
       .then((res) => res.json())
       .then(async (res) => {
@@ -49,22 +154,38 @@ function EmailFormAndList() {
     <div id="email-form-list-container">
       <div id="outter-top-email-form-list-container">
         <div id="inner-top-email-form-list-container">
-          <div id="email-form-container">
+          <form id="add-email-form" onSubmit={addEmail}>
             <h4 id="email-form-list-subheader">Add a friend's email:</h4>
-            <form id="add-email-form" onSubmit={addEmail}>
-              <input type="email" placeholder="Add email" />
-              <input type="submit" value="Add email" />
-            </form>
-          </div>
+            <input
+              id="add-email-text-input"
+              type="email"
+              placeholder="Add email"
+              onChange={handleStateChange}
+              value={mailerState}
+            />
+            <input
+              id="add-email-submit-input"
+              className="email-form-list-button"
+              type="submit"
+              value="Add email"
+            />
+          </form>
         </div>
         <div id="inner-top-email-form-list-container">
-          <h4 id="email-form-list-subheader">Itinerary email list:</h4>
-          <ul id="emails-list">{emailList}</ul>
+          <ul id="emails-list">
+            <h4 id="email-form-list-subheader">Itinerary email list:</h4>
+            {emailList}
+          </ul>
         </div>
       </div>
       <div id="outter-bottom-email-form-list-container">
         <form id="send-email-form" onSubmit={submitEmail}>
-          <input type="submit" value="Send emails" />
+          <input
+            id="send-email-button"
+            className="email-form-list-button"
+            type="submit"
+            value="Send emails"
+          />
         </form>
       </div>
     </div>
