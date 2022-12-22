@@ -22,6 +22,7 @@
     display: flex;
 flex-direction: column;
 align-items: center;
+justify-content: center;
 width: 340px;
 height: 400px;
 }
@@ -30,6 +31,7 @@ height: 400px;
     display: flex;
     flex-direction: row;
     width: 320px;
+    margin: 3px 0px;
 }
 
 #emails-list-item-input {
@@ -49,4 +51,29 @@ height: 400px;
 
 #add-email-text-input {
     width: 260px;
+}
+
+#email-form-list-subheader {
+    color: #2d3958;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.email-form-list-button {
+    background-color: #2d3958;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #2d3958;
+    padding: 2px;
+}
+
+#send-email-button {
+    padding: 2.5px;
+    width: 120px;
+}
+
+#no-emails-div {
+    font-weight: 500;
 }

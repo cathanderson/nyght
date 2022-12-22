@@ -13,7 +13,7 @@ import { getItinerary } from "../../store/itineraries";
 import { getVenues } from "../../store/venues";
 import { useParams } from "react-router-dom";
 
-function EmailFormAndList({visible}) {
+function EmailFormAndList({ visible }) {
   const [mailerState, setMailerState] = useState("");
   const list = useSelector(getList);
   const { itineraryId } = useParams();
@@ -76,34 +76,42 @@ function EmailFormAndList({visible}) {
     input.email = email;
   };
 
-  let emailList = list.map((email, idx) => {
-    return (
-      <div id="emails-list-item">
-        <li>
-          <input
-            id="emails-list-item-input"
-            className={`update-input-${idx}`}
-            type="email"
-            value={emails[idx]}
-            onChange={(e) => setEmailed({ ...emails, [idx]: e.target.value })}
-            disabled={idx in updateDisabled ? updateDisabled[idx] : true}
-          ></input>
-        </li>
-        <button
-          id="emails-list-item-button"
-          onClick={(e) => handleDelete(e, email)}
-        >
-          Delete
-        </button>
-        <button
-          id="emails-list-item-button"
-          onClick={(e) => handleUpdate(e, idx, email)}
-        >
-          Edit
-        </button>
-      </div>
-    );
-  });
+  let emailList
+
+  if (list.length === 0) {
+    emailList = <div id="no-emails-div">No emails yet! Add one on the left 😉</div>
+  } else {
+    emailList = list.map((email, idx) => {
+      return (
+        <div id="emails-list-item">
+          <li>
+            <input
+              id="emails-list-item-input"
+              className={`update-input-${idx}`}
+              type="email"
+              value={emails[idx]}
+              onChange={(e) => setEmailed({ ...emails, [idx]: e.target.value })}
+              disabled={idx in updateDisabled ? updateDisabled[idx] : true}
+            ></input>
+          </li>
+          <button
+            id="emails-list-item-button"
+            className="email-form-list-button"
+            onClick={(e) => handleDelete(e, email)}
+          >
+            Delete
+          </button>
+          <button
+            id="emails-list-item-button"
+            className="email-form-list-button"
+            onClick={(e) => handleUpdate(e, idx, email)}
+          >
+            Edit
+          </button>
+        </div>
+      );
+    });
+  }
 
   const submitEmail = async (e) => {
     e.preventDefault();
@@ -143,32 +151,38 @@ function EmailFormAndList({visible}) {
     <div id="email-form-list-container">
       <div id="outter-top-email-form-list-container">
         <div id="inner-top-email-form-list-container">
-          <div id="email-form-container">
+          <form id="add-email-form" onSubmit={addEmail}>
             <h4 id="email-form-list-subheader">Add a friend's email:</h4>
-            <form id="add-email-form" onSubmit={addEmail}>
-              <input
-                id="add-email-text-input"
-                type="email"
-                placeholder="Add email"
-                onChange={handleStateChange}
-                value={mailerState}
-              />
-              <input
-                id="add-email-submit-input"
-                type="submit"
-                value="Add email"
-              />
-            </form>
-          </div>
+            <input
+              id="add-email-text-input"
+              type="email"
+              placeholder="Add email"
+              onChange={handleStateChange}
+              value={mailerState}
+            />
+            <input
+              id="add-email-submit-input"
+              className="email-form-list-button"
+              type="submit"
+              value="Add email"
+            />
+          </form>
         </div>
         <div id="inner-top-email-form-list-container">
-          <h4 id="email-form-list-subheader">Itinerary email list:</h4>
-          <ul id="emails-list">{emailList}</ul>
+          <ul id="emails-list">
+            <h4 id="email-form-list-subheader">Itinerary email list:</h4>
+            {emailList}
+          </ul>
         </div>
       </div>
       <div id="outter-bottom-email-form-list-container">
         <form id="send-email-form" onSubmit={submitEmail}>
-          <input type="submit" value="Send emails" />
+          <input
+            id="send-email-button"
+            className="email-form-list-button"
+            type="submit"
+            value="Send emails"
+          />
         </form>
       </div>
     </div>
