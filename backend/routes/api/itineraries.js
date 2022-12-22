@@ -50,16 +50,23 @@ const handlebarOptions = {
 transporter.use("compile", hbs(handlebarOptions));
 
 router.post("/send", (req, res) => {
-  console.log(req.body);
   const mailOptions = {
     from: process.env.EMAIL,
     to: `${req.body.list}`,
     subject: `Message From NYGHT`,
     // text: "test",
     template: "email",
-    // context: {
-    //   name: `${req.body.firstName}`,
-    // },
+    context: {
+      name: `${req.body.firstName}`,
+      title: `${req.body.title}`,
+      activity: `${req.body.activity.title}`,
+      activityAddress: `${req.body.activity.address}`,
+      restaurant: `${req.body.restaurant.title}`,
+      restaurantAddress: `${req.body.restaurant.address}`,
+      dessertOrBar: `${req.body.dessertOrBar.title}`,
+      dessertOrBarAddress: `${req.body.dessertOrBar.address}`,
+    
+    },
   };
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
@@ -114,7 +121,7 @@ router.post(
 );
 
 router.delete("/:id", requireUser, async (req, res, next) => {
-  Itinerary.findByIdAndDelete(req.params.id, (err, itn) => {
+  Itinerary.findByIdAndDelete(req.body.id, (err, itn) => {
     if (err) {
       res.status(400).send(err);
     } else {

@@ -9,6 +9,7 @@ import configureStore from "./store/store";
 import * as venueActions from "./store/venues";
 import * as itineraryActions from "./store/itineraries";
 import jwtFetch from "./store/jwt";
+import * as emailActions from "./store/emails";
 
 let store = configureStore({});
 
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV !== "production") {
   window.jwtFetch = jwtFetch;
   window.venueActions = venueActions;
   window.itineraryActions = itineraryActions;
+  window.emailActions = emailActions;
 }
 
 function Root() {

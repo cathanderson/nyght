@@ -1,10 +1,24 @@
 import "./EmailFormAndList.css";
 import { useEffect, useState } from "react";
 import jwtFetch from "../../store/jwt";
+import { fetchList, getList, createEmail, deleteEmail } from "../../store/emails";
+import { useDispatch, useSelector } from "react-redux";
+import { getItinerary } from "../../store/itineraries";
+import { getVenues } from "../../store/venues";
+import { useParams } from "react-router-dom";
 
 function EmailFormAndList() {
   const [mailerState, setMailerState] = useState("");
-  const [list, setList] = useState([]);
+  const list = useSelector(getList);
+  const { itineraryId } = useParams();
+  const dispatch = useDispatch();
+  const itinerary = useSelector((state) => state.itineraries);
+  const currentUser = useSelector((state) => state.session.user);
+  const venues = useSelector((state) => Object.values(state.venues));
+
+  useEffect(() => {
+    dispatch(fetchList(itineraryId));
+  }, [dispatch, itineraryId, list.length]);
 
   function handleStateChange(e) {
     setMailerState(e.target.value);
@@ -12,22 +26,41 @@ function EmailFormAndList() {
 
   const addEmail = (e) => {
     e.preventDefault();
-    setList([...list, mailerState]);
+    dispatch(createEmail(itineraryId, mailerState));
     setMailerState("");
   };
 
+  const handleDelete = (e, email) => {
+    e.preventDefault();
+    dispatch(deleteEmail(email._id, itineraryId))
+    dispatch(fetchList(itineraryId))
+  }
+
   let emailList = list.map((email) => {
-    return <li style={{ color: "white" }}>{email}</li>;
+    return (
+      <div>
+        <li><input type="text" value={email.email} disabled></input></li>
+        <button onClick={(e) => handleDelete(e, email)}>Delete</button>
+      </div>
+    );
   });
 
   const submitEmail = async (e) => {
     e.preventDefault();
+    const emails = list.map((item) => item.email);
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ list: list }),
+      body: JSON.stringify({ 
+        firstName: currentUser.firstName,
+        list: emails, 
+        title:  itinerary.title,
+        activity: venues[0],
+        restaurant: venues[1],
+        dessertOrBar: venues[2]
+      }),
     })
       .then((res) => res.json())
       .then(async (res) => {
@@ -52,7 +85,12 @@ function EmailFormAndList() {
           <div id="email-form-container">
             <h4 id="email-form-list-subheader">Add a friend's email:</h4>
             <form id="add-email-form" onSubmit={addEmail}>
-              <input type="email" placeholder="Add email" />
+              <input
+                type="email"
+                placeholder="Add email"
+                onChange={handleStateChange}
+                value={mailerState}
+              />
               <input type="submit" value="Add email" />
             </form>
           </div>
