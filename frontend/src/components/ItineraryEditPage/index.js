@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchItinerary,
   deleteItinerary,
-  updateItinerary
+  updateItinerary,
 } from "../../store/itineraries";
 import {
   clearVenues,
   fetchVenuesByFilter,
-  getVenues
+  getVenues,
 } from "../../store/venues";
 import { EmailModal } from "../../context/Modal";
 import { EditItineraryModifyVenueModal } from "../../context/Modal";
