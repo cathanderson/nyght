@@ -29,15 +29,15 @@
 }
 
 .social-media-icon {
-    height: 42px;
-    margin: 4px;
+    height: 34px;
+    margin: 5px;
 }
 
 .about-page-team-member-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 380px;
+    margin: 16px 0px;
 }
 
 .left-team-member-container {
@@ -69,4 +69,22 @@
 
 .team-member-name {
     font-weight: 500;
+}
+
+.about-page-content-container {
+    width: 380px;
+}
+
+.about-page-container-subheader {
+    font-weight: 600;
+    font-size: 18px;
+    color: rgb(0, 50, 87);
+}
+
+#about-this-project-subheader {
+    margin-bottom: 20px;
+}
+
+.about-page-about {
+    line-height: 19px;
 }
