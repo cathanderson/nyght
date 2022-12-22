@@ -33,7 +33,6 @@ router.post("/:itinerary", async (req, res, next) => {
 });
 
 router.delete("/:id", requireUser, async (req, res, next) => {
-  console.log(`${req.body.id}`);
   const id = req.body.id;
   Email.findByIdAndDelete(req.params.id, (err, email) => {
     if (err) {
@@ -42,6 +41,18 @@ router.delete("/:id", requireUser, async (req, res, next) => {
       res.send({ Success: "Email deleted", id: id });
     }
   });
+});
+
+router.patch("/:id", requireUser, async (req, res, next) => {
+  const id = req.params.id;
+  console.log(`request body: ${req.body.email}`);
+  Email.findByIdAndUpdate(req.params.id, req.body, (err, email) => {
+    if (err) {
+      res.status(400).send(err);
+    }
+  })
+    .clone()
+    .then((email) => res.json(email));
 });
 
 module.exports = router;
