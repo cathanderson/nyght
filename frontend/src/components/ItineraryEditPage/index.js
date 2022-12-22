@@ -8,16 +8,14 @@ import {
   updateItinerary
 } from "../../store/itineraries";
 import {
-  fetchVenue,
   clearVenues,
-  fetchVenues,
   fetchVenuesByFilter,
   getVenues
 } from "../../store/venues";
 import { EmailModal } from "../../context/Modal";
 import { EditItineraryModifyVenueModal } from "../../context/Modal";
 import x from "../../assets/icons/close.png";
-import MapContainer from "../MapContainer";
+// import MapContainer from "../MapContainer";
 import EmailFormAndList from "../EmailForm/EmailFormAndList";
 import pencil from "../../assets/icons/pencil.png";
 import leftArrow from "../../assets/icons/left-arrow.png";
@@ -67,8 +65,6 @@ function ItineraryEditPage() {
   let activity, restaurant, bar, dessert;
   let activityIdx, restaurantIdx, barIdx, dessertIdx;
 
-  // const [venuesSorted, setvenuesSorted] = useState({});
-
   const sortVenues = () => {
     if (!venues) return {};
     const venuesSorted = {};
@@ -76,23 +72,6 @@ function ItineraryEditPage() {
       !venuesSorted[venue.category]
         ? (venuesSorted[venue.category] = [venue])
         : venuesSorted[venue.category].push(venue);
-
-      // if (!venuesSorted[neighborhood]) {
-      //   setvenuesSorted((venuesSorted) => ({
-      //     ...venuesSorted,
-      //     [neighborhood]: neighborhood
-      //   }));
-      // }
-      // if (!venuesSorted[neighborhood][venue.category]) {
-      //   setvenuesSorted((venuesSorted) => ({
-      //     ...venuesSorted,
-      //     [neighborhood]: { [venue.category]: [venue] }
-      //   }));
-      // } else {
-      //   setvenuesSorted((venuesSorted) => ({
-      //     ...venuesSorted,
-      //     [neighborhood]: [venue.category].push(venue)
-      //   }));
 
       switch (venue.category) {
         case "activity":
@@ -130,66 +109,27 @@ function ItineraryEditPage() {
   console.log("venuesSorted:");
   console.log(venuesSorted);
 
-  // const sortVenues = () => {
-  //   if (!venues) return {};
-  //   venues.forEach((venue) => {
-  //     if (!venuesSorted[neighborhood]) {
-  //       setvenuesSorted((venuesSorted) => ({
-  //         ...venuesSorted,
-  //         [neighborhood]: "test"
-  //       }));
-  //     }
-  //     if (!venuesSorted[neighborhood][venue.category]) {
-  //       setvenuesSorted((venuesSorted) => ({
-  //         ...venuesSorted,
-  //         [neighborhood]: { [venue.category]: [venue] }
-  //       }));
-  //     } else {
-  //       setvenuesSorted((venuesSorted) => ({
-  //         ...venuesSorted,
-  //         [neighborhood]: [venue.category].push(venue)
-  //       }));
-  //       switch (venue.category) {
-  //         case "activity":
-  //           if (venue._id === itinerary.event) {
-  //             activity = venue;
-  //             activityIdx =
-  //               venuesSorted[neighborhood][venue.category].length - 1;
-  //           }
-  //           break;
-  //         case "bar":
-  //           if (venue._id === itinerary.bar) {
-  //             bar = venue;
-  //             barIdx = venuesSorted[neighborhood][venue.category].length - 1;
-  //           }
-  //           break;
-  //         case "restaurant":
-  //           if (venue._id === itinerary.dinner) {
-  //             restaurant = venue;
-  //             restaurantIdx =
-  //               venuesSorted[neighborhood][venue.category].length - 1;
-  //           }
-  //           break;
-  //         case "dessert":
-  //           if (venue._id === itinerary.dessert) {
-  //             dessert = venue;
-  //             dessertIdx =
-  //               venuesSorted[neighborhood][venue.category].length - 1;
-  //           }
-  //           break;
-  //         default:
-  //           break;
-  //       }
-  //     }
-  //   });
-  // };
-
   if (!Object.values(itinerary).length || Object.values(venues).length <= 3)
     return null;
 
   const handleModifyItinerary = (e) => {
     e.preventDefault();
-    dispatch(updateItinerary(itinerary));
+    const newItinerary = { ...itinerary };
+    console.log(itinerary);
+    if (activityIsModified)
+      newItinerary["event"] = venuesSorted.activity[modifiedActivityIdx]._id;
+    if (restaurantIsModified)
+      newItinerary["dinner"] =
+        venuesSorted.restaurant[modifiedRestaurantIdx]._id;
+    if (barIsModified)
+      newItinerary["bar"] = venuesSorted.bar[modifiedBarIdx]._id;
+    if (dessertIsModified)
+      newItinerary["dessert"] = venuesSorted.dessert[modifiedDessertIdx]._id;
+    console.log("newItinerary:");
+    console.log(newItinerary);
+    dispatch(updateItinerary(newItinerary)).then(
+      history.push(`/itineraries/${itineraryId}`)
+    );
   };
 
   const handleDeleteItinerary = (e) => {
@@ -255,31 +195,29 @@ function ItineraryEditPage() {
 
   // debugger;
 
-  const handleOpenModifyModal = (e, venuesSorted, category) => {
+  const handleOpenModifyModal = (e, category) => {
     e.preventDefault();
     switch (category) {
       case "activity":
         setModalCategory("activity");
-        setModalIdx(activityIdx);
+        if (!activityIsModified) setModalIdx(activityIdx);
         break;
       case "restaurant":
         setModalCategory("restaurant");
-        setModalIdx(restaurantIdx);
+        if (!restaurantIsModified) setModalIdx(restaurantIdx);
         break;
       case "bar":
         setModalCategory("bar");
-        setModalIdx(barIdx);
+        if (!barIsModified) setModalIdx(barIdx);
         break;
       case "dessert":
-        setModalCategory("dessert");
+        if (!dessertIsModified) setModalCategory("dessert");
         break;
       default:
         break;
     }
     setShowModifyVenueModal(true);
   };
-
-  // debugger;
 
   return (
     <>
@@ -318,7 +256,7 @@ function ItineraryEditPage() {
           <div
             className="option-container activity"
             onClick={(e) => {
-              handleOpenModifyModal(e, venuesSorted, "activity");
+              handleOpenModifyModal(e, "activity");
             }}
           >
             <img
@@ -352,10 +290,10 @@ function ItineraryEditPage() {
               alt="restaurant"
             />
             <div className="option-venue-name">
-              Have dinner at
+              Have dinner at{" "}
               {!restaurantIsModified
                 ? restaurant.title
-                : venuesSorted.restaurant[modifiedActivityIdx].title}
+                : venuesSorted.restaurant[modifiedRestaurantIdx].title}
             </div>
           </div>
           <div
@@ -382,29 +320,21 @@ function ItineraryEditPage() {
               {bar
                 ? !barIsModified
                   ? ` drinks at ${bar.title}`
-                  : ` drinks at ${venuesSorted.bar[modifiedActivityIdx].title}`
+                  : ` drinks at ${venuesSorted.bar[modifiedBarIdx].title}`
                 : !dessertIsModified
                 ? ` dessert at ${dessert.title}`
-                : ` dessert at ${venuesSorted.dessert[modifiedActivityIdx].title}`}
+                : ` dessert at ${venuesSorted.dessert[modifiedDessertIdx].title}`}
             </div>
           </div>
         </div>
-        <h2 className="itinerary-show-page-subheader" id="map-subheader">
-          Where you're going:
-        </h2>
-        <MapContainer
-          activity={activity}
-          restaurant={restaurant}
-          bar={bar}
-          dessert={dessert}
-        />
+
         <div id="itinerary-show-buttons-container">
           <Link to={`/itineraries/${itinerary._id}/edit`}>
             <button
               className="itinerary-show-button"
-              // onClick={(e) => handleModifyItinerary(e)}
+              onClick={(e) => handleModifyItinerary(e)}
             >
-              Modify plan
+              Save
             </button>
           </Link>
           <button
@@ -463,12 +393,7 @@ function ItineraryEditPage() {
             </div>
             <div
               className="confirm-button"
-              onClick={(e) =>
-                handleModalConfirm(
-                  e,
-                  venuesSorted[modalCategory][modalIdx].category
-                )
-              }
+              onClick={(e) => handleModalConfirm(e, modalCategory)}
             >
               Confirm Venue
             </div>
