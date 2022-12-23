@@ -26,30 +26,51 @@ function LoginForm() {
     dispatch(login({ email, password }));
   };
 
+  const loginDemo = (e) => {
+    e.preventDefault();
+    const email = "test@appacademy.io";
+    const password = "password";
+    dispatch(login({ email, password }));
+  };
+
   return (
-    <form className="session-form" onSubmit={handleSubmit}>
-      <div className="errors">{errors?.email}</div>
-      <label>
-        <span>Email</span>
+    <>
+      <form className="session-form" onSubmit={handleSubmit}>
+        <div className="errors">{errors?.email}</div>
+        <label>
+          <span>Email</span>
+          <input
+            type="text"
+            value={email}
+            onChange={update("email")}
+            placeholder="Email"
+          />
+        </label>
+        <div className="errors">{errors?.password}</div>
+        <label>
+          <span>Password</span>
+          <input
+            type="password"
+            value={password}
+            onChange={update("password")}
+            placeholder="Password"
+          />
+        </label>
         <input
-          type="text"
-          value={email}
-          onChange={update("email")}
-          placeholder="Email"
+          id="session-form-submit"
+          type="submit"
+          value="Log In"
+          disabled={!email || !password}
         />
-      </label>
-      <div className="errors">{errors?.password}</div>
-      <label>
-        <span>Password</span>
+      </form>
+      <form className="session-form" onSubmit={loginDemo}>
         <input
-          type="password"
-          value={password}
-          onChange={update("password")}
-          placeholder="Password"
-        />
-      </label>
-      <input id="session-form-submit" type="submit" value="Log In" disabled={!email || !password} />
-    </form>
+          id="session-form-submit"
+          type="submit"
+          value="Demo Login"
+        ></input>
+      </form>
+    </>
   );
 }
 
