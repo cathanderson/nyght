@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 const MapContainer = ({ activity, restaurant, bar, dessert }) => {
   const [selected, setSelected] = useState({});
 
-  console.log(restaurant);
-
   const onSelect = (item) => {
     setSelected(item);
   };
@@ -91,8 +89,6 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     height: "80vh",
     width: "80%",
   };
-
-  console.log(Object.values(locations));
 
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>

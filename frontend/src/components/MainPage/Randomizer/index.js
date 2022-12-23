@@ -32,7 +32,6 @@ const Randomizer = ({ neighborhood, isDessert }) => {
     return venuesSorted;
   };
 
-  // console.log(venuesByCategory());
   if (Object.values(venues).length < 4) return null;
 
   return <OptionsContainer venues={venuesByCategory()} isDessert={isDessert} />;
