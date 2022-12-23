@@ -29,6 +29,8 @@ function ItineraryShowPage() {
   const [showEditTitleForm, setShowEditTitleForm] = useState(false);
   const [title, setTitle] = useState(itinerary.title);
 
+  const isDessert = itinerary.isDessert;
+
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
   }, [itineraryId]);
@@ -37,9 +39,9 @@ function ItineraryShowPage() {
     if (itinerary.dinner) {
       dispatch(fetchVenue(itinerary.event));
       dispatch(fetchVenue(itinerary.dinner));
-      itinerary.bar
-        ? dispatch(fetchVenue(itinerary.bar))
-        : dispatch(fetchVenue(itinerary.dessert));
+      itinerary.isDessert
+        ? dispatch(fetchVenue(itinerary.dessert))
+        : dispatch(fetchVenue(itinerary.bar));
     }
   }, [itinerary, itineraryId]);
   let activity, restaurant, bar, dessert;
@@ -50,13 +52,11 @@ function ItineraryShowPage() {
         case "activity":
           if (venue._id === itinerary.event) {
             activity = venue;
-            // activityIdx = idx;
           }
           break;
         case "bar":
           if (venue._id === itinerary.bar) {
             bar = venue;
-            // barIdx = idx;
           }
           break;
         case "restaurant":
@@ -68,7 +68,6 @@ function ItineraryShowPage() {
         case "dessert":
           if (venue._id === itinerary.dessert) {
             dessert = venue;
-            // dessertIdx = idx;
           }
           break;
         default:
@@ -165,12 +164,14 @@ function ItineraryShowPage() {
           <div className="option-container Drinks-dessert no-pointer">
             <img
               className="option-image"
-              src={bar ? bar.imageUrl : dessert.imageUrl}
-              alt={bar ? "Drinks" : "Dessert"}
+              src={isDessert ? dessert.imageUrl : bar.imageUrl}
+              alt={isDessert ? "Drinks" : "Dessert"}
             />
             <div className="option-venue-name">
               Have
-              {bar ? ` drinks at ${bar.title}` : ` dessert at ${dessert.title}`}
+              {isDessert
+                ? ` dessert at ${dessert.title}`
+                : ` drinks at ${bar.title}`}
             </div>
           </div>
         </div>

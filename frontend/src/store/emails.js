@@ -88,8 +88,6 @@ const emailsReducer = (state = {}, action) => {
       delete newState[keyToDelete];
       return newState;
     case UPDATE_EMAIL:
-      console.log(`action email:`);
-      console.log(action.email);
       const keyToUpdate = keys.find(
         (key) => newState[key]._id === action.email._id
       );

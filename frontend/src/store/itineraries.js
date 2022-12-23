@@ -76,6 +76,7 @@ export const updateItinerary = (itinerary) => async (dispatch) => {
 
 const itinerariesReducer = (state = {}, action) => {
   const newState = { ...state };
+  const keys = Object.keys(newState);
   switch (action.type) {
     case RECEIVE_ITINERARY:
       newState[action.itinerary._id] = action.itinerary;
@@ -84,6 +85,12 @@ const itinerariesReducer = (state = {}, action) => {
       return { ...action.itineraries };
     case CLEAR_ITINERARY:
       return {};
+    case REMOVE_ITINERARY:
+      const keyToDelete = keys.find(
+        (key) => newState[key]._id === action.itinerary._id
+      );
+      delete newState[keyToDelete];
+      return newState;
     default:
       return state;
   }
