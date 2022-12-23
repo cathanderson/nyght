@@ -78,11 +78,12 @@ const OptionsContainer = ({ venues, isDessert }) => {
     midtown: "Midtown",
     village: "the Village",
     harlem: "Harlem",
-    williamsburg: "Williamsburg"
+    williamsburg: "Williamsburg",
   };
 
   const handleItineraryConfirm = (e) => {
     e.preventDefault();
+    console.log(`isDessert: ${isDessert}`);
 
     const data = {
       title: `Night in ${
@@ -92,7 +93,7 @@ const OptionsContainer = ({ venues, isDessert }) => {
       dinnerId: venues.restaurant[restaurantIdx]._id,
       barId: venues.bar[barIdx]._id,
       dessertId: venues.dessert[dessertIdx]._id,
-      isDessert: isDessert
+      isDessert: isDessert ? true : false,
     };
 
     const res = dispatch(createItinerary(myUser, data));

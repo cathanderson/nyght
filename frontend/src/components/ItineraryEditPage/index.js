@@ -46,6 +46,8 @@ function ItineraryEditPage() {
   const [modifiedBarIdx, setModifiedBarIdx] = useState("");
   const [modifiedDessertIdx, setModifiedDessertIdx] = useState("");
 
+  const isDessert = itinerary.isDessert;
+
   useEffect(() => {
     dispatch(fetchItinerary(itineraryId));
   }, [itineraryId]);
@@ -211,7 +213,8 @@ function ItineraryEditPage() {
         if (!barIsModified) setModalIdx(barIdx);
         break;
       case "dessert":
-        if (!dessertIsModified) setModalCategory("dessert");
+        setModalCategory("dessert");
+        if (!dessertIsModified) setModalIdx(dessertIdx);
         break;
       default:
         break;
@@ -299,31 +302,31 @@ function ItineraryEditPage() {
           <div
             className="option-container Drinks-dessert"
             onClick={(e) => {
-              handleOpenModifyModal(e, bar ? "bar" : "dessert");
+              handleOpenModifyModal(e, isDessert ? "dessert" : "bar");
             }}
           >
             <img
               className="option-image"
               src={
-                bar
-                  ? !barIsModified
-                    ? bar.imageUrl
-                    : venuesSorted.bar[modifiedBarIdx].imageUrl
-                  : !dessertIsModified
-                  ? dessert.imageUrl
-                  : venuesSorted.dessert[modifiedDessertIdx].imageUrl
+                isDessert
+                  ? !dessertIsModified
+                    ? dessert.imageUrl
+                    : venuesSorted.dessert[modifiedDessertIdx].imageUrl
+                  : !barIsModified
+                  ? bar.imageUrl
+                  : venuesSorted.bar[modifiedBarIdx].imageUrl
               }
-              alt={bar ? "Drinks" : "Dessert"}
+              alt={isDessert ? "Dessert" : "Drinks"}
             />
             <div className="option-venue-name">
               Have
-              {bar
-                ? !barIsModified
-                  ? ` drinks at ${bar.title}`
-                  : ` drinks at ${venuesSorted.bar[modifiedBarIdx].title}`
-                : !dessertIsModified
-                ? ` dessert at ${dessert.title}`
-                : ` dessert at ${venuesSorted.dessert[modifiedDessertIdx].title}`}
+              {isDessert
+                ? !dessertIsModified
+                  ? ` dessert at ${dessert.title}`
+                  : ` dessert at ${venuesSorted.dessert[modifiedDessertIdx].title}`
+                : !barIsModified
+                ? ` drinks at ${bar.title}`
+                : ` drinks at ${venuesSorted.bar[modifiedBarIdx].title}`}
             </div>
           </div>
         </div>
@@ -406,6 +409,7 @@ function ItineraryEditPage() {
             onClick={() => setShowEmailModal(false)}
             src={x}
             className="form-x"
+            alt="class-x"
           />
           <EmailFormAndList />
         </EmailModal>

@@ -17,7 +17,7 @@ router.get("/:id", async (req, res, next) => {
     const error = new Error("Itinerary not found");
     error.statusCode = 404;
     error.errors = {
-      message: `No itinerary found with id of ${req.params.id}`
+      message: `No itinerary found with id of ${req.params.id}`,
     };
     return next(error);
   }
@@ -31,8 +31,8 @@ let transporter = nodemailer.createTransport({
     pass: process.env.WORD,
     clientId: process.env.OAUTH_CLIENTID,
     clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN
-  }
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+  },
 });
 
 transporter.verify((err, success) => {
@@ -42,9 +42,9 @@ transporter.verify((err, success) => {
 const handlebarOptions = {
   viewEngine: {
     partialsDir: path.resolve("./routes/api/template/"),
-    defaultLayout: false
+    defaultLayout: false,
   },
-  viewPath: path.resolve("./routes/api/template/")
+  viewPath: path.resolve("./routes/api/template/"),
 };
 
 transporter.use("compile", hbs(handlebarOptions));
@@ -64,8 +64,8 @@ router.post("/send", (req, res) => {
       restaurant: `${req.body.restaurant.title}`,
       restaurantAddress: `${req.body.restaurant.address}`,
       dessertOrBar: `${req.body.dessertOrBar.title}`,
-      dessertOrBarAddress: `${req.body.dessertOrBar.address}`
-    }
+      dessertOrBarAddress: `${req.body.dessertOrBar.address}`,
+    },
   };
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
@@ -89,7 +89,7 @@ router.get("/users/:userId", async (req, res, next) => {
   }
   try {
     const itns = await Itinerary.find({ user: user._id }).sort({
-      createdAt: -1
+      createdAt: -1,
     });
     return res.json(itns);
   } catch (err) {
@@ -99,7 +99,7 @@ router.get("/users/:userId", async (req, res, next) => {
 
 router.post(
   "/users/:userId",
-  // requireUser,
+  requireUser,
   validateItineraryInput,
   async (req, res, next) => {
     try {
@@ -109,7 +109,8 @@ router.post(
         event: req.body.eventId,
         dinner: req.body.dinnerId,
         bar: req.body.barId,
-        dessert: req.body.dessertId
+        dessert: req.body.dessertId,
+        isDessert: req.body.isDessert,
       });
       let itn = await newItn.save();
       return res.json(itn);
@@ -120,11 +121,12 @@ router.post(
 );
 
 router.delete("/:id", requireUser, async (req, res, next) => {
-  Itinerary.findByIdAndDelete(req.body.id, (err, itn) => {
+  Itinerary.findByIdAndDelete(req.params.id, (err, itn) => {
     if (err) {
       res.status(400).send(err);
     } else {
       res.send({ Success: "Itinerary deleted" });
+      console.log("success");
     }
   });
 });

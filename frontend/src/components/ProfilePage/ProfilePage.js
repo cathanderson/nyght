@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/session";
-import { fetchItinerariesByUser } from "../../store/itineraries";
+import {
+  fetchItinerariesByUser,
+  getItineraries,
+} from "../../store/itineraries";
 import ItinerariesList from "./ItinerariesList";
 import { clearVenues } from "../../store/venues";
 import "./ProfilePage.css";
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.session.user);
-  const itineraries = useSelector((state) => Object.values(state.itineraries));
+  const itineraries = useSelector(getItineraries);
   const dispatch = useDispatch();
 
   useEffect(() => {
