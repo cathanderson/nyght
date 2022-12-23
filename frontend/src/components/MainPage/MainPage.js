@@ -35,7 +35,6 @@ function MainPage() {
 
   const changeLabel = () => {
     setChecked(!checked);
-    console.log(checked);
     const dessert = document.querySelector(".toggle-switch-label-desserts");
     const drink = document.querySelector(".toggle-switch-label-drinks");
     if (!checked) {

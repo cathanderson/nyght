@@ -45,7 +45,6 @@ router.delete("/:id", requireUser, async (req, res, next) => {
 
 router.patch("/:id", requireUser, async (req, res, next) => {
   const id = req.params.id;
-  console.log(`request body: ${req.body.email}`);
   Email.findByIdAndUpdate(req.params.id, req.body, (err, email) => {
     if (err) {
       res.status(400).send(err);

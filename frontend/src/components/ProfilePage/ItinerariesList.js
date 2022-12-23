@@ -14,7 +14,6 @@ function ItinerariesList({ itineraries }) {
       <div id="itineraries-list-container">
         <ul id="itineraries-list">
           {itineraries.map((itinerary) => {
-            console.log(itinerary);
             return (
               <li
                 id="itineraries-list-item"

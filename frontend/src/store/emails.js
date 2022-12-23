@@ -59,7 +59,6 @@ export const deleteEmail = (id) => async (dispatch) => {
 };
 
 export const updateEmails = (email, newEmail) => async (dispatch) => {
-  console.log(`here: ${newEmail}`);
   const res = await jwtFetch(`/api/emails/${email._id}`, {
     method: "PATCH",
     body: JSON.stringify({ email: newEmail }),

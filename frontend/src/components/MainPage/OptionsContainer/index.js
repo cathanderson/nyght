@@ -83,7 +83,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
 
   const handleItineraryConfirm = (e) => {
     e.preventDefault();
-    console.log(`isDessert: ${isDessert}`);
 
     const data = {
       title: `Night in ${
@@ -97,7 +96,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
     };
 
     const res = dispatch(createItinerary(myUser, data));
-    console.log(`result: ${res}`);
     res.then((data) => history.push(`/itineraries/${data._id}`));
   };
 
@@ -123,7 +121,6 @@ const OptionsContainer = ({ venues, isDessert }) => {
             setModalCategory("activity");
             setModalIdx(activityIdx);
             setShowModifyVenueModal(true);
-            console.log(showModifyVenueModal);
           }}
         >
           <img

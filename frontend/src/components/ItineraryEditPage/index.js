@@ -61,8 +61,6 @@ function ItineraryEditPage() {
   }, [dispatch, neighborhood]);
 
   const venues = useSelector(getVenues);
-  console.log("venues");
-  console.log(venues);
 
   let activity, restaurant, bar, dessert;
   let activityIdx, restaurantIdx, barIdx, dessertIdx;
@@ -108,16 +106,12 @@ function ItineraryEditPage() {
   };
   const venuesSorted = sortVenues();
 
-  console.log("venuesSorted:");
-  console.log(venuesSorted);
-
   if (!Object.values(itinerary).length || Object.values(venues).length <= 3)
     return null;
 
   const handleModifyItinerary = (e) => {
     e.preventDefault();
     const newItinerary = { ...itinerary };
-    console.log(itinerary);
     if (activityIsModified)
       newItinerary["event"] = venuesSorted.activity[modifiedActivityIdx]._id;
     if (restaurantIsModified)
@@ -127,8 +121,6 @@ function ItineraryEditPage() {
       newItinerary["bar"] = venuesSorted.bar[modifiedBarIdx]._id;
     if (dessertIsModified)
       newItinerary["dessert"] = venuesSorted.dessert[modifiedDessertIdx]._id;
-    console.log("newItinerary:");
-    console.log(newItinerary);
     dispatch(updateItinerary(newItinerary)).then(
       history.push(`/itineraries/${itineraryId}`)
     );
@@ -194,8 +186,6 @@ function ItineraryEditPage() {
     }
     setShowModifyVenueModal(false);
   };
-
-  // debugger;
 
   const handleOpenModifyModal = (e, category) => {
     e.preventDefault();

@@ -47,7 +47,6 @@ export function SignupModal({ onClose, children }) {
 }
 
 export function ModifyVenueModal({ onClose, children }) {
-  // console.log(activityIdx);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
@@ -61,7 +60,6 @@ export function ModifyVenueModal({ onClose, children }) {
 }
 
 export function EditItineraryModifyVenueModal({ onClose, children }) {
-  // console.log(activityIdx);
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
