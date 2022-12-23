@@ -1,12 +1,10 @@
 # NYGHT
 
-# <p align="center"/> <img src="./frontend/src/assets/images/logo.png" width="500" height="175" />
-
-Live link here (MUST ADD ONCE IMPLEMENTED).
+# [<p align="center"/> <img src="./frontend/src/assets/images/logo.png" width="500" height="175" />](https://nyght-40rn.onrender.com)
 
 ## Background and Overview
 
-NYGHT is a New York City plan generator fit for couples looking for new date ideas and groups of friends looking for new places to try in different neighborhoods across the city.
+[NYGHT](https://nyght-40rn.onrender.com) is a New York City plan generator fit for couples looking for new date ideas and groups of friends looking for new places to try in different neighborhoods across the city.
 
 To create a plan, the user can navigate to the home page, select a neighborhood, whether they'd prefer an after dinner cocktail or dessert, and modify the provided plan by clicking a venue and toggling through available options in that category.
 
