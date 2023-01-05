@@ -32,12 +32,12 @@ function ItineraryShowPage() {
   const isDessert = itinerary.isDessert;
 
   useEffect(() => {
-    dispatch(clearVenues);
     dispatch(fetchItinerary(itineraryId));
   }, [itineraryId]);
 
   useEffect(() => {
     if (itinerary.dinner) {
+      dispatch(clearVenues);
       dispatch(fetchVenue(itinerary.event));
       dispatch(fetchVenue(itinerary.dinner));
       itinerary.isDessert
