@@ -119,8 +119,28 @@ function EmailFormAndList({ visible }) {
   const submitEmail = async (e) => {
     e.preventDefault();
     visible(false);
-    const emails = list.map((item) => item.email);
+    console.log(itinerary);
     console.log(venues);
+    const emails = list.map((item) => item.email);
+    let restaurant, dessert, bar, activity;
+    for (let venue of venues) {
+      switch (venue.category) {
+        case "activity":
+          activity = venue;
+          break;
+        case "bar":
+          bar = venue;
+          break;
+        case "restaurant":
+          restaurant = venue;
+          break;
+        case "dessert":
+          dessert = venue;
+          break;
+        default:
+          break;
+      }
+    }
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
@@ -129,9 +149,9 @@ function EmailFormAndList({ visible }) {
       body: JSON.stringify({
         list: emails,
         title: itinerary.title,
-        activity: venues[0],
-        restaurant: venues[1],
-        dessertOrBar: venues[2],
+        activity: activity,
+        restaurant: restaurant,
+        dessertOrBar: itinerary.isDessert ? dessert : bar,
       }),
     })
       .then((res) => res.json())

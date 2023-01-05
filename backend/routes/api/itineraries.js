@@ -50,6 +50,7 @@ const handlebarOptions = {
 transporter.use("compile", hbs(handlebarOptions));
 
 router.post("/send", (req, res) => {
+  console.log(req.body);
   const mailOptions = {
     from: process.env.EMAIL,
     to: `${req.body.list}`,
