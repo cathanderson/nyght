@@ -54,7 +54,6 @@ router.post("/send", (req, res) => {
     from: process.env.EMAIL,
     to: `${req.body.list}`,
     subject: `Message From NYGHT`,
-    // text: "test",
     template: "email",
     context: {
       title: `${req.body.title}`,
