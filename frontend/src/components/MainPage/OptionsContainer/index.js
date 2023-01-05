@@ -9,6 +9,7 @@ import leftArrow from "../../../assets/icons/left-arrow.png";
 import rightArrow from "../../../assets/icons/right-arrow.png";
 import { createItinerary } from "../../../store/itineraries";
 import { useHistory } from "react-router-dom";
+import { clearVenues } from "../../../store/venues";
 
 const OptionsContainer = ({ venues, isDessert }) => {
   const [showModifyVenueModal, setShowModifyVenueModal] = useState(false);
@@ -96,7 +97,9 @@ const OptionsContainer = ({ venues, isDessert }) => {
     };
 
     const res = dispatch(createItinerary(myUser, data));
+
     res.then((data) => history.push(`/itineraries/${data._id}`));
+    dispatch(clearVenues);
   };
 
   const displayLoggedOutMessage = () => {

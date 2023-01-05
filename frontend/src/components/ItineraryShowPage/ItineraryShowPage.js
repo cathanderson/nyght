@@ -32,12 +32,13 @@ function ItineraryShowPage() {
   const isDessert = itinerary.isDessert;
 
   useEffect(() => {
+    dispatch(clearVenues());
     dispatch(fetchItinerary(itineraryId));
   }, [itineraryId]);
 
   useEffect(() => {
+    dispatch(clearVenues());
     if (itinerary.dinner) {
-      dispatch(clearVenues);
       dispatch(fetchVenue(itinerary.event));
       dispatch(fetchVenue(itinerary.dinner));
       itinerary.isDessert
@@ -63,7 +64,6 @@ function ItineraryShowPage() {
         case "restaurant":
           if (venue._id === itinerary.dinner) {
             restaurant = venue;
-            // restaurantIdx = idx;
           }
           break;
         case "dessert":
@@ -139,12 +139,7 @@ function ItineraryShowPage() {
           </div>
         </div>
         <div id="options-container">
-          <div
-            className="option-container activity no-pointer"
-            // onClick={(e) => {
-            //   handleOpenModifyModal(e, "activity");
-            // }}
-          >
+          <div className="option-container activity no-pointer">
             <img
               className="option-image"
               src={activity.imageUrl}

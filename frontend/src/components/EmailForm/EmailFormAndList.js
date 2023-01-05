@@ -120,6 +120,7 @@ function EmailFormAndList({ visible }) {
     e.preventDefault();
     visible(false);
     const emails = list.map((item) => item.email);
+    console.log(venues);
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
