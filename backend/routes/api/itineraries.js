@@ -57,7 +57,6 @@ router.post("/send", (req, res) => {
     // text: "test",
     template: "email",
     context: {
-      name: `${req.body.firstName}`,
       title: `${req.body.title}`,
       activity: `${req.body.activity.title}`,
       activityAddress: `${req.body.activity.address}`,

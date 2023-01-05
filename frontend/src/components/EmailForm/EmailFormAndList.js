@@ -126,7 +126,6 @@ function EmailFormAndList({ visible }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName: currentUser.firstName,
         list: emails,
         title: itinerary.title,
         activity: venues[0],
