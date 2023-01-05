@@ -10,7 +10,7 @@ import {
 } from "../../store/emails";
 import { useDispatch, useSelector } from "react-redux";
 import { getItinerary } from "../../store/itineraries";
-import { getVenues } from "../../store/venues";
+import { clearVenues, fetchVenue, getVenues } from "../../store/venues";
 import { useParams } from "react-router-dom";
 
 function EmailFormAndList({ visible }) {
@@ -20,7 +20,7 @@ function EmailFormAndList({ visible }) {
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
   const currentUser = useSelector((state) => state.session.user);
-  const venues = useSelector((state) => Object.values(state.venues));
+  const venues = useSelector(getVenues);
   const [updateDisabled, setUpdateDisabled] = useState({});
   const [emails, setEmailed] = useState({});
 
