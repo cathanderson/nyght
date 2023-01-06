@@ -90,8 +90,50 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     width: "80%",
   };
 
-  return (
-    <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
+  if (!window.google) return null;
+
+  if (window.google === undefined) {
+    return (
+      <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyles}
+          zoom={defaultZooms[restaurant.neighborhood]}
+          center={defaultCenters[restaurant.neighborhood]}
+          options={{
+            styles: MapStyles,
+          }}
+        >
+          {Object.values(locations).map((item) => {
+            return (
+              <Marker
+                key={item.name}
+                position={item.location}
+                onClick={() => onSelect(item)}
+                icon={pin}
+              />
+            );
+          })}
+          {selected.location && (
+            <InfoWindow
+              position={selected.location}
+              clickable={true}
+              onCloseClick={() => setSelected({})}
+            >
+              <>
+                <h4>
+                  <Link to={{ pathname: selected.resLink }} target="_blank">
+                    {selected.name}
+                  </Link>
+                </h4>
+                <div>{selected.address}</div>
+              </>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </LoadScript>
+    );
+  } else {
+    return (
       <GoogleMap
         mapContainerStyle={mapContainerStyles}
         zoom={defaultZooms[restaurant.neighborhood]}
@@ -127,8 +169,8 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
           </InfoWindow>
         )}
       </GoogleMap>
-    </LoadScript>
-  );
+    );
+  }
 };
 
 export default MapContainer;

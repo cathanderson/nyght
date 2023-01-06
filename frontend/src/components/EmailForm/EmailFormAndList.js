@@ -119,8 +119,6 @@ function EmailFormAndList({ visible }) {
   const submitEmail = async (e) => {
     e.preventDefault();
     visible(false);
-    console.log(itinerary);
-    console.log(venues);
     const emails = list.map((item) => item.email);
     let restaurant, dessert, bar, activity;
     for (let venue of venues) {
