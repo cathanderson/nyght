@@ -90,8 +90,6 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     width: "80%",
   };
 
-  if (!window.google) return null;
-
   if (window.google === undefined) {
     return (
       <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
