@@ -45,6 +45,7 @@
   border-radius: 10px;
   padding: 10px;
   color: white;
+  cursor: pointer;
 }
 
 .modal-card-main-content {
@@ -73,4 +74,5 @@
 .modal-card-main-content div.nav-left-arrow img,
 .modal-card-main-content div.nav-right-arrow img {
   width: 50px;
+  cursor: pointer;
 }

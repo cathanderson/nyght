@@ -10,7 +10,7 @@ import {
 } from "../../store/emails";
 import { useDispatch, useSelector } from "react-redux";
 import { getItinerary } from "../../store/itineraries";
-import { getVenues } from "../../store/venues";
+import { clearVenues, fetchVenue, getVenues } from "../../store/venues";
 import { useParams } from "react-router-dom";
 
 function EmailFormAndList({ visible }) {
@@ -20,7 +20,7 @@ function EmailFormAndList({ visible }) {
   const dispatch = useDispatch();
   const itinerary = useSelector((state) => state.itineraries);
   const currentUser = useSelector((state) => state.session.user);
-  const venues = useSelector((state) => Object.values(state.venues));
+  const venues = useSelector(getVenues);
   const [updateDisabled, setUpdateDisabled] = useState({});
   const [emails, setEmailed] = useState({});
 
@@ -120,18 +120,36 @@ function EmailFormAndList({ visible }) {
     e.preventDefault();
     visible(false);
     const emails = list.map((item) => item.email);
+    let restaurant, dessert, bar, activity;
+    for (let venue of venues) {
+      switch (venue.category) {
+        case "activity":
+          activity = venue;
+          break;
+        case "bar":
+          bar = venue;
+          break;
+        case "restaurant":
+          restaurant = venue;
+          break;
+        case "dessert":
+          dessert = venue;
+          break;
+        default:
+          break;
+      }
+    }
     const response = await jwtFetch("/api/itineraries/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName: currentUser.firstName,
         list: emails,
         title: itinerary.title,
-        activity: venues[0],
-        restaurant: venues[1],
-        dessertOrBar: venues[2],
+        activity: activity,
+        restaurant: restaurant,
+        dessertOrBar: itinerary.isDessert ? dessert : bar,
       }),
     })
       .then((res) => res.json())
