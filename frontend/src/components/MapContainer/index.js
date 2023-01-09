@@ -89,6 +89,7 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     height: "80vh",
     width: "80%",
   };
+  
 
   if (window.google === undefined) {
     return (

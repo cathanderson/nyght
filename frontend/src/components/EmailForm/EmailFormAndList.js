@@ -190,8 +190,8 @@ function EmailFormAndList({ visible }) {
           </form>
         </div>
         <div id="inner-top-email-form-list-container">
-          <ul id="emails-list">
             <h4 id="email-form-list-subheader">Itinerary email list:</h4>
+          <ul id="emails-list">
             {emailList}
           </ul>
         </div>

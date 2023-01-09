@@ -25,18 +25,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 350px;
-  height: 400px;
+  width: 380px;
+  min-height: 16px;
+  max-height: 400px;
 }
 
 #emails-list {
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 #emails-list-item {
   display: flex;
   flex-direction: row;
   width: 350px;
+  height: auto;
   margin: 3px 0px;
 }
 

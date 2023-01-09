@@ -10,6 +10,9 @@ To create a plan, the user can navigate to the home page, select a neighborhood,
 
 Once the user is satisfied with their plan, they can hit confirm. This will bring them to the itinerary's page which includes a map for their plan and functionality to email their plan to themself and their friends. They also have the ability to modify/cancel their plan from that page.
 
+_View a demonstration of our app's main workflow here:_ </br>
+<img src="./frontend/src/assets/images/make-plans.gif" width="600" />
+
 ## Technologies and APIs Used
 
 - MongoDB
@@ -82,6 +85,9 @@ router.post("/send", (req, res) => {
 ```
 
 The server responds to the request and provides the context to the email template. Individual key-value pairs are distributed to allow the template to easily reference each one.
+
+_View a demonstration of our app's emailing feature here:_ </br>
+<img src="./frontend/src/assets/images/email-friends.gif" width="600" />
 
 ### Google Maps API Implementation
 
