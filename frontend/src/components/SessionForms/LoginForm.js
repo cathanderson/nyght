@@ -28,7 +28,7 @@ function LoginForm() {
 
   const loginDemo = (e) => {
     e.preventDefault();
-    const email = "test@appacademy.io";
+    const email = "nyght.owl@nyght.com";
     const password = "password";
     dispatch(login({ email, password }));
   };
