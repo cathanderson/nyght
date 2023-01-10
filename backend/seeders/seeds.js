@@ -20,10 +20,10 @@ mongoose
 
 users.push(
   new User({
-    firstName: "test",
-    lastName: "test",
-    email: "test@appacademy.io",
-    hashedPassword: bcrypt.hashSync("password", 10),
+    firstName: "Nyght",
+    lastName: "Owl",
+    email: "nyght.owl@nyght.com",
+    hashedPassword: bcrypt.hashSync("password", 10)
   })
 );
 
@@ -35,7 +35,7 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
       firstName: firstName,
       lastName: lastName,
       email: faker.internet.email(firstName, lastName),
-      hashedPassword: bcrypt.hashSync(faker.internet.password(), 10),
+      hashedPassword: bcrypt.hashSync(faker.internet.password(), 10)
     })
   );
 }
