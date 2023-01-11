@@ -57,7 +57,7 @@ function EmailFormAndList({ visible }) {
     e.preventDefault();
     if (mailerState.length > 0) {
       dispatch(createEmail(itineraryId, mailerState));
-      setMailerState(" ");
+      setMailerState("");
     }
   };
 
@@ -192,10 +192,8 @@ function EmailFormAndList({ visible }) {
           </form>
         </div>
         <div id="inner-top-email-form-list-container">
-            <h4 id="email-form-list-subheader">Itinerary email list:</h4>
-          <ul id="emails-list">
-            {emailList}
-          </ul>
+          <h4 id="email-form-list-subheader">Itinerary email list:</h4>
+          <ul id="emails-list">{emailList}</ul>
         </div>
       </div>
       <div id="outter-bottom-email-form-list-container">
