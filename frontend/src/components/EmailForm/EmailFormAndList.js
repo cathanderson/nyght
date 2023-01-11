@@ -13,7 +13,7 @@ import { getItinerary } from "../../store/itineraries";
 import { clearVenues, fetchVenue, getVenues } from "../../store/venues";
 import { useParams } from "react-router-dom";
 
-function EmailFormAndList({ visible }) {
+function EmailFormAndList({ visible, google }) {
   const [mailerState, setMailerState] = useState("");
   const list = useSelector(getList);
   const { itineraryId } = useParams();
