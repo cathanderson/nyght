@@ -3,6 +3,7 @@ import {
   LoadScript,
   Marker,
   InfoWindow,
+  useJsApiLoader,
 } from "@react-google-maps/api";
 import { useState, React } from "react";
 import MapStyles from "./MapStyles";
@@ -11,6 +12,9 @@ import { Link } from "react-router-dom";
 
 const MapContainer = ({ activity, restaurant, bar, dessert }) => {
   const [selected, setSelected] = useState({});
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+  });
 
   const onSelect = (item) => {
     setSelected(item);
@@ -89,47 +93,48 @@ const MapContainer = ({ activity, restaurant, bar, dessert }) => {
     height: "80vh",
     width: "80%",
   };
-  
 
   if (window.google === undefined) {
     return (
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
-        <GoogleMap
-          mapContainerStyle={mapContainerStyles}
-          zoom={defaultZooms[restaurant.neighborhood]}
-          center={defaultCenters[restaurant.neighborhood]}
-          options={{
-            styles: MapStyles,
-          }}
-        >
-          {Object.values(locations).map((item) => {
-            return (
-              <Marker
-                key={item.name}
-                position={item.location}
-                onClick={() => onSelect(item)}
-                icon={pin}
-              />
-            );
-          })}
-          {selected.location && (
-            <InfoWindow
-              position={selected.location}
-              clickable={true}
-              onCloseClick={() => setSelected({})}
-            >
-              <>
-                <h4>
-                  <Link to={{ pathname: selected.resLink }} target="_blank">
-                    {selected.name}
-                  </Link>
-                </h4>
-                <div>{selected.address}</div>
-              </>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-      </LoadScript>
+      isLoaded && (
+        <LoadScript googleMapsApiKey={process.env.REACT_APP_MAPS_API_KEY}>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyles}
+            zoom={defaultZooms[restaurant.neighborhood]}
+            center={defaultCenters[restaurant.neighborhood]}
+            options={{
+              styles: MapStyles,
+            }}
+          >
+            {Object.values(locations).map((item) => {
+              return (
+                <Marker
+                  key={item.name}
+                  position={item.location}
+                  onClick={() => onSelect(item)}
+                  icon={pin}
+                />
+              );
+            })}
+            {selected.location && (
+              <InfoWindow
+                position={selected.location}
+                clickable={true}
+                onCloseClick={() => setSelected({})}
+              >
+                <>
+                  <h4>
+                    <Link to={{ pathname: selected.resLink }} target="_blank">
+                      {selected.name}
+                    </Link>
+                  </h4>
+                  <div>{selected.address}</div>
+                </>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </LoadScript>
+      )
     );
   } else {
     return (
