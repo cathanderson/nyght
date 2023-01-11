@@ -55,8 +55,10 @@ function EmailFormAndList({ visible }) {
   const addEmail = (e) => {
     const size = Object.keys(emails).length;
     e.preventDefault();
-    dispatch(createEmail(itineraryId, mailerState));
-    setMailerState(" ");
+    if (mailerState.length > 0) {
+      dispatch(createEmail(itineraryId, mailerState));
+      setMailerState(" ");
+    }
   };
 
   const handleDelete = (e, email) => {
